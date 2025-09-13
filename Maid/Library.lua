@@ -2099,12 +2099,12 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Items.Camera.CameraSubject = Character
 
 				Library:Connection(RunService.RenderStepped, function()
-                    -- if Window and Window.Opened then
+                    if shared.MenuIsOpen then
                         Cfg.Rotation += 0.75
                         Character:SetPrimaryPartCFrame(NewCF(NewVect3(0, 2, -6)) * NewAnglesCF(0, Rad(Cfg.Rotation), 0))
-                    -- end
+                    end;
 				end)
-			end 
+			end;
 
 			local Objects = Cfg.Objects; do 
 				Objects[ "Holder" ] = Library:Create( "Frame" , {
@@ -4046,7 +4046,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				end
 			end)	
 
-			RunService.RenderStepped:Connect(function()
+			Library:Connection(RunService.RenderStepped, function()
 				if Flags[Cfg.Flag .. " RainbowFlag"] == true then
 					Cfg.Set(FromHsv(Abs(Sin(GetTick)), S, V))
 				end
@@ -5953,6 +5953,12 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			Cfg.Labels.Uid = self:Label({Name = "User Id: ..?"});
 
 			return Setmetatable(Cfg, Library)
-		end; 
-	--// 
+		end;
+	--//
+    Library:Connection(RunService.RenderStepped, function()
+        if Library:CompareVars(GetTick, clonefunction(tick)(), "number") then
+            GetTick = clonefunction(tick)();
+        end;
+    end);
+
 return Library, Themes;
