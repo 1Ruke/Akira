@@ -155,7 +155,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 --// Library init
 	local Library = {
 		Directory = "Akira";
-		Folders = {"/Fonts", "/Configs", "/Images"};
+		Folders = {'/Assets', '/Assets/Fonts', '/Configs'};
 		Flags = {};
 		ConfigFlags = {};
 		VisibleFlags = {};
@@ -283,25 +283,19 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 	for _, Path in next, Library.Folders do 
 		makefolder(Library.Directory .. Path)
 	end;
+    local ThisThing
+    --// Assets
+    if isfile(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf') then delfile(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf') end;
+    if isfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf') then delfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf') end;
+	if isfile(Library.Directory.. '/Assets/Glow.Png') then delfile(Library.Directory.. '/Assets/Glow.Png', game:HttpGet('https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Glow.png')); end
+	writefile(Library.Directory.. '/Assets/Fonts/Proggy.ttf', game:HttpGet('https://github.com/1Ruke/Akira/raw/refs/heads/main/Assets/ProggyClean.ttf'));
+	writefile(Library.Directory.. '/Assets/Glow.Png', game:HttpGet('https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Glow.png'));
+    if isfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf') then ThisThing = {Name = "Proggy", faces = {{Name = "Regular", Weight = 400, Style = "Normal", assetId = getcustomasset(Library.Directory.. '/Assets/Fonts/Proggy.ttf')}}}; end;
+	writefile(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf', HttpService:JSONEncode(ThisThing));
+	Library.Font = NewFont(getcustomasset(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf'), Enum.FontWeight.Regular);
+    --]]
 
-	writefile(Library.Directory.. "/Fonts/OldProggy.ttf", game:HttpGet("https://github.com/1Ruke/Akira/raw/refs/heads/main/Assets/ProggyClean.ttf"))
-
-	local ThisThing = {
-		name = "OldProggy",
-		faces = {
-			{
-				name = "Regular",
-				weight = 400,
-				Style = "Normal",
-				assetId = getcustomasset(Library.Directory.. "/Fonts/OldProggy.ttf")
-			}
-		}
-	}
-
-	writefile(Library.Directory.. "/Fonts/MainProggy.ttf", HttpService:JSONEncode(ThisThing))
-	Library.Font = NewFont(getcustomasset(Library.Directory.. "/Fonts/MainProggy.ttf"), Enum.FontWeight.Regular)
-
-	local ConfigHolder
+    local ConfigHolder
 
 --// Library functions
 
@@ -964,9 +958,9 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						BorderColor3 = FromRgb(0, 0, 0),
 						BackgroundColor3 = FromRgb(255, 255, 255),
 						Visible = true,
-						Image = "http://www.roblox.com/asset/?id=18245826428",
+						Image = getcustomasset(Library.Directory.. "/Assets/Glow.Png"),
 						BackgroundTransparency = 1,
-						ImageTransparency = 0.8, 
+						ImageTransparency = 0.65, 
 						Position = Dim2(0, -20, 0, -20),
 						Size = Dim2(1, 40, 1, 40),
 						ZIndex = 2,
@@ -1059,13 +1053,13 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		local SGui = Library:Create("ScreenGui", {
 			Enabled = true,
 			Parent = gethui(),
-			Name = "",
+			Name = '',
 			DisplayOrder = 999999, 
 		});
 
 		local NotifHolder = Library:Create("ScreenGui", {
 			Parent = SGui,
-			Name = "",
+			Name = '',
 			IgnoreGuiInset = true,
 			DisplayOrder = 999999, 
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -1339,8 +1333,8 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 				local Section = Setmetatable(Items, Library)
 				Items.Label = Section:Label({Name = "Player: "});
-				Items.Armor = Section:Slider({Name = "Armor", Flag = "", Custom = FromRgb(25, 0, 100), Min = 0, Max = 100, Default = 0, Input = true});
-				Items.Health = Section:Slider({Name = "Health", Flag = "", Custom = FromRgb(25, 120, 0), Min = 0, Max = 100, Default = 50, Input = true});
+                -- Items.Armor = Section:Slider({Name = "Armor", Flag = "", Custom = FromRgb(25, 0, 100), Min = 0, Max = 100, Default = 0, Input = true});
+                Items.Health = Section:Slider({Name = "Health", Flag = "", Custom = FromRgb(25, 120, 0), Min = 0, Max = 100, Default = 50, Input = true});
 				
 				Library:Create( "UIStroke" , {Parent = Items.InfoTitle});
 			end;
@@ -1363,7 +1357,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 			function Cfg.ChangeProfile(Player)
 				Items.Label.Set(FormatString("Player: %s", Player.Name)) --Items.Label.Set(FormatString("Player: %s (%s)", Player.Name, Player.DisplayName))
-				Items.Profile.Image = "https://www.roblox.com/headshot-thumbnail/image?userId=".. Player.UserId .."&width=420&height=420&format=png"
+				Items.Profile.Image = 'https://www.roblox.com/headshot-thumbnail/image?userId='.. Player.UserId .."&width=420&height=420&format=png"
 			end; 
 
 			return Setmetatable(Cfg, Library)
@@ -5960,5 +5954,5 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
             GetTick = clonefunction(tick)();
         end;
     end);
-
+    
 return Library, Themes;
