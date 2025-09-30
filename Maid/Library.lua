@@ -2396,7 +2396,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 			--// Main Window
 				local MainWindow = Library:Panel({
-					Name = Properties and Properties.Name or "Akira.lol", 
+					Name = Properties and Properties.Name or "Clorin.Hook", 
 					Size = Dim2(0, 604, 0, 628),
 					Position = Dim2(0, (Camera.ViewportSize.X / 2) - 302 - 96, 0, (Camera.ViewportSize.Y / 2) - 421 - 12),
 					Image = getcustomasset(Library.Directory.. '/Assets/Images/Icon1.Png'),
@@ -2658,6 +2658,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local Column = Setmetatable(Items, Library):Column() 
 				Window.EspSection = Column:Section({Name = "Main"});
+				local Esp = Window.EspSection:EspPreview({})
 			--//
 
 			--// Playerlist 
@@ -2692,7 +2693,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 		function Library:Watermark(Options) 
 			local Cfg = {
-				Default = Options.Text or Options.Default or Date('Akira.lol | %b %d %Y | %H:%M')
+				Default = Options.Text or Options.Default or Date('Clorin.Hook | %b %d %Y | %H:%M')
 			}
 
 			local WatermarkOutline = Library:Create("Frame", {
@@ -2745,7 +2746,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				FontFace = Library.Font,
 				TextColor3 = Themes.Preset.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
-				Text = "Akira.lol",
+				Text = "Clorin.Hook",
 				Size = Dim2(0, 0, 1, 0),
 				BackgroundTransparency = 1,
 				Position = Dim2(0, -1, 0, 1),
@@ -2799,16 +2800,11 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		end; 
 
 		function Library:EspPreview(Properties)
-			local Cfg = {Items = {}, Rotation = 0; Objects = {}};
+			local Cfg = {Items = {}, Rotation = 0; Objects = {};}
 
-			Client.Character.Archivable = true;
-			local Character = Client.Character:Clone();
-
-			for _, Descendant in pairs(Character:GetDescendants()) do
-				if Descendant:IsA("Script") or Descendant:IsA("LocalScript") or Descendant:IsA("ModuleScript") then Descendant:Destroy() end;
-				if Descendant:IsA("Animator") or Descendant:IsA("Humanoid") and Descendant.Name ~= "Humanoid" then Descendant:Destroy() end;
-			end
-			if Character:FindFirstChild("Animate") then Character.Animate:Destroy() end;
+			Client.Character.Archivable = true
+			local Character = Client.Character:Clone()
+			-- Character.Animate:Destroy()
 
 			local Items = Cfg.Items; do
 				Items.ViewportFrame = Library:Create("ViewportFrame" , {
@@ -2830,10 +2826,8 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Name = "\0"
 				});
 
-				Items.WorldModel = Library:Create("WorldModel", {Parent = Items.ViewportFrame});
-
 				Items.ViewportFrame.CurrentCamera = Items.Camera
-				Character.Parent = Items.WorldModel
+				Character.Parent = Items.ViewportFrame
 
 				Items.Camera.CameraSubject = Character;
 				Character.SetPrimaryPartCFrame(Character, NewCF(NewVect3(0, 0, -5)) * NewAnglesCF(Rad(6), Rad(180), 0));
@@ -6689,11 +6683,11 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 			return Setmetatable(Cfg, Library)
 		end;
-
-		Library:Connection(RunService.RenderStepped, function()
-			if Library:CompareVars(GetTick, clonefunction(tick)(), "number") then
-				GetTick = clonefunction(tick)();
-			end;
-		end);
-		
-		return Library, Themes;
+	--//
+	Library:Connection(RunService.RenderStepped, function()
+		if Library:CompareVars(GetTick, clonefunction(tick)(), "number") then
+			GetTick = clonefunction(tick)();
+		end;
+	end);
+	
+	return Library, Themes;
