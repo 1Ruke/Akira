@@ -2658,7 +2658,6 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local Column = Setmetatable(Items, Library):Column() 
 				Window.EspSection = Column:Section({Name = "Main"});
-				local Esp = Window.EspSection:EspPreview({})
 			--//
 
 			--// Playerlist 
@@ -2800,11 +2799,16 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		end; 
 
 		function Library:EspPreview(Properties)
-			local Cfg = {Items = {}, Rotation = 0; Objects = {};}
+			local Cfg = {Items = {}, Rotation = 0; Objects = {}};
 
-			Client.Character.Archivable = true
-			local Character = Client.Character:Clone()
-			-- Character.Animate:Destroy()
+			Client.Character.Archivable = true;
+			local Character = Client.Character:Clone();
+
+			for _, Descendant in pairs(Character:GetDescendants()) do
+				if Descendant:IsA("Script") or Descendant:IsA("LocalScript") or Descendant:IsA("ModuleScript") then Descendant:Destroy() end;
+				if Descendant:IsA("Animator") or Descendant:IsA("Humanoid") and Descendant.Name ~= "Humanoid" then Descendant:Destroy() end;
+			end
+			if Character:FindFirstChild("Animate") then Character.Animate:Destroy() end;
 
 			local Items = Cfg.Items; do
 				Items.ViewportFrame = Library:Create("ViewportFrame" , {
@@ -2826,8 +2830,10 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Name = "\0"
 				});
 
+				Items.WorldModel = Library:Create("WorldModel", {Parent = Items.ViewportFrame});
+
 				Items.ViewportFrame.CurrentCamera = Items.Camera
-				Character.Parent = Items.ViewportFrame
+				Character.Parent = Items.WorldModel
 
 				Items.Camera.CameraSubject = Character;
 				Character.SetPrimaryPartCFrame(Character, NewCF(NewVect3(0, 0, -5)) * NewAnglesCF(Rad(6), Rad(180), 0));
@@ -6689,5 +6695,5 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				GetTick = clonefunction(tick)();
 			end;
 		end);
-	    
-	return Library, Themes;
+		
+		return Library, Themes;
