@@ -2396,7 +2396,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 			--// Main Window
 				local MainWindow = Library:Panel({
-					Name = Properties and Properties.Name or "Clorin.Hook", 
+					Name = Properties and Properties.Name or "Akira.lol", 
 					Size = Dim2(0, 604, 0, 628),
 					Position = Dim2(0, (Camera.ViewportSize.X / 2) - 302 - 96, 0, (Camera.ViewportSize.Y / 2) - 421 - 12),
 					Image = getcustomasset(Library.Directory.. '/Assets/Images/Icon1.Png'),
@@ -2693,7 +2693,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 		function Library:Watermark(Options) 
 			local Cfg = {
-				Default = Options.Text or Options.Default or Date('Clorin.Hook | %b %d %Y | %H:%M')
+				Default = Options.Text or Options.Default or Date('Akira.lol | %b %d %Y | %H:%M')
 			}
 
 			local WatermarkOutline = Library:Create("Frame", {
@@ -2746,7 +2746,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				FontFace = Library.Font,
 				TextColor3 = Themes.Preset.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
-				Text = "Clorin.Hook",
+				Text = "Akira.lol",
 				Size = Dim2(0, 0, 1, 0),
 				BackgroundTransparency = 1,
 				Position = Dim2(0, -1, 0, 1),
