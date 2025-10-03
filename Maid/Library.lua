@@ -272,9 +272,9 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		[Enum.KeyCode.RightParenthesis] = ')',
 		[Enum.KeyCode.LeftParenthesis] = '(',
 		[Enum.KeyCode.Semicolon] = ',',
-		-- [Enum.KeyCode.Quote] = "'",
+		[Enum.KeyCode.Quote] = ' " ',
 		[Enum.KeyCode.BackSlash] = '\\',
-		[Enum.KeyCode.Comma] = ',',
+		[Enum.KeyCode.Comma] = ' , ',
 		[Enum.KeyCode.Period] = '.',
 		[Enum.KeyCode.Slash] = '/',
 		[Enum.KeyCode.Asterisk] = '*',
@@ -6689,11 +6689,11 @@ end
 
 			return Setmetatable(Cfg, Library)
 		end;
-	--//
+	--// Tick
 	Library:Connection(RunService.RenderStepped, function()
 		if Library:CompareVars(GetTick, clonefunction(tick)(), 'number') then
 			GetTick = clonefunction(tick)();
 		end;
 	end);
-	
---// End Of Source
+    
+return Library, Themes;
