@@ -16,7 +16,6 @@ local TweenService = cloneref(UserSettings().GetService(game, 'TweenService'));
 local ReplicatedStorage = cloneref(UserSettings().GetService(game, 'ReplicatedStorage'));
 
 --// Matrix
-
 local NewVect2 = clonefunction(Vector2.new);
 local NewVect3 = clonefunction(Vector3.new);
 local NewCF = clonefunction(CFrame.new);
@@ -31,7 +30,6 @@ local DimOffset = clonefunction(UDim2.fromOffset);
 --]]
 
 --// Colors
-
 local NewColor = clonefunction(Color3.new);
 local FromRgb = clonefunction(Color3.fromRGB);
 local FromHex = clonefunction(Color3.fromHex);
@@ -45,7 +43,6 @@ local NumKey = clonefunction(NumberSequenceKeypoint.new);
 --]]
 
 --// Client
-
 local Camera = cloneref(Workspace.CurrentCamera);
 local Client = cloneref(Players.LocalPlayer);
 local Character = cloneref(Client.Character);
@@ -56,7 +53,6 @@ local Mouse = cloneref(Client:GetMouse())
 local GuiOffset = GuiService:GetGuiInset().Y
 
 --// Math / Numbers
-
 local Max = clonefunction(math.max);
 local Floor = clonefunction(math.floor);
 local Min = clonefunction(math.min);
@@ -70,7 +66,6 @@ local Pi = (math.pi);
 local Huge = (math.huge);
 
 --// Table
-
 local InsertTable = clonefunction(table.insert);
 local RemoveTable = clonefunction(table.remove);
 local FindTable = clonefunction(table.find);
@@ -87,7 +82,6 @@ local Rawset = clonefunction(rawset)
 --]]
 
 --// Meta
-
 local Getrawmetatable = clonefunction(getrawmetatable)
 local Setrawmetatable = clonefunction(setrawmetatable)
 local Getmetatable = clonefunction(getmetatable)
@@ -106,7 +100,6 @@ local FormatString = clonefunction(string.format);
 --]]
 
 --// Misc
-
 local NewFont = clonefunction(Font.new);
 local Wait = clonefunction(task.wait);
 local Spawn = clonefunction(task.spawn);
@@ -141,7 +134,6 @@ elseif (hookfunction) then
 end
 
 --// Globals
-shared.Snowing = false;
 shared.MenuIsOpen = true;
 shared.SelectedPlayer = 'No one';
 --]]
@@ -152,8 +144,6 @@ local Console = {}
 
 function Console:Log(Message) clonefunction(print)(Message) end;
 function Console:Warn(Message) clonefunction(warn)(Message) end;
--- function Console:Error(Message) clonefunction(error)(Message) end;
-
 --]]
 
 --// Library init
@@ -170,7 +160,6 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		Instances = {};
 		Drawings = {};
 		Binds = {};
-		Snow = {MaxSnow = 1000, SnowPool = {}, ActiveSnow = {}};
 		CurrentTab;
 		CurrentElementOpen;
 		DockButtonHolder;
@@ -183,8 +172,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		DisplayOrderr = 0;
 	};
 
-	local Flags = Library.Flags;
-	local ConfigFlags = Library.ConfigFlags;
+	local Flags, ConfigFlags = Library.Flags, Library.ConfigFlags;
 
 	local Themes = {
 		Preset = {
@@ -293,21 +281,21 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 	for _, Path in next, Library.Folders do 
 		makefolder(Library.Directory .. Path)
 	end;
-	local ThisThing;
-	local ConfigHolder;
+
+	local Holder, ConfigHolder;
 	-- Assets
 
 	if isfile(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf') then delfile(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf') end;
-	if isfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf') then delfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf') end;
+	if isfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf') then delfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf'); end;
 	if isfile(Library.Directory.. '/Assets/Images/Glow.Png') then delfile(Library.Directory.. '/Assets/Images/Glow.Png'); end;
 	if isfile(Library.Directory.. '/Assets/Images/Icon1.Png') then delfile(Library.Directory.. '/Assets/Images/Icon1.Png'); end;
 	if isfile(Library.Directory.. '/Assets/Images/Icon2.Png') then delfile(Library.Directory.. '/Assets/Images/Icon2.Png'); end;
 	if isfile(Library.Directory.. '/Assets/Images/Icon3.Png') then delfile(Library.Directory.. '/Assets/Images/Icon3.Png'); end;
 	if isfile(Library.Directory.. '/Assets/Images/Icon4.Png') then delfile(Library.Directory.. '/Assets/Images/Icon4.Png'); end;
 	if isfile(Library.Directory.. '/Assets/Images/Icon5.Png') then delfile(Library.Directory.. '/Assets/Images/Icon5.Png'); end;
-	if isfile(Library.Directory.. '/Assets/Images/Snow.Png') then delfile(Library.Directory.. '/Assets/Images/Snow.Png'); end;
 	if isfile(Library.Directory.. '/Assets/Images/White.Png') then delfile(Library.Directory.. '/Assets/Images/White.Png'); end;
 
+	
 	writefile(Library.Directory.. '/Assets/Fonts/Proggy.ttf', game.HttpGet(game, 'https://github.com/1Ruke/Akira/raw/refs/heads/main/Assets/Fonts/ProggyClean.ttf'));
 	writefile(Library.Directory.. '/Assets/Images/Glow.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Glow.png'));
 	writefile(Library.Directory.. '/Assets/Images/Icon1.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon1.png'));
@@ -315,29 +303,25 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 	writefile(Library.Directory.. '/Assets/Images/Icon3.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon3.png'));
 	writefile(Library.Directory.. '/Assets/Images/Icon4.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon4.png'));
 	writefile(Library.Directory.. '/Assets/Images/Icon5.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon5.png'));
-	writefile(Library.Directory.. '/Assets/Images/Snow.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Snow.png'));
 	writefile(Library.Directory.. '/Assets/Images/White.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/White.png'));
 
-	if isfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf') then ThisThing = {Name = 'Proggy', faces = {{Name = 'Regular', Weight = 400, Style = 'Normal', assetId = getcustomasset(Library.Directory.. '/Assets/Fonts/Proggy.ttf')}}}; end
-	writefile(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf', HttpService:JSONEncode(ThisThing));
+	if isfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf') then Holder = {Name = 'Proggy', faces = {{Name = 'Regular', Weight = 400, Style = 'Normal', assetId = getcustomasset(Library.Directory.. '/Assets/Fonts/Proggy.ttf')}}}; end
+	writefile(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf', HttpService:JSONEncode(Holder));
 	Library.Font = NewFont(getcustomasset(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf'), Enum.FontWeight.Regular);
 	--]]
 
-	local ConfigHolder
+	--// Library Functions
 
---// Library functions
-
-		function Library:ApplyTheme(Instance, Theme, Property)
-			pcall(function()
-				if (Theme and Property and Instance) then
-					InsertTable(Themes.Utility[Theme][Property], Instance)
-				end
-			end)
-		end;
+	function Library:ApplyTheme(Instance, Theme, Property)
+		pcall(function()
+			if (Theme and Property and Instance) then
+				InsertTable(Themes.Utility[Theme][Property], Instance)
+			end;
+		end);
+	end;
 		
-		function Library:IsDifferent(Value1, Value2)
+	function Library:IsDifferent(Value1, Value2)
 		if Typeof(Value1) ~= Typeof(Value2) then return true end;
-
 		local Type = Typeof(Value1)
 
 		if Type == 'Color3' then
@@ -357,37 +341,34 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		end;
 	end;
 
-function Library:CompareVars(Obj1, Obj2, ExpectedType)
-    if Obj1 == nil or Obj2 == nil then
-        return false
-    end
+	function Library:CompareVars(Obj1, Obj2, ExpectedType)
+		if Obj1 == nil or Obj2 == nil then return false end;
 
-    if ExpectedType then
-        local Type1, Type2 = Typeof(Obj1), Typeof(Obj2)
-        local Expected = LowerString(ExpectedType)
+		if ExpectedType then
+			local Type1, Type2 = Typeof(Obj1), Typeof(Obj2)
+			local Expected = LowerString(ExpectedType)
 
-    if LowerString(Type1) ~= Expected or LowerString(Type2) ~= Expected then
-            Console:Log(FormatString('Type check failed: got %s and %s, expected %s', Type1, Type2, ExpectedType))
-            Console:Warn(debug.traceback())
-            return false
-        end;
-    end;
+			if LowerString(Type1) ~= Expected or LowerString(Type2) ~= Expected then
+				Console:Log(FormatString('Type check failed: got %s and %s, expected %s', Type1, Type2, ExpectedType))
+				Console:Warn(debug.traceback())
+				return false 
+			end;
+		end;
 
-    if Typeof(Obj2) == 'string' and Typeof(Obj1) ~= 'string' then
-        Obj2 = Tostring(Obj2)
-    end
+		if Typeof(Obj2) == 'string' and Typeof(Obj1) ~= 'string' then
+			Obj2 = Tostring(Obj2)
+		end;
 
-    return Library:IsDifferent(Obj1, Obj2)
-end
+		return Library:IsDifferent(Obj1, Obj2)
+	end;
 
 	function Library:CheckDiff(Item, Property, NewValue)
-	if (not Item or Typeof(Item) ~= 'Instance') then return end;
+		if (not Item or Typeof(Item) ~= 'Instance') then return end;
+		if (Property == 'Text' and Typeof(NewValue) ~= 'string') then NewValue = Tostring(NewValue) end;
+		local OldValue = Item[Property]
 
-	if (Property == 'Text' and Typeof(NewValue) ~= 'string') then NewValue = Tostring(NewValue) end;
-
-	local OldValue = Item[Property]
 		if self:IsDifferent(OldValue, NewValue) then
-			pcall(function() Item[Property] = NewValue end)
+			pcall(function() Item[Property] = NewValue end);
 		end;
 	end;
 
@@ -411,25 +392,10 @@ end
 		end;
 	end;
 
-	function Library:CreateSnowflake()
-		--// if shared.Snowing then
-			local Size = Random(9, 17.5);
-			local Snow = NewInst('ImageLabel');
-			Snow.Size = Dim2(0, Size, 0, Size);
-			Snow.Image = getcustomasset(Library.Directory.. '/Assets/Images/Snow.Png');
-			Snow.BackgroundTransparency = 1;
-			Snow.ZIndex = 1;
-			Snow.Visible = false;
-			Snow.Parent = (Hui);
-		--// end
-		return Snow
+	function Library:ToHex(Color: Color3)
+    	return Color3.toHex(Color)
 	end;
-
-	function Library:ResetSnowflake(Snow)
-		Snow.Position = Dim2(Random(), 0, 0, 0)
-		return {Snow = Snow, FallSpeed = Random(300, 500), StartTime = GetTick}
-	end;
-
+	 
 	function Library:UpdateTheme(Theme, Color)
 		if not (Themes.Utility[Theme]) then
 			return
@@ -439,14 +405,13 @@ end
 					if Object[_] == Themes.Preset[Theme] or Object.ClassName == 'UIGradient' then
 						Object[_] = Color 
 					end;
-				end; 
-			end; 
-
+				end;
+			end;
 			Themes.Preset[Theme] = Color 
 		end;
 	end;
 
-	--// misc functions
+	--// Misc Functions
 		function Library:Hover(Hover, Parent)
 			local HoverInstance = Library:Create('Frame', {
 				Parent = Parent,
@@ -461,14 +426,14 @@ end
 
 			Hover.MouseEnter:Connect(function()
 				Library:Tween(0.185, HoverInstance, {BackgroundTransparency = 0});
-			end)
+			end);
 			
 			Hover.MouseLeave:Connect(function()
 				Library:Tween(0.185, HoverInstance, {BackgroundTransparency = 1});
-			end)
+			end);
 
 			return HoverInstance;
-		end; 
+		end;
 
 		function Library:IsHovering(Object)
 			if type(Object) == 'table' then
@@ -478,14 +443,14 @@ end
 					if Library:IsHovering(Obj) then
 						Pass = true
 						return Pass
-					end; 
-				end; 
+					end;
+				end;
 			else 
 				local YCond = Object.AbsolutePosition.Y <= Mouse.Y and Mouse.Y <= Object.AbsolutePosition.Y + Object.AbsoluteSize.Y
 				local XCond = Object.AbsolutePosition.X <= Mouse.X and Mouse.X <= Object.AbsolutePosition.X + Object.AbsoluteSize.X
 				
 				return (YCond and XCond)
-			end; 
+			end;
 		end;
 
 		function Library:Resizeable(Frame)
@@ -500,8 +465,7 @@ end
 			ResizePart.Text = ''
 
 			local Resizing = false;
-			local StartSize;
-			local Start;
+			local Start, StartSize;
 			local OgSize = Frame.Size;
 
 			ResizePart.InputBegan:Connect(function(Input)
@@ -550,15 +514,15 @@ end
 						Frame.Parent.DisplayOrder = Library.DisplayOrderr;
 					elseif Frame.Parent.DisplayOrder < (2^31-1) then
 						Library.DisplayOrderr = 0
-					end; 
+					end;
 				end;
-			end)
+			end);
 
 			Frame.InputEnded:Connect(function(Input)
 				if Input.UserInputType == Enum.UserInputType.MouseButton1 then
 					Dragging = false
 				end;
-			end)
+			end);
 
 			Library:Connection(InputService.InputChanged, function(Input, GameEvent)
 				if Dragging and Input.UserInputType == Enum.UserInputType.MouseMovement then
@@ -567,7 +531,7 @@ end
 
 					Frame.Position = Dim2(0, Clamp(StartSize.X.Offset + (Input.Position.X - Start.X), 0, ViewportX - Frame.Size.X.Offset ), 0, Clamp(StartSize.Y.Offset + (Input.Position.Y - Start.Y), 0, ViewportY - Frame.Size.Y.Offset))
 				end;
-			end)
+			end);
 		end;
 		
 		function Library:NewItem(Class, Properties)
@@ -575,12 +539,12 @@ end
 
 			for _, v in next, Properties do 
 				Inst[_] = v
-			end; 
+			end;
 
 			InsertTable(Library.Instances, Inst)
 
 			return Inst 
-		end; 
+		end;
 
 		function Library:ConvertEnum(enum)
 			local EnumParts = {}
@@ -600,12 +564,12 @@ end
 		end;
 
 		function Library:Tween(Time, Obj, Properties)
-				local Tween = TweenService:Create(Obj, TweenInfo.new(Time, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut, 0, false, 0), Properties):Play()
+			local Tween = TweenService:Create(Obj, TweenInfo.new(Time, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut, 0, false, 0), Properties):Play()
 			return Tween
-		end; 
+		end;
 
 		function Library:UpdateConfigList()
-			if not ConfigHolder then return end; 
+			if not ConfigHolder then return end;
 		
 			local List = {}
 		
@@ -615,42 +579,41 @@ end
 			end;
 			
 			ConfigHolder.RefreshOptions(List)
-		end; 
-
-		function Library:GetConfig()
-			local Config = {}
+		end;
 		
-			for _, v in Flags do
-				if type(v) == 'table' and v.Key then
-					Config[_] = {Active = v.Active, Mode = v.Mode, Key = Tostring(v.Key)}
-				elseif type(v) == 'table' and v['Transparency'] and v['Color'] then
-					Config[_] = {Transparency = v['Transparency'], Color = v['Color']:ToHex()}
+		function Library:GetConfig()
+			local Config = {};
+
+			for Key, Value in Flags do
+				if type(Value) == 'table' and Value.Key then
+					Config[Key] = {Active = Value.Active, Mode = Value.Mode, Key = Tostring(Value.Key)};
+				elseif type(Value) == 'table' and Value.Color then
+					Config[Key] = {Color = Value.Color:ToHex()};
 				else
-					Config[_] = v
+					Config[Key] = Value;
 				end;
-			end; 
-			
-			return HttpService:JSONEncode(Config)
+			end;
+
+			return HttpService:JSONEncode(Config);
 		end;
 
 		function Library:LoadConfig(ConfigJson)
-			local Config = HttpService:JSONDecode(ConfigJson)
-		
-			for _, v in next, Config do 
-				local FunctionSet = Library.ConfigFlags[_]
-				
+			local Config = HttpService:JSONDecode(ConfigJson);
+
+			for Key, Value in next, Config do 
+				local FunctionSet = Library.ConfigFlags[Key];
 				if FunctionSet then
-					if type(v) == 'table' and v['Transparency'] and v['Color'] then
-						FunctionSet(FromHex(v['Color']), v['Transparency'])
-					elseif type(v) == 'table' and v['Active'] then
-						FunctionSet(v)
-					else 
-						FunctionSet(v)
+					if type(Value) == 'table' and Value.Color then
+						FunctionSet(FromHex(Value.Color));
+					elseif type(Value) == 'table' and Value.Active then
+						FunctionSet(Value);
+					else
+						FunctionSet(Value);
 					end;
-				end; 
-			end; 
-		end; 
-		
+				end;
+			end;
+		end;
+
 		function Library:Round(Number, Float)
 			local Multiplier = 1 / (Float or 1)
 
@@ -702,91 +665,10 @@ end
 			DisplayOrder = 500, 
 		});
 
-		function Library:Tooltip(Options)
-			local Cfg = {
-				Name = Options.Name or 'Empty Tooltip', 
-				Path = Options.Path or nil, 
-			}
-
-			if Cfg.Path then
-				local WatermarkOutline = Library:Create('Frame', {
-					Parent = TooltipsGui,
-					Name = '',
-					Size = Dim2(0, 0, 0, 22),
-					Position = Dim2(0, 500, 0, 300),
-					BorderColor3 = FromRgb(0, 0, 0),
-					BorderSizePixel = 0,
-					Visible = false,
-					AutomaticSize = Enum.AutomaticSize.X,
-					BackgroundColor3 = Themes.Preset.Outline
-				});
-				
-				local WatermarkInline = Library:Create('Frame', {
-					Parent = WatermarkOutline,
-					Name = '',
-					Position = Dim2(0, 1, 0, 1),
-					BorderColor3 = FromRgb(0, 0, 0),
-					Size = Dim2(1, -2, 1, -2),
-					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
-				});
-				
-				local WatermarkBackground = Library:Create('Frame', {
-					Parent = WatermarkInline,
-					Name = '',
-					Position = Dim2(0, 1, 0, 1),
-					BorderColor3 = FromRgb(0, 0, 0),
-					Size = Dim2(1, -2, 1, -2),
-					BorderSizePixel = 0,
-					BackgroundColor3 = FromRgb(255, 255, 255)
-				});
-				
-				local UIGradient = Library:Create('UIGradient', {
-					Parent = WatermarkBackground,
-					Name = '',
-					Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
-				});
-				Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
-				
-				local Text = Library:Create('TextLabel', {
-					Parent = WatermarkBackground,
-					Name = '',
-					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
-					BorderColor3 = FromRgb(0, 0, 0),
-					Text = ' ' .. Cfg.Name .. ' ',
-					Size = Dim2(0, 0, 1, 0),
-					BackgroundTransparency = 1,
-					Position = Dim2(0, 0, 0, -1),
-					BorderSizePixel = 0,
-					AutomaticSize = Enum.AutomaticSize.X,
-					TextSize = (Library.TextSize + 3),
-					BackgroundColor3 = FromRgb(255, 255, 255)
-				});
-				
-				local UIStroke = Library:Create('UIStroke', {
-					Parent = Text,
-					Name = '',
-					LineJoinMode = Enum.LineJoinMode.Miter
-				});
-
-				Cfg.Path.MouseEnter:Connect(function()
-					WatermarkOutline.Visible = true 
-				end)
-
-				Cfg.Path.MouseLeave:Connect(function()
-					WatermarkOutline.Visible = false 
-				end)
-
-				Library:Connection(InputService.InputChanged, function(Input)
-					if WatermarkOutline.Visible and Input.UserInputType == Enum.UserInputType.MouseMovement then
-						WatermarkOutline.Position = DimOffset(Input.Position.X + 10, Input.Position.Y + 10)
-					end;
-				end)
-			end; 
-			
+		function Library:Tooltip(Options) --// Nu uh
+			local Cfg = {Name = nil, Path = nil}
 			return Cfg
-		end; 
+		end;
 
 		function Library:Panel(Options)
 			local Cfg = {
@@ -801,12 +683,11 @@ end
 
 				--// Ignore
 				Items = {},
-			}
+			};
 			
 			local Items = Cfg.Items do 
 				--// Panel
 				Items.SGui = Library:Create('GuiMain', {Enabled = true, Parent = Hui, Name = '' });
-					
 					Items.MainHolder = Library:Create('Frame', {
 						Parent = Items.SGui,
 						Name = '',
@@ -818,6 +699,7 @@ end
 						BorderSizePixel = 0,
 						BackgroundColor3 = Themes.Preset.Outline
 					});
+					
 					Library:DragThing(Items.MainHolder)
 					Library:Resizeable(Items.MainHolder)
 
@@ -830,7 +712,6 @@ end
 						BorderColor3 = FromRgb(0, 0, 0);
 						Text = 'X';
 						Size = Dim2(0, 0, 0, 0);
-						--SelecTable = false;
 						Position = Dim2(1, -7, 0, 5);
 						BorderSizePixel = 0;
 						BackgroundTransparency = 1;
@@ -848,10 +729,8 @@ end
 					
 					Close.MouseButton1Click:Connect(function()
 						Items.SGui.Enabled = false;
-					end)
+					end);
 
-					--Library:ApplyTheme(MainHolder, 'Outline', 'BackgroundColor3')
-					
 					Items.WindowInline = Library:Create('Frame', {
 						Parent = Items.MainHolder,
 						Name = '',
@@ -1052,18 +931,18 @@ end
 				--// 
 
 				Library:Tooltip({Name = Cfg.Name, Path = Items.Button});
-			end; 
+			end;
 
 			Items.SGui:GetPropertyChangedSignal('Enabled'):Connect(function()
 				Items.Icon.ImageColor3 = Items.SGui.Enabled and Themes.Preset.Accent or Themes.Preset.Inline
-			end)
+			end);
 
 			Items.Button.MouseButton1Click:Connect(function()
 				Items.SGui.Enabled = not Items.SGui.Enabled
-			end)
+			end);
 			
 			return Setmetatable(Cfg, Library)
-		end; 
+		end;
 
 		local SGui = Library:Create('GuiMain', {Enabled = true, Parent = Hui, Name = '', DisplayOrder = 999999 });
 
@@ -1082,8 +961,8 @@ end
 				if Flag then
 					Flag(Flags[Origin])
 				end;
-			end; 
-		end; 
+			end;
+		end;
 
 		function Library:TargetIndicator()
 			local Cfg = {
@@ -1383,11 +1262,11 @@ end
 
 			function Cfg.GetVisibility()
 				return Items.Window.Visible
-			end; 
+			end;
 
 			function Cfg.SetVisible(Boolean)
 				Items.Window.Visible = Boolean
-			end; 
+			end;
 
 			function Cfg.SetArmor(Value)
 				Items.Armor.Set(Value)
@@ -1400,7 +1279,7 @@ end
 			function Cfg.ChangeProfile(Player)
 				Items.Label.Set(FormatString('Player: %s', Player.Name)) --Items.Label.Set(FormatString('Player: %s (%s)', Player.Name, Player.DisplayName))
 				Items.Profile.Image = 'https://www.roblox.com/headshot-thumbnail/image?userId='.. Player.UserId ..'&width=420&height=420&format=png'
-			end; 
+			end;
 
 			return Setmetatable(Cfg, Library)
 		end;
@@ -1647,11 +1526,11 @@ end
 
 			function Cfg.GetVisibility()
 				return Items.Window.Visible
-			end; 
+			end;
 
 			function Cfg.SetVisible(Boolean)
 				Items.Window.Visible = Boolean
-			end; 
+			end;
 
 			function Cfg.GetItem(Index)
 				return Items['Item' .. Index]
@@ -1876,11 +1755,11 @@ end
 
 			function Cfg.GetVisibility()
 				return Items.Window.Visible
-			end; 
+			end;
 
 			function Cfg.SetVisible(Boolean)
 				Items.Window.Visible = Boolean
-			end; 
+			end;
 
 			function Cfg.GetItem(Index)
 				return Items['Item' .. Index]
@@ -2080,11 +1959,11 @@ end
 
 			function Cfg.GetVisibility()
 				return Items.Window.Visible
-			end; 
+			end;
 
 			function Cfg.SetVisible(Boolean)
 				Items.Window.Visible = Boolean
-			end; 
+			end;
 
 			function Cfg.SetAmmo(Current, Max)
 				Items.AmmoValue.Text = Current .. '/' .. Max
@@ -2131,7 +2010,7 @@ end
 					for _, Gui in Opened do 
 						Gui.Enabled = true 
 						Opened = {}
-					end; 
+					end;
 				else
 					for _, Gui in Library.Guis do 
 						if Gui.Enabled then
@@ -2152,14 +2031,14 @@ end
 
 				for _, Tooltip in TooltipsGui:GetChildren() do 
 					Tooltip.Visible = false;
-				end; 
+				end;
 
 				if Library.CurrentElementOpened then
 					Library.CurrentElementOpened.SetVisible(false)
 					Library.CurrentElementOpened.Open = false 
 					Library.CurrentElementOpened = nil 
 				end;
-			end; 
+			end;
 
 			--// Dock init
 				DockOutline = Library:Create('Frame', {
@@ -2496,9 +2375,9 @@ end
 				
 				Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
 				Library:Resizeable(Items.MainHolder) 
-			--// 
+			--]]
 
-			--// theming 
+			--// Theming 
 				local Style = Library:Panel({
 					Name = 'Style', 
 					AnchorPoint = NewVect2(0, 0),
@@ -2514,7 +2393,7 @@ end
 				Section:Label({Name = 'Contrast'}):Colorpicker({Name = 'High', Color = Themes.Preset.HighContrast, Flag = 'HighContrast', Callback = function(Color)
 					if (Flags['LowContrast'] and Flags['HighContrast']) then
 						Library:UpdateTheme('Contrast', ColorSeq{ColorKey(0, Flags['HighContrast'].Color), ColorKey(1, Flags['LowContrast'].Color)});
-					end; 
+					end;
 
 					Library:UpdateTheme('HighContrast', Flags['HighContrast'].Color) end}):Colorpicker({Name = 'Low', Color = Themes.Preset.LowContrast, Flag = 'LowContrast', Callback = function(Color)
 					Library:UpdateTheme('Contrast', ColorSeq{ColorKey(0, Flags['HighContrast'].Color), ColorKey(1, Flags['LowContrast'].Color)});
@@ -2550,9 +2429,7 @@ end
 				Section:Toggle({Name = 'Keybind List', Default = false, Flag = 'Menu KeybindList'});
 
 				Section:Toggle({Name = 'Watermark', Flag = 'Menu Watermark'});
-				Section:Toggle({Name = 'Snowing', Flag = 'Menu Snowing', Default = shared.Snowing});
 				Section:Toggle({Name = 'Spin Esp Preview', Flag = 'Menu Spin Preview', Default = false});
-				Section:Slider({Name = 'Max Snow', Flag = 'Menu Max Snow', Min = 100, Max = 500, Default = Library.Snow.MaxSnow, Interval = 1});
 				Section:Slider({Name = 'Text Size', Flag = 'Menu Text Size', Min = Library.TextSize, Max = 13, Default = Library.TextSize, Interval = 1});
 				if Typeof(GetFpsCap()) == 'number' then
 					Section:Slider({Name = 'Fps Cap', Flag = 'Menu Fps Cap', Min = 30, Max = 1000, Default = GetFpsCap() or 60, Interval = 1});
@@ -2589,7 +2466,7 @@ end
 						
 					if Data.playing <= Flags['MaxPlayers'] then
 						game:GetService('TeleportService'):TeleportToPlaceInstance(game.PlaceId, Data.id)
-					end; 
+					end;
 				end});
 				]]
 			--// 
@@ -2606,7 +2483,7 @@ end
 
 				getgenv().LoadConfig = function(Name)
 					Library:LoadConfig(readfile(Library.Directory .. '/Configs/' .. Name .. '.Cfg'))
-				end; 
+				end;
 
 				local Column = Setmetatable(Items, Library):Column()
 				local Section = Column:Section({Name = 'Options'});
@@ -2618,18 +2495,30 @@ end
 						Library:UpdateConfigList()
 					end});
 					Section:Button({Name = 'Delete', Callback = function()
-						delfile(Library.Directory .. '/Configs/' .. Flags['ConfigNameList'] .. '.Cfg')
-						Library:UpdateConfigList()
+						if (Flags['ConfigNameList']) ~= nil then
+							delfile(Library.Directory .. '/Configs/' .. Flags['ConfigNameList'] .. '.Cfg')
+							Library:UpdateConfigList()
+						else
+							Library:Notification({Text = 'Config not found', Time = 3});
+						end;
 					end});
 					Section:ButtonHolder({});
 					Section:Button({Name = 'Load', Callback = function()
-						Library:LoadConfig(readfile(Library.Directory .. '/Configs/' .. Flags['ConfigNameList'] .. '.Cfg'))
-						Library:Notification({Text = 'Loaded Config: ' .. Flags['ConfigNameList'], Time = 3});
+						if (Flags['ConfigNameList']) ~= nil then
+							Library:LoadConfig(readfile(Library.Directory .. '/Configs/' .. Flags['ConfigNameList'] .. '.Cfg'))
+							Library:Notification({Text = 'Loaded Config: ' .. Flags['ConfigNameList'], Time = 3});
+						else
+							Library:Notification({Text = 'Config not found', Time = 3});
+						end;
 					end});
 					Section:Button({Name = 'Save', Callback = function()
-						writefile(Library.Directory .. '/Configs/' .. Flags['ConfigNameList'] .. '.Cfg', Library:GetConfig())
-						Library:UpdateConfigList()
-						Library:Notification({Text = 'Saved Config: ' .. Flags['ConfigNameList'], Time = 3});
+						if (Flags['ConfigNameList']) ~= nil then
+							writefile(Library.Directory .. '/Configs/' .. Flags['ConfigNameList'] .. '.Cfg', Library:GetConfig())
+							Library:UpdateConfigList()
+							Library:Notification({Text = 'Saved Config: ' .. Flags['ConfigNameList'], Time = 3});
+						else
+							Library:Notification({Text = 'Config requires a name', Time = 3});
+						end;
 					end});
 					Section:ButtonHolder({});
 					Section:Button({Name = 'Refresh Configs', Callback = function()
@@ -2640,16 +2529,15 @@ end
 						Library:LoadConfig(Library.OldConfig)
 					end});
 					Section:Button({Name = 'Unload Menu', Callback = function()
-						Library:LoadConfig(Library.OldConfig)
-
+						Library:LoadConfig()
+ 
 						for _, Gui in Library.InputService do 
 							Gui:Destroy() 
-						end; 
+						end;
 
 						for _, Connection in Library.Connections do 
 							Connection:Disconnect() 
 						end;
-
 						Blur:Destroy()
 					end});
 			--// 
@@ -2803,20 +2691,20 @@ end
 
 			function Cfg.GetVisibility() 
 				return WatermarkOutline.Visible
-			end; 
+			end;
 
 			Cfg.UpdateText(Cfg.Default)
 
-			return Cfg 
-
-		end; 
+			return Cfg
+		end;
 
 		function Library:EspPreview(Properties)
 			local Cfg = {Items = {}, Rotation = 0; Objects = {};}
 
 			Client.Character.Archivable = true
 			local Character = Client.Character:Clone()
-			-- Character.Animate:Destroy()
+			Client.Character.Archivable = false
+			Character.Animate:Destroy()
 
 			local Items = Cfg.Items; do
 				Items.ViewportFrame = Library:Create('ViewportFrame' , {
@@ -2842,14 +2730,14 @@ end
 				Character.Parent = Items.ViewportFrame
 
 				Items.Camera.CameraSubject = Character;
-				Character.SetPrimaryPartCFrame(Character, NewCF(NewVect3(0, 1, -5.5)) * NewAnglesCF(Rad(2.5), Rad(180), 0));
+				Character.SetPrimaryPartCFrame(Character, NewCF(NewVect3(0, 0, -5)) * NewAnglesCF(Rad(5), Rad(180), 0));
 
 				Library:Connection(RunService.RenderStepped, function()
 					if (shared.MenuIsOpen and Flags['Menu Spin Preview']) then
 						Cfg.Rotation += 0.75;
-						Character.SetPrimaryPartCFrame(Character, NewCF(NewVect3(0, 1, -5.5)) * NewAnglesCF(Rad(2.5), Rad(Cfg.Rotation), 0))
+						Character.SetPrimaryPartCFrame(Character, NewCF(NewVect3(0, 0, -5)) * NewAnglesCF(Rad(5), Rad(Cfg.Rotation), 0))
 					end;
-				end)
+				end);
 			end;
 
 			local Objects = Cfg.Objects; do 
@@ -3215,14 +3103,14 @@ end
 				end
 			end
 
-			Library:Connection(RunService.RenderStepped, function()
-				if shared.MenuIsOpen then
-					Cfg.ChangeHealth()
-				end 
-			end)
+			-- Library:Connection(RunService.RenderStepped, function()
+				-- if shared.MenuIsOpen then
+					-- Cfg.ChangeHealth()
+				-- end;
+			-- end);
 
 			return Setmetatable(Cfg, Library)
-		end
+		end;
 
 		function Library:RefreshNotifications()
 			for _, Notif in next, Library.Notifications do 
@@ -3354,14 +3242,14 @@ end
 						TweenService:Create(v, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {ImageTransparency = 1}):Play()
 					elseif v:IsA('UIStroke') then
 						TweenService:Create(v, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Transparency = 1}):Play()
-					end; 
-				end; 
+					end;
+				end;
 
 				Wait(1.5)
 
 				WatermarkOutline:Destroy()
-			end)
-		end; 
+			end);
+		end;
 
 		function Library:Tab(Options)	
 			local Cfg = {
@@ -3730,15 +3618,15 @@ end
 					end;
 
 					Multi:OpenTab(true) 
-				end)
+				end);
 
 				Cfg.Sections[#Cfg.Sections + 1] = Setmetatable(Multi, Library)
-			end; 
+			end;
 
 			Cfg.Sections[1]:OpenTab(true)
 
 			return unpack(Cfg.Sections)
-		end; 
+		end;
 
 		function Library:Section(Options)
 			local Cfg = {
@@ -3844,7 +3732,7 @@ end
 					Library.CurrentElementOpened.Open = false 
 					Library.CurrentElementOpened = nil
 				end;
-			end) 
+			end);
 
 			local Elements = Library:Create('Frame', {
 				Parent = ScrollingFrame,
@@ -3943,7 +3831,7 @@ end
 						Name = '_',
 						FillDirection = Enum.FillDirection.Horizontal
 					});
-				end; 
+				end;
 				
 				local BottomComponents = Library:Create('Frame', {
 					Parent = SliderREAL,
@@ -4074,7 +3962,7 @@ end
 
 					if TextLabel then
 						TextLabel.Visible = Boolean 
-					end; 
+					end;
 				end;
 
 				if not Cfg.InputDisabled then
@@ -4084,17 +3972,17 @@ end
 							local Value = ((Cfg.Max - Cfg.Min) * SizeX) + Cfg.Min
 							Cfg.Set(Value)
 						end;
-					end)
+					end);
 
 					Library:Connection(InputService.InputEnded, function(Input)
 						if Input.UserInputType == Enum.UserInputType.MouseButton1 then
 							Cfg.Dragging = false 
-						end; 
-					end)
+						end;
+					end);
 
 					Slider.MouseButton1Down:Connect(function()
 						Cfg.Dragging = true
-					end)
+					end);
 				end;
 
 				if Cfg.Tooltip then
@@ -4110,7 +3998,7 @@ end
 				Library.VisibleFlags[Cfg.Flag] = Cfg.SetElementVisible
 
 				return Setmetatable(Cfg, Library) 
-			end; 
+			end;
 
 		function Library:Toggle(Options)
 			local Cfg = {
@@ -4284,19 +4172,19 @@ end
 
 			function Cfg.SetElementVisible(Boolean)
 				ToggleHolder.Visible = Boolean 
-			end; 
+			end;
 		
 			Library:Connection(ToggleHolder.MouseButton1Click, function()
 				Cfg.Enabled = not Cfg.Enabled
 		
 				Cfg.Set(Cfg.Enabled)
-			end)
+			end);
 
 			Library:Connection(Toggle.MouseButton1Click, function()
 				Cfg.Enabled = not Cfg.Enabled
 		
 				Cfg.Set(Cfg.Enabled)
-			end)
+			end);
 
 			if Cfg.Tooltip then
 				Library:Tooltip({Name = Cfg.Tooltip, Path = ToggleHolder});
@@ -4318,17 +4206,19 @@ end
 			local Cfg = {
 				Name = Options.Name or 'Color', 
 				Flag = (Options.Flag or '(Colorpicker) EMPTY FLAG: '),
-				Color = Options.Color or NewColor(1, 1, 1),
-				Alpha = Options.Alpha or 1,
-				Callback = Options.Callback or function() end,
+				Color = (Options.Color or FromRgb(255, 255, 255)),
+				Alpha = (Options.Alpha or 1),
+				Callback = (Options.Callback or function() end);
 				RightHolder = self.RightHolder,
 			}
 
-			local DraggingSat = false 
-			local DraggingHue = false 
-
-			local H, S, V = Cfg.Color:ToHSV() 
-
+			local DraggingSat, DraggingHue = false
+			local H, s, v
+			if Cfg.Color then
+				H, s, v = (Cfg.Color:ToHSV())
+			else
+				H, s, v = 0
+			end;
 			--// Colorpicker Button 
 				local ColorpickerButton = Library:Create('TextButton', {
 					Parent = Parent,
@@ -4715,23 +4605,23 @@ end
 
 						Library.CurrentElementOpened = Cfg
 					end;
-				end; 
+				end;
 			end
 
 			ColorpickerButton.MouseButton1Click:Connect(function()		
 				Cfg.Open = not Cfg.Open
 				Cfg.SetVisible(Cfg.Open) 
-			end)
+			end);
 
 			function Cfg.Set(Color)
-				if Color then 
-					H, S, V = Color:ToHSV()
-				end 
-			
-				local HsvPosition = FromHsv(H, S, V)
-				local Color = FromHsv(H, S, V)
+				if (Color) then
+					H, s, v = Color:ToHSV()
+				end;
+
+				local HsvPosition = FromHsv(H, s, v)
+				local Color = FromHsv(H, s, v)
 				
-				local Value = 1 - H
+				local Value = (1 - H or 1 - 0)
 				local Offset = (Value < 1) and 0 or -4
 
 				Visualize.BackgroundColor3 = Color
@@ -4741,65 +4631,63 @@ end
 				
 				Cfg.Color = Color
 				
-				local SOffset = (S < 1) and 0 or -3
-				local VOffset = (1 - V < 1) and 0 or -3
+				local SOffset = (s < 1) and 0 or -3
+				local VOffset = (1 - v < 1) and 0 or -3
 
 				Library:Tween(0.045, HuePicker, {Position = Dim2(0, 0, Value, Offset)})
-				Library:Tween(0.035, SatValCursor, {Position = Dim2(S, SOffset, 1 - V, VOffset)})
+				Library:Tween(0.035, SatValCursor, {Position = Dim2(s, SOffset, 1 - v, VOffset)})
 				
 				Flags[Cfg.Flag] = {} 
 				Flags[Cfg.Flag]['Color'] = Color
 				Flags[Cfg.Flag]['Transparency'] = A
-			
 				Cfg.Callback(Color)
-			end
-
-
-			function Cfg.UpdateColor() 
-			local Mouse = InputService:GetMouseLocation() 
-
-			if DraggingSat then
-				S = Clamp((NewVect2(Mouse.X, Mouse.Y - GuiOffset) - Val.AbsolutePosition).X / Val.AbsoluteSize.X, 0, 1);
-				V = 1 - Clamp((NewVect2(Mouse.X, Mouse.Y - GuiOffset) - Sat.AbsolutePosition).Y / Sat.AbsoluteSize.Y, 0, 1);
-			elseif DraggingHue then
-				H = Clamp(1 - (NewVect2(Mouse.X, Mouse.Y - GuiOffset) - Hue.AbsolutePosition).Y / Hue.AbsoluteSize.Y, 0, 1);
 			end;
-				Cfg.Set(nil, nil)
-			end;
-			
-			Hue.MouseButton1Down:Connect(function()
-				DraggingHue = true 
-			end)
 
-			Sat.MouseButton1Down:Connect(function()
-				DraggingSat = true
-			end)
 
-			InputService.InputEnded:Connect(function(Input)
-				if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-					DraggingSat = false
-					DraggingHue = false
+			function Cfg.UpdateColor()
+				local Mouse = InputService:GetMouseLocation()
+				if DraggingSat then
+					s = Clamp((NewVect2(Mouse.X, Mouse.Y - GuiOffset) - Val.AbsolutePosition).X / Val.AbsoluteSize.X, 0, 1);
+					v = 1 - Clamp((NewVect2(Mouse.X, Mouse.Y - GuiOffset) - Sat.AbsolutePosition).Y / Sat.AbsoluteSize.Y, 0, 1);
+				elseif DraggingHue then
+					H = Clamp(1 - (NewVect2(Mouse.X, Mouse.Y - GuiOffset) - Hue.AbsolutePosition).Y / Hue.AbsoluteSize.Y, 0, 1);
 				end;
-			end)
+					Cfg.Set(nil, nil)
+				end;
+				
+				Hue.MouseButton1Down:Connect(function()
+					DraggingHue = true 
+				end);
 
-			InputService.InputChanged:Connect(function(Input)
-				if (DraggingSat or DraggingHue) and Input.UserInputType == Enum.UserInputType.MouseMovement then
-					Cfg.UpdateColor() 
-				end
-			end)	
+				Sat.MouseButton1Down:Connect(function()
+					DraggingSat = true
+				end);
 
-			Library:Connection(RunService.RenderStepped, function()
-				if Flags[Cfg.Flag .. ' RainbowFlag'] == true then
-					Cfg.Set(FromHsv(Abs(Sin(GetTick)), S, V))
-				end
-			end)
+				InputService.InputEnded:Connect(function(Input)
+					if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+						DraggingSat = false
+						DraggingHue = false
+					end;
+				end);
 
-			Cfg.Set(Cfg.Color)
+				InputService.InputChanged:Connect(function(Input)
+					if (DraggingSat or DraggingHue) and Input.UserInputType == Enum.UserInputType.MouseMovement then
+						Cfg.UpdateColor() 
+					end;
+				end);
 
-			Library.ConfigFlags[Cfg.Flag] = Cfg.Set
+				Library:Connection(RunService.RenderStepped, function()
+					if Flags[Cfg.Flag .. ' RainbowFlag'] == true then
+						Cfg.Set(FromHsv(Abs(Sin(GetTick)), s, v))
+					end;
+				end);
+
+				Cfg.Set(Cfg.Color);
+				Library.ConfigFlags[Cfg.Flag] = Cfg.Set;
 		
 			return Setmetatable(Cfg, Library) 
-		end
+		end;
+
 		function Library:Keybind(Options)
 			local Parent = self.RightHolder
 
@@ -5031,185 +4919,178 @@ end
 			--// 
 
 			--// init 
-				function Cfg.SetVisible(Bool)
-					KeybindSelector.Visible = Bool
-					KeybindSelector.Position = Dim2(0, ElementOutline.AbsolutePosition.X + 1, 0, ElementOutline.AbsolutePosition.Y + 17)
+			function Cfg.SetVisible(Bool)
+				KeybindSelector.Visible = Bool
+				KeybindSelector.Position = Dim2(0, ElementOutline.AbsolutePosition.X + 1, 0, ElementOutline.AbsolutePosition.Y + 17)
 
-					if Bool then 
-						if Library.CurrentElementOpen and Library.CurrentElementOpen ~= Cfg then 
-							Library.CurrentElementOpen.SetVisible(false)
-							Library.CurrentElementOpen.Open = false 
-						end
+				if Bool then 
+					if Library.CurrentElementOpen and Library.CurrentElementOpen ~= Cfg then 
+						Library.CurrentElementOpen.SetVisible(false)
+						Library.CurrentElementOpen.Open = false 
+					end;
 
-						Library.CurrentElementOpen = Cfg 
-					end
-				end 
+					Library.CurrentElementOpen = Cfg 
+				end;
+			end;
 
-				function Cfg.SetMode(Mode) 
-					Cfg.Mode = Mode 
+			function Cfg.SetMode(Mode) 
+				Cfg.Mode = Mode 
 
-					if Mode == 'Always' then
-						Cfg.Set(true)
-					elseif Mode == 'Hold' then
-						Cfg.Set(false)
-					end
+				if Mode == 'Always' then
+					Cfg.Set(true)
+				elseif Mode == 'Hold' then
+					Cfg.Set(false)
+				end;
 
-					Flags[Cfg.Flag]['Mode'] = Mode
-				end 
+				Flags[Cfg.Flag]['Mode'] = Mode
+			end;
 
-				function Cfg.Set(Input)
-					if type(Input) == 'boolean' then 
-						local __cached = Input 
+			function Cfg.Set(Input)
+				if type(Input) == 'boolean' then 
+					local __cached = Input 
 
-						if Cfg.Mode == 'Always' then 
-							__cached = true 
-						end 
+					if Cfg.Mode == 'Always' then 
+						__cached = true 
+					end;
 
-						Cfg.Active = __cached 
-						Flags[Cfg.Flag]['Active'] = __cached 
-						Cfg.Callback(__cached)
-					elseif (Tostring(Input):find('Enum')) then 
-						Input = Input.Name == 'Escape' and 'none' or Input
+					Cfg.Active = __cached 
+					Flags[Cfg.Flag]['Active'] = __cached 
+					Cfg.Callback(__cached)
+				elseif (Tostring(Input):find('Enum')) then 
+					Input = Input.Name == 'Escape' and 'none' or Input
+					Cfg.Key = Input or 'none'	
+
+					local _text = Keys[Cfg.Key] or Tostring(Cfg.Key):gsub('Enum.', '')
+					local _text2 = (Tostring(_text):gsub('KeyCode.', ''):gsub('UserInputType.', '')) or 'none'
+					Cfg.KeyName = _text2
+
+					Flags[Cfg.Flag]['Mode'] = Cfg.Mode 
+					Flags[Cfg.Flag]['Key'] = Cfg.Key 
 						
-						Cfg.Key = Input or 'none'	
+					KeyText.Text = (_text2)
 
-						local _text = Keys[Cfg.Key] or Tostring(Cfg.Key):gsub('Enum.', '')
-						local _text2 = (Tostring(_text):gsub('KeyCode.', ''):gsub('UserInputType.', '')) or 'none'
-						Cfg.KeyName = _text2
+					Cfg.Callback(Cfg.Active or false)
+				elseif FindTable({'Toggle', 'Hold', 'Always'}, Input) then 
+					Cfg.SetMode(Input)
 
-						Flags[Cfg.Flag]['Mode'] = Cfg.Mode 
-						Flags[Cfg.Flag]['Key'] = Cfg.Key 
-						
-						KeyText.Text = (_text2)
-
-						Cfg.Callback(Cfg.Active or false)
-					elseif FindTable({'Toggle', 'Hold', 'Always'}, Input) then 
-						Cfg.SetMode(Input)
-
-						if Input == 'Always' then 
-							Cfg.Active = true 
-						end 
-
-						Cfg.Callback(Cfg.Active or false)
-					elseif type(Input) == 'table' then 
-						Input.Key = type(Input.Key) == 'string' and Input.Key ~= 'none' and Library:convert_enum(Input.Key) or Input.Key
-
-						Input.Key = Input.Key == Enum.KeyCode.Escape and 'none' or Input.Key
-						Cfg.Key = Input.Key or 'none'
-						
-						Cfg.Mode = Input.Mode or 'Toggle'
-
-						if Input.Active then
-							Cfg.Active = Input.Active
-						end
-
-						local text = Tostring(Cfg.Key) ~= 'Enums' and (Keys[Cfg.Key] or Tostring(Cfg.Key):gsub('Enum.', '')) or nil
-						local __text = text and (Tostring(text):gsub('KeyCode.', ''):gsub('UserInputType.', ''))
-							KeyText.Text = (__text)
-						Cfg.KeyName = __text
+					if Input == 'Always' then 
+						Cfg.Active = true 
 					end 
 
-					Flags[Cfg.Flag] = {
-						Mode = Cfg.Mode,
-						Key = Cfg.Key, 
-						Active = Cfg.Active
-					}
+					Cfg.Callback(Cfg.Active or false)
+				elseif type(Input) == 'table' then 
+					Input.Key = type(Input.Key) == 'string' and Input.Key ~= 'none' and Library:ConvertEnum(Input.Key) or Input.Key
+
+					Input.Key = Input.Key == Enum.KeyCode.Escape and 'none' or Input.Key
+					Cfg.Key = Input.Key or 'none'
+
+					Cfg.Mode = Input.Mode or 'Toggle'
+
+					if Input.Active then
+						Cfg.Active = Input.Active
+					end;
+
+					local text = Tostring(Cfg.Key) ~= 'Enums' and (Keys[Cfg.Key] or Tostring(Cfg.Key):gsub('Enum.', '')) or nil
+					local __text = text and (Tostring(text):gsub('KeyCode.', ''):gsub('UserInputType.', ''))
+						KeyText.Text = (__text)
+					Cfg.KeyName = __text
+				end;
+
+				Flags[Cfg.Flag] = {
+					Mode = Cfg.Mode,
+					Key = Cfg.Key, 
+					Active = Cfg.Active
+				};
 					
+				if Cfg.Name then 
+					KeybindElement.Visible = Cfg.Active
+
+					Library:Tween(0.185, KeybindElement, {TextTransparency = Cfg.Active and 0 or 1, }) 
+					Library:Tween(0.185, KeybindElement:FindFirstChildOfClass('UIStroke'), { Transparency = Cfg.Active and 0 or 1, }) 
+
+					local text = Tostring(Cfg.Key) ~= 'Enums' and (Keys[Cfg.Key] or Tostring(Cfg.Key):gsub('Enum.', '')) or nil
+					local __text = text and (Tostring(text):gsub('KeyCode.', ''):gsub('UserInputType.', ''))
+
 					if Cfg.Name then 
-						KeybindElement.Visible = Cfg.Active
+						KeybindElement.Text = '[' .. UpperString(SubString(Cfg.Mode, 1, 1)) .. SubString(Cfg.Mode, 2) .. '] ' .. Cfg.Name .. ' - ' .. __text
+					end;
+				end;
+			end;
 
-						Library:Tween(0.185, KeybindElement, {TextTransparency = Cfg.Active and 0 or 1, }) 
+			ButtonHold.MouseButton1Click:Connect(function()
+				Cfg.SetMode('Hold')
+				Cfg.SetVisible(false)
+				Cfg.Open = false
+			end);
 
-						Library:Tween(0.185, KeybindElement:FindFirstChildOfClass('UIStroke'), { Transparency = Cfg.Active and 0 or 1, }) 
-						
-						local text = Tostring(Cfg.Key) ~= 'Enums' and (Keys[Cfg.Key] or Tostring(Cfg.Key):gsub('Enum.', '')) or nil
-						local __text = text and (Tostring(text):gsub('KeyCode.', ''):gsub('UserInputType.', ''))
+			ButtonToggle.MouseButton1Click:Connect(function()
+				Cfg.SetMode('Toggle')
+				Cfg.SetVisible(false)
+				Cfg.Open = false
+			end);
 
-						if Cfg.Name then 
-							KeybindElement.Text = '[' .. UpperString(SubString(Cfg.Mode, 1, 1)) .. SubString(Cfg.Mode, 2) .. '] ' .. Cfg.Name .. ' - ' .. __text
-						end
-					end
-				end
+			ButtonAlways.MouseButton1Click:Connect(function()
+				Cfg.SetMode('Always')
+				Cfg.SetVisible(false)
+				Cfg.Open = false 
+			end);
 
+			ElementOutline.MouseButton2Click:Connect(function()
+				Cfg.Open = not Cfg.Open;
+				Cfg.SetVisible(Cfg.Open)
+			end);
 
-				ButtonHold.MouseButton1Click:Connect(function()
-					Cfg.SetMode('Hold')
-					Cfg.SetVisible(false)
-					Cfg.Open = false 
-				end) 
+			ElementOutline.MouseButton1Down:Connect(function()
+				Wait()
+				KeyText.Text = 'none'	
 
-				ButtonToggle.MouseButton1Click:Connect(function()
-					Cfg.SetMode('Toggle')
-					Cfg.SetVisible(false)
-					Cfg.Open = false 
-				end) 
+				if Cfg.Binding then return end;
 
-				ButtonAlways.MouseButton1Click:Connect(function()
-					Cfg.SetMode('Always')
-					Cfg.SetVisible(false)
-					Cfg.Open = false 
-				end) 
-				
-				ElementOutline.MouseButton2Click:Connect(function()
-					Cfg.Open = not Cfg.Open 
-
-					Cfg.SetVisible(Cfg.Open)
-				end)
-
-				ElementOutline.MouseButton1Down:Connect(function()
-					Wait()
-					KeyText.Text = 'none'	
-
-					if Cfg.Binding then return end 
-
-					Cfg.Binding = Library:Connection(InputService.InputBegan, function(Input, GameEvent)
-						local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
-
-						Cfg.Set(SelectedKey)
-
-						Cfg.Binding:Disconnect() 
-						Cfg.Binding = nil
-					end)
-				end)
-
-				Library:Connection(InputService.InputBegan, function(Input, GameEvent) 
+				Cfg.Binding = Library:Connection(InputService.InputBegan, function(Input, GameEvent)
 					local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
 
-					if not GameEvent then 
-						if SelectedKey == Cfg.Key then 
-							if Cfg.Mode == 'Toggle' then 
-								Cfg.Active = not Cfg.Active
-								Cfg.Set(Cfg.Active)
-							elseif Cfg.Mode == 'Hold' then 
-								Cfg.Set(true)
-							end
-						end
-					end
-				end)
+					Cfg.Set(SelectedKey)
 
-				Library:Connection(InputService.InputEnded, function(Input, GameEvent) 
-					if GameEvent then 
-						return 
-					end 
+					Cfg.Binding:Disconnect() 
+					Cfg.Binding = nil
+				end);
+			end);
 
-					local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
+			Library:Connection(InputService.InputBegan, function(Input, GameEvent) 
+				local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
+
+				if not GameEvent then 
+					if SelectedKey == Cfg.Key then 
+						if Cfg.Mode == 'Toggle' then 
+							Cfg.Active = not Cfg.Active
+							Cfg.Set(Cfg.Active)
+						elseif Cfg.Mode == 'Hold' then 
+							Cfg.Set(true)
+						end;
+					end;
+				end;
+			end);
+
+			Library:Connection(InputService.InputEnded, function(Input, GameEvent) 
+				if GameEvent then 
+					return 
+				end;
+
+				local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
 		
-					if SelectedKey == Cfg.Key then
-						if Cfg.Mode == 'Hold' then 
-							Cfg.Set(false)
-						end
-					end
-				end)
+				if SelectedKey == Cfg.Key then
+					if Cfg.Mode == 'Hold' then 
+						Cfg.Set(false)
+					end;
+				end;
+			end);
 		
-				Cfg.Set({Mode = Cfg.Mode, Active = Cfg.Active, Key = Cfg.Key})
+			Cfg.Set({Mode = Cfg.Mode, Active = Cfg.Active, Key = Cfg.Key})
 		
-				Library.ConfigFlags[Cfg.Flag] = Cfg.Set
-			--// 
-			
 			Library.ConfigFlags[Cfg.Flag] = Cfg.Set
 
-			return setmetatable(Cfg, Library) 
-		end 
+			return setmetatable(Cfg, Library)
+		end;
 
 		function Library:Dropdown(Options)
 			local Parent = self.Holder 
@@ -5309,7 +5190,7 @@ end
 						Name = 'List',
 						SortOrder = Enum.SortOrder.LayoutOrder
 					});
-				end; 
+				end;
 
 				local BottomComponents = Library:Create('Frame', {
 					Parent = DropdownREAL,
@@ -5499,7 +5380,7 @@ end
 					});
 					Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
 					Library:ApplyTheme(Background, 'Accent', 'ScrollBarImageColor3')
-				end; 
+				end;
 				
 				local Contrast = Library:Create('Frame', {
 					Parent = Background,
@@ -5553,8 +5434,8 @@ end
 				DropdownREAL.Visible = Boolean 
 				if MainText then
 					MainText.Visible = Boolean
-				end; 
-			end; 
+				end;
+			end;
 
 			function Cfg.SetVisible(Boolean) 
 				Library.CurrentElementOpened = Cfg.Ignore or Cfg
@@ -5650,7 +5531,7 @@ end
 
 							Cfg.Set(TextButton.Text)
 						end;
-					end)
+					end);
 				end;
 			end;
 
@@ -5658,7 +5539,7 @@ end
 				Cfg.Open = not Cfg.Open 
 
 				Cfg.SetVisible(Cfg.Open)
-			end)
+			end);
 
 			Cfg:RefreshOptions(Cfg.Items) 
 
@@ -5670,11 +5551,11 @@ end
 			Cfg.SetElementVisible(Cfg.Visible)
 
 			return Setmetatable(Cfg, Library)
-		end; 
+		end;
 
 		function Library:List(Options)
 			local Cfg = {
-				Callback = (Options and Options.Callback or function() end), 
+				Callback = (Options and Options.Callback or function() end); 
 
 				Scale = Options.Size or 232, 
 				Items = Options.Items or {'1', '2', '3'}, 
@@ -5848,7 +5729,7 @@ end
 				});
 
 				return TextButton 
-			end; 
+			end;
 
 			function Cfg.SetElementVisible(Boolean)
 				ListHolder.Visible = Boolean 
@@ -5857,11 +5738,11 @@ end
 			function Cfg.RefreshOptions(Options) 
 				if type(Options) == 'function' then
 					return 
-				end; 
+				end;
 
 				for _, v in next, Cfg.OptionInstances do 
 					v:Destroy() 
-				end; 
+				end;
 
 				for _, Option in next, Options do 
 					local Button = Cfg.RenderOption(Option) 
@@ -5871,7 +5752,7 @@ end
 					Button.MouseButton1Click:Connect(function()
 						if (Cfg.CurrentInstance and Cfg.CurrentInstance ~= Button) then
 							Cfg.CurrentInstance.TextColor3 = Themes.Preset.Text 
-						end; 
+						end;
 
 						Cfg.CurrentInstance = Button 
 						Button.TextColor3 = Themes.Preset.Accent 
@@ -5879,8 +5760,8 @@ end
 						Flags[Cfg.Flag] = Button.Text
 						
 						Cfg.Callback(Button.Text)
-					end)
-				end; 
+					end);
+				end;
 			end;
 
 			function Cfg.FilterOptions(Text)
@@ -5891,7 +5772,7 @@ end
 						v.Visible = false
 					end;
 				end;
-			end; 
+			end;
 
 			function Cfg.Set(Value)
 				for _, Buttons in next, Cfg.OptionInstances do 
@@ -5899,12 +5780,12 @@ end
 						Buttons.TextColor3 = Themes.Preset.Accent 
 					else 
 						Buttons.TextColor3 = Themes.Preset.Text 
-					end; 
-				end; 
+					end;
+				end;
 
 				Flags[Cfg.Flag] = Value
 				Cfg.Callback(Value)
-			end; 
+			end;
 
 			Cfg.RefreshOptions(Cfg.Items) 
 			Cfg.SetElementVisible(Cfg.Visible)
@@ -5913,7 +5794,7 @@ end
 			Library.ConfigFlags[Cfg.Flag] = Cfg.Set
 
 			return Setmetatable(Cfg, Library)
-		end; 
+		end;
 
 		function Library:Textbox(Options)
 			local Cfg = {
@@ -6054,7 +5935,7 @@ end
 				TextBox:GetPropertyChangedSignal('Text'):Connect(function()
 					Flags[Cfg.Flag] = TextBox.Text
 					Cfg.Callback(TextBox.Text)
-				end)
+				end);
 			--// 
 
 			function Cfg.SetElementVisible(Boolean)
@@ -6065,11 +5946,11 @@ end
 				Flags[Cfg.Flag] = Text
 				TextBox.Text = Text
 				Cfg.Callback(Text)
-			end; 
+			end;
 
 			if Cfg.Default then
 				Cfg.Set(Cfg.Default) 
-			end; 
+			end;
 
 			Cfg.SetElementVisible(Cfg.Visible)
 
@@ -6077,7 +5958,7 @@ end
 			Library.VisibleFlags[Cfg.Flag] = Cfg.SetElementVisible
 
 			return Setmetatable(Cfg, Library) 
-		end; 
+		end;
 
 		function Library:ButtonHolder(Options) 
 			local Cfg = {
@@ -6130,7 +6011,7 @@ end
 			Library.VisibleFlags[Cfg.Flag] = Cfg.SetElementVisible
 
 			return Setmetatable(Cfg, Library)
-		end; 
+		end;
 
 		function Library:Button(Options)
 			local Cfg = {
@@ -6233,10 +6114,10 @@ end
 
 			Button.MouseButton1Click:Connect(function()
 				Cfg.Callback() 
-			end)
+			end);
 
 			return Setmetatable(Cfg, Library)
-		end; 
+		end;
 
 		function Library:Label(Options)
 			local Cfg = {Name = Options.Text or Options.Name or 'Label'}
@@ -6318,10 +6199,10 @@ end
 
 			function Cfg.Set(Text) 
 				TextLabel.Text = Text 
-			end; 
+			end;
 						
 			return Setmetatable(Cfg, Library)
-		end; 
+		end;
 
 		function Library:Playerlist(Options) 
 			local Cfg = {
@@ -6609,7 +6490,7 @@ end
 				TextButton.MouseButton1Click:Connect(function()
 					if PlayerName == Client.Name then
 						return 
-					end; 
+					end;
 
 					if SelectedButton then
 						SelectedButton.TextColor3 = Themes.Preset.Text 
@@ -6634,10 +6515,10 @@ end
 						Cfg.Labels.Display.Set('DisplayName: ' .. Players[PlayerName.Text].DisplayName)
 						Cfg.Labels.Uid.Set('User Id: ' .. Players[PlayerName.Text].UserId)
 					end;
-				end)
+				end);
 
 				return Path 
-			end; 
+			end;
 
 			function Cfg.Search(Text)
 				for _, Player in next, Players:GetPlayers() do 
@@ -6648,35 +6529,35 @@ end
 						local sanity = LowerString(Name):match(LowerString(Text)) and true or false
 						Path.Instance.Visible = sanity
 						Path.Line.Visible = sanity
-					end; 
-				end; 
-			end; 
+					end;
+				end;
+			end;
 
 			function Cfg.RemovePlayer(Player) 
 				local Path = Library.PlayerlistData[Tostring(Player)]
 				Path.Instance:Destroy() 
 				Path.Line:Destroy() 
 				Path = nil 
-			end; 
+			end;
 
 			function Library.Prioritize(Text) 
 				if not Library.SelectedPlayer then
 					return 
-				end; 
+				end;
 
 				local Path = Library.PlayerlistData[Library.SelectedPlayer]
 				Path.PriorityText.Text = Text
 				Path.PriorityText.TextColor3 = Patterns[Text]
 				Path.Priority = Text
-			end; 
+			end;
 
 			function Library.GetPriority(Player) 
 				local Path = Library.PlayerlistData[Tostring(Player)]
 
 				if Path then
 					return Path.Priority
-				end; 
-			end; 
+				end;
+			end;
 
 			Players.PlayerAdded:Connect(Cfg.CreatePlayer)
 			Players.PlayerRemoving:Connect(Cfg.RemovePlayer)
@@ -6684,7 +6565,7 @@ end
 			for _, Player in Players:GetPlayers() do 
 				local PlayerObject = Cfg.CreatePlayer(Player.Name)
 				InsertTable(Library.PlayerlistData, PlayerObject)
-			end; 
+			end;
 
 			self:Textbox({Name = 'Search', Callback = function(Value)
 				Cfg.Search(Value)
