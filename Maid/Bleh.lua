@@ -78,8 +78,9 @@ local Spawn = clonefunction(task.spawn);
 local Date = clonefunction(os.date);
 local Tostring = clonefunction(tostring);
 local Typeof = clonefunction(typeof);
-local GetFpsCap = clonefunction(getfpscap);
 local NewInst = clonefunction(Instance.new);
+local Setmetatable = clonefunction(setmetatable)
+local GetFpsCap = getgenv().getfpscap;
 local Hui = gethui();
 --]]
 
