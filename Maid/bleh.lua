@@ -596,7 +596,7 @@ local Hui = gethui();
 	--// 
 
 	--// Elements
-        shared.Elem = Library:Create('GuiMain', {Enabled = true, Parent = Hui, Name = '', DisplayOrder = 1});
+        local Elem = Library:Create('GuiMain', {Enabled = true, Parent = Hui, Name = '', DisplayOrder = 1});
 		local TooltipsGui = Library:Create('GuiMain', {
 			Enabled = true,
 			Parent = Hui,
@@ -907,7 +907,7 @@ local Hui = gethui();
 			local Cfg = { Items = {} };
 			local Items = Cfg.Items;do 
 				Items.Window = Library:Create('Frame' , {
-					Parent = shared.Elem;
+					Parent = Elem;
 					Name = '\0';
 					Position = Dim2(0, Center.X - 722, 0, 542); --530);
 					BorderColor3 = FromRgb(0, 0, 0);
@@ -1224,7 +1224,7 @@ local Hui = gethui();
 			local Cfg = { Items = {}; }
 			local Items = Cfg.Items; do
 				Items.Window = Library:Create('Frame', {
-					Parent = shared.Elem;
+					Parent = Elem;
 					Name = '\0';
 					Position = Dim2(0, Center.X - 98, 0, 725);
 					BorderColor3 = FromRgb(0, 0, 0);
@@ -1490,7 +1490,7 @@ local Hui = gethui();
 			local Cfg = { Items = {}; }
 			local Items = Cfg.Items; do
 				Items.Window = Library:Create('Frame', {
-					Parent = shared.Elem;
+					Parent = Elem;
 					Name = '\0';
 					--15
 					Position = Dim2(0, Center.X + 510, 0, 561);
@@ -1718,7 +1718,7 @@ local Hui = gethui();
 			};
 			local Items = Cfg.Items; do
 				Items.Window = Library:Create('Frame', {
-					Parent = shared.Elem;
+					Parent = Elem;
 					Name = '\0';
 					Position = Dim2(0, Center.X - 874, 0, 542);
 					BorderColor3 = FromRgb(0, 0, 0);
@@ -6390,12 +6390,6 @@ local Hui = gethui();
 					PlayerName.TextColor3 = Themes.Preset.Accent 
 
 					Library.SelectedPlayer = PlayerName.Text
-
-					if Library.SelectedPlayer ~= nil then
-						shared.SelectedPlayer = Library.SelectedPlayer
-					else
-						shared.SelectedPlayer = 'No one'
-					end;
 
 					Library.ConfigFlags['PlayerlistDropdown'](Path.PriorityText.Text)
 
