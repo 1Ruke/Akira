@@ -6424,7 +6424,7 @@ local Hui = gethui();
 			end;
 
 			function Library.Prioritize(Text) 
-				if not Library.SelectedPlayer then
+				if not Library.SelectedPlayer or Library.PlayerlistData then
 					return 
 				end;
 
