@@ -1,149 +1,72 @@
 --// Akira
 
 --// UserData
-
 --// Variables
 local InputService = cloneref(UserSettings().GetService(game, 'UserInputService'));
-local Players = cloneref(UserSettings().GetService(game, 'Players'));
-local Workspace = cloneref(UserSettings().GetService(game, 'Workspace'));
-local HttpService = cloneref(UserSettings().GetService(game, 'HttpService'));
-local GuiService = cloneref(UserSettings().GetService(game, 'GuiService'));
-local CoreGui = cloneref(UserSettings().GetService(game, 'CoreGui'));
-local Lighting = cloneref(UserSettings().GetService(game, 'Lighting'));
-local RunService = cloneref(UserSettings().GetService(game, 'RunService'));
-local TeleportService = cloneref(UserSettings().GetService(game, 'TeleportService'));
 local TweenService = cloneref(UserSettings().GetService(game, 'TweenService'));
-local ReplicatedStorage = cloneref(UserSettings().GetService(game, 'ReplicatedStorage'));
+local HttpService = cloneref(UserSettings().GetService(game, 'HttpService'));
+local RunService = cloneref(UserSettings().GetService(game, 'RunService'));
+local Workspace = cloneref(UserSettings().GetService(game, 'Workspace'));
+local Lighting = cloneref(UserSettings().GetService(game, 'Lighting'));
+local Players = cloneref(UserSettings().GetService(game, 'Players'));
 
 --// Matrix
-local NewVect2 = clonefunction(Vector2.new);
-local NewVect3 = clonefunction(Vector3.new);
-local NewCF = clonefunction(CFrame.new);
-local CFLook = clonefunction(CFrame.lookAt);
-local NewAnglesCF = clonefunction(CFrame.Angles);
+local NewVect2 = (Vector2.new);
+local NewVect3 = (Vector3.new);
 
-local Dim2 = clonefunction(UDim2.new);
-local NewDim = clonefunction(UDim.new);
-local NewRect = clonefunction(Rect.new);
-local DimOffset = clonefunction(UDim2.fromOffset);
+local NewAnglesCF = (CFrame.Angles);
+local NewCF = (CFrame.new);
 
+local Dim2 = (UDim2.new);
+local NewDim = (UDim.new);
 --]]
 
 --// Colors
-local NewColor = clonefunction(Color3.new);
-local FromRgb = clonefunction(Color3.fromRGB);
-local FromHex = clonefunction(Color3.fromHex);
-local FromHsv = clonefunction(Color3.fromHSV)
+local FromRgb = (Color3.fromRGB);
+local FromHex = (Color3.fromHex);
+local FromHsv = (Color3.fromHSV)
 
-local ColorSeq = clonefunction(ColorSequence.new);
-local ColorKey = clonefunction(ColorSequenceKeypoint.new);
-local NumSeq = clonefunction(NumberSequence.new);
-local NumKey = clonefunction(NumberSequenceKeypoint.new);
+local ColorKey = (ColorSequenceKeypoint.new);
+local ColorSeq = (ColorSequence.new);
 
+local NumKey = (NumberSequenceKeypoint.new);
+local NumSeq = (NumberSequence.new);
 --]]
 
 --// Client
 local Camera = cloneref(Workspace.CurrentCamera);
 local Client = cloneref(Players.LocalPlayer);
-local Character = cloneref(Client.Character);
 local Center = (Camera.ViewportSize / 2);
 --]]
 
-local Mouse = cloneref(Client:GetMouse())
-local GuiOffset = GuiService:GetGuiInset().Y
+local Mouse = cloneref(Client:GetMouse());
+local GuiOffset = (cloneref(UserSettings().GetService(game, 'GuiService')):GetGuiInset().Y);
 
 --// Math / Numbers
-local Max = clonefunction(math.max);
-local Floor = clonefunction(math.floor);
-local Min = clonefunction(math.min);
-local Abs = clonefunction(math.abs);
-local Random = clonefunction(math.random);
-local Round = clonefunction(math.round);
-local Clamp = clonefunction(math.clamp);
-local Rad = clonefunction(math.rad);
-local Sin = clonefunction(math.sin)
-local Pi = (math.pi);
-local Huge = (math.huge);
+local Clamp = (math.clamp);
+local Floor = (math.floor);
+local Abs = (math.abs);
+local Rad = (math.rad);
+local Sin = (math.sin);
+--]]
 
 --// Table
-local InsertTable = clonefunction(table.insert);
-local RemoveTable = clonefunction(table.remove);
-local FindTable = clonefunction(table.find);
-local CloneTable = clonefunction(table.clone)
-local ConcatTable = clonefunction(table.concat);
-local ForeachTable = clonefunction(table.foreach);
---]]
-
---// Garbage Collection
-local GetGc = clonefunction(getgc)
-local Rawget = clonefunction(rawget)
-local Rawset = clonefunction(rawset)
-
---]]
-
---// Meta
-local Getrawmetatable = clonefunction(getrawmetatable)
-local Setrawmetatable = clonefunction(setrawmetatable)
-local Getmetatable = clonefunction(getmetatable)
-local Setmetatable = clonefunction(setmetatable)
-local Setreadonly = clonefunction(setreadonly)
-
+local InsertTable = (table.insert);
+local RemoveTable = (table.remove);
+local ConcatTable = (table.concat);
+local FindTable = (table.find);
 --]]
 
 --// String
-local Reverse = clonefunction(string.reverse);
-local FindString = clonefunction(string.find);
-local LowerString = clonefunction(string.lower);
-local UpperString = clonefunction(string.upper);
-local SubString = clonefunction(string.sub);
-local FormatString = clonefunction(string.format);
+local FormatString = (string.format);
+local SubString = (string.sub);
 --]]
 
 --// Misc
-local NewFont = clonefunction(Font.new);
-local Wait = clonefunction(task.wait);
-local Spawn = clonefunction(task.spawn);
-local Date = clonefunction(os.date);
-local InPairs = clonefunction(ipairs);
-local Tostring = clonefunction(tostring);
-local ToNum = clonefunction(tonumber);
-local Typeof = clonefunction(typeof);
-local GetTick = clonefunction(tick)();
-local GetFpsCap = clonefunction(getfpscap);
-local GetExecutor = clonefunction(identifyexecutor)();
-local NewInst = clonefunction(Instance.new);
-local Hui = gethui();
-local Getstack, Setstack, Info, Getinfo = debug.getstack, debug.setstack, debug.info, debug.getinfo
---]]
-
---// Hooks
-local Replacefunction = nil
-
-if GetExecutor == 'Potassium' then
-	Replacefunction = clonefunction(replaceclosure)
-elseif GetExecutor == 'Swift' then
-	Replacefunction = clonefunction(replacefunction)
-end
-
-if (replacefunction) then
-	Replacefunction = clonefunction(replacefunction)
-elseif (replaceclosure) then
-	Replacefunction = clonefunction(replaceclosure)
-elseif (hookfunction) then
-	Replacefunction = clonefunction(hookfunction)
-end
-
---// Globals
-shared.MenuIsOpen = true;
-shared.SelectedPlayer = 'No one';
---]]
-
-
---// Tables
-local Console = {}
-
-function Console:Log(Message) clonefunction(print)(Message) end;
-function Console:Warn(Message) clonefunction(warn)(Message) end;
+local Setmetatable = clonefunction(setmetatable);
+local Tostring = (tostring);
+local Spawn = (task.spawn);
+local Wait = (task.wait);
 --]]
 
 --// Library init
@@ -158,7 +81,6 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		Notifications = {};
 		PlayerlistData = {};
 		Instances = {};
-		Drawings = {};
 		Binds = {};
 		CurrentTab;
 		CurrentElementOpen;
@@ -166,16 +88,16 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		OldConfig;
 		Font;
 		KeybindList;
-		CopiedFlag; 
+		CopiedFlag;
 		IsRainbow;
-		TextSize = 10,
-		DisplayOrderr = 0;
+		Tick = tick();
+		SelectedPlayer;
+		DisplayOrder = 0;
 	};
-
 	local Flags, ConfigFlags = Library.Flags, Library.ConfigFlags;
 
 	local Themes = {
-		Preset = {
+		Dracula = {
 			['Outline'] = FromRgb(0, 0, 0);
 			['Inline'] = FromRgb(60, 56, 77);
 			['Accent'] = FromRgb(154, 129, 179);
@@ -185,7 +107,18 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			['TextOutline'] = FromRgb(32, 33, 38);
 			['Glow'] = FromRgb(154, 129, 179);
 		};
-
+        
+        Atlanta = {
+            ["Outline"] = FromRgb(15, 2, 7),
+            ["Inline"] = FromRgb(38, 9, 21),
+            ["Accent"] = FromRgb(175, 50, 100),
+            ["LowContrast"] = FromRgb(30, 6, 16),
+            ["HighContrast"] = FromRgb(22, 4, 12),
+            ["Text"] = FromRgb(136, 136, 136),
+            ["TextOutline"] = FromRgb(0, 0, 0),
+            ["Glow"] = FromRgb(0, 0, 0),
+        };
+        
 		Utility = {
 			['Outline'] = {
 				['BackgroundColor3'] = {},
@@ -283,8 +216,10 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 	end;
 
 	local Holder, ConfigHolder;
-	-- Assets
+	if not Library then return end;
 
+	--// Assets
+	local HttpGet = clonefunction(game.HttpGet)
 	if isfile(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf') then delfile(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf') end;
 	if isfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf') then delfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf'); end;
 	if isfile(Library.Directory.. '/Assets/Images/Glow.Png') then delfile(Library.Directory.. '/Assets/Images/Glow.Png'); end;
@@ -295,142 +230,60 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 	if isfile(Library.Directory.. '/Assets/Images/Icon5.Png') then delfile(Library.Directory.. '/Assets/Images/Icon5.Png'); end;
 	if isfile(Library.Directory.. '/Assets/Images/White.Png') then delfile(Library.Directory.. '/Assets/Images/White.Png'); end;
 
-	
-	writefile(Library.Directory.. '/Assets/Fonts/Proggy.ttf', game.HttpGet(game, 'https://github.com/1Ruke/Akira/raw/refs/heads/main/Assets/Fonts/ProggyClean.ttf'));
-	writefile(Library.Directory.. '/Assets/Images/Glow.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Glow.png'));
-	writefile(Library.Directory.. '/Assets/Images/Icon1.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon1.png'));
-	writefile(Library.Directory.. '/Assets/Images/Icon2.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon2.png'));
-	writefile(Library.Directory.. '/Assets/Images/Icon3.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon3.png'));
-	writefile(Library.Directory.. '/Assets/Images/Icon4.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon4.png'));
-	writefile(Library.Directory.. '/Assets/Images/Icon5.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon5.png'));
-	writefile(Library.Directory.. '/Assets/Images/White.Png', game.HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/White.png'));
+	writefile(Library.Directory.. '/Assets/Fonts/Proggy.ttf', HttpGet(game, 'https://github.com/1Ruke/Akira/raw/refs/heads/main/Assets/Fonts/ProggyClean.ttf'));
+	writefile(Library.Directory.. '/Assets/Images/Glow.Png', HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Glow.png'));
+	writefile(Library.Directory.. '/Assets/Images/Icon1.Png', HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon1.png'));
+	writefile(Library.Directory.. '/Assets/Images/Icon2.Png', HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon2.png'));
+	writefile(Library.Directory.. '/Assets/Images/Icon3.Png', HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon3.png'));
+	writefile(Library.Directory.. '/Assets/Images/Icon4.Png', HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon4.png'));
+	writefile(Library.Directory.. '/Assets/Images/Icon5.Png', HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/Icon5.png'));
+	writefile(Library.Directory.. '/Assets/Images/White.Png', HttpGet(game, 'https://raw.githubusercontent.com/1Ruke/Akira/refs/heads/main/Assets/Images/White.png'));
 
-	if isfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf') then Holder = {Name = 'Proggy', faces = {{Name = 'Regular', Weight = 400, Style = 'Normal', assetId = getcustomasset(Library.Directory.. '/Assets/Fonts/Proggy.ttf')}}}; end
+	if isfile(Library.Directory.. '/Assets/Fonts/Proggy.ttf') then Holder = {Name = 'Proggy', faces = {{Name = 'Regular', Weight = 400, Style = 'Normal', assetId = getcustomasset(Library.Directory.. '/Assets/Fonts/Proggy.ttf')}}}; end;
 	writefile(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf', HttpService:JSONEncode(Holder));
-	Library.Font = NewFont(getcustomasset(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf'), Enum.FontWeight.Regular);
+	Library.Font = Font.new(getcustomasset(Library.Directory.. '/Assets/Fonts/HolderProggy.ttf'), Enum.FontWeight.Regular);
 	--]]
 
 	--// Library Functions
 
-	function Library:ApplyTheme(Instance, Theme, Property)
-		pcall(function()
-			if (Theme and Property and Instance) then
-				InsertTable(Themes.Utility[Theme][Property], Instance)
-			end;
-		end);
-	end;
-		
-	function Library:IsDifferent(Value1, Value2)
-		if Typeof(Value1) ~= Typeof(Value2) then return true end;
-		local Type = Typeof(Value1)
-
-		if Type == 'Color3' then
-			return (Value1.R ~= Value2.R or Value1.G ~= Value2.G or Value1.B ~= Value2.B)
-		elseif Type == 'UDim2' then
-			return ((Value1.X.Scale ~= Value2.X.Scale or Value1.X.Offset ~= Value2.X.Offset) or (Value1.Y.Scale ~= Value2.Y.Scale or Value1.Y.Offset ~= Value2.Y.Offset))
-		elseif Type == 'Vector2' then
-			return Value1.X ~= Value2.X or Value1.Y ~= Value2.Y
-		elseif Type == 'Vector3' then
-			return Value1.X ~= Value2.X or Value1.Y ~= Value2.Y or Value1.Z ~= Value2.Z
-		elseif Type == 'CFrame' then
-			return (Value1.Position ~= Value2.Position or (Value1.XVector ~= Value2.XVector) or (Value1.YVector ~= Value2.YVector) or (Value1.ZVector ~= Value2.ZVector))
-		elseif (Type == 'Font' or Type == 'FontFace' or Type == 'ColorSequence') then
-			return (Tostring(Value1) ~= Tostring(Value2))
-		else
-			return (Value1 ~= Value2)
-		end;
+	function Library:ApplyTheme(Obj, Theme, Property)
+		if not (Obj or Theme or Property) then return end;
+		InsertTable(Themes.Utility[Theme][Property], Obj)
 	end;
 
-	function Library:CompareVars(Obj1, Obj2, ExpectedType)
-		if Obj1 == nil or Obj2 == nil then return false end;
-
-		if ExpectedType then
-			local Type1, Type2 = Typeof(Obj1), Typeof(Obj2)
-			local Expected = LowerString(ExpectedType)
-
-			if LowerString(Type1) ~= Expected or LowerString(Type2) ~= Expected then
-				Console:Log(FormatString('Type check failed: got %s and %s, expected %s', Type1, Type2, ExpectedType))
-				Console:Warn(debug.traceback())
-				return false 
-			end;
-		end;
-
-		if Typeof(Obj2) == 'string' and Typeof(Obj1) ~= 'string' then
-			Obj2 = Tostring(Obj2)
-		end;
-
-		return Library:IsDifferent(Obj1, Obj2)
-	end;
-
-	function Library:CheckDiff(Item, Property, NewValue)
-		if (not Item or Typeof(Item) ~= 'Instance') then return end;
-		if (Property == 'Text' and Typeof(NewValue) ~= 'string') then NewValue = Tostring(NewValue) end;
-		local OldValue = Item[Property]
-
-		if self:IsDifferent(OldValue, NewValue) then
-			pcall(function() Item[Property] = NewValue end);
-		end;
-	end;
-
-	function Library:UpdateFont(TextSize)
-		self.TextSize = TextSize
-
-		for _, Property in next, Themes.Utility.Text do
-			for _, Obj in next, Property do
-				if Obj:IsA('TextLabel') or Obj:IsA('TextButton') or Obj:IsA('TextBox') then
-					self:CheckDiff(Obj, 'TextSize', TextSize)
-				end;
-			end;
-		end;
-
-		for _, Gui in next, self.Guis do
-			for _, Obj in next, Gui:GetDescendants() do
-				if Obj:IsA('TextLabel') or Obj:IsA('TextButton') or Obj:IsA('TextBox') then
-					self:CheckDiff(Obj, 'TextSize', TextSize)
-				end;
-			end;
-		end;
-	end;
-
-	function Library:ToHex(Color: Color3)
-    	return Color3.toHex(Color)
-	end;
-	 
 	function Library:UpdateTheme(Theme, Color)
-		if not (Themes.Utility[Theme]) then
-			return
-		else
-			for _, Property in next, Themes.Utility[Theme] do 
-				for m, Object in next, Property do 
-					if Object[_] == Themes.Preset[Theme] or Object.ClassName == 'UIGradient' then
-						Object[_] = Color 
-					end;
+		if not (Themes.Utility[Theme]) then return end;
+		for _, Property in next, Themes.Utility[Theme] do 
+			for m, Object in next, Property do 
+				if Object[_] == Themes.Dracula[Theme] or Object.ClassName == 'UIGradient' then
+					Object[_] = Color 
 				end;
 			end;
-			Themes.Preset[Theme] = Color 
 		end;
+		Themes.Dracula[Theme] = Color 
 	end;
 
 	--// Misc Functions
 		function Library:Hover(Hover, Parent)
+			if not (Hover or Parent) then return end;
 			local HoverInstance = Library:Create('Frame', {
 				Parent = Parent,
 				BackgroundTransparency = 1,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, 0, 1, 0),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Accent,
+				BackgroundColor3 = Themes.Dracula.Accent,
 				ZIndex = 1;
 			});
 			Library:ApplyTheme(HoverInstance, 'Accent', 'BackgroundColor3')
 
 			Hover.MouseEnter:Connect(function()
-				Library:Tween(0.185, HoverInstance, {BackgroundTransparency = 0});
-			end);
+				Library:Tween(HoverInstance, {BackgroundTransparency = 0}, 0.185);
+			end)
 			
 			Hover.MouseLeave:Connect(function()
-				Library:Tween(0.185, HoverInstance, {BackgroundTransparency = 1});
-			end);
+				Library:Tween(HoverInstance, {BackgroundTransparency = 1}, 0.185);
+			end)
 
 			return HoverInstance;
 		end;
@@ -446,15 +299,15 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					end;
 				end;
 			else 
-				local YCond = Object.AbsolutePosition.Y <= Mouse.Y and Mouse.Y <= Object.AbsolutePosition.Y + Object.AbsoluteSize.Y
-				local XCond = Object.AbsolutePosition.X <= Mouse.X and Mouse.X <= Object.AbsolutePosition.X + Object.AbsoluteSize.X
+				local YCond, XCond = Object.AbsolutePosition.Y <= Mouse.Y and Mouse.Y <= Object.AbsolutePosition.Y + Object.AbsoluteSize.Y, Object.AbsolutePosition.X <= Mouse.X and Mouse.X <= Object.AbsolutePosition.X + Object.AbsoluteSize.X
 				
 				return (YCond and XCond)
 			end;
 		end;
 
 		function Library:Resizeable(Frame)
-			local ResizePart = NewInst('TextButton')
+			if not Frame then return end;
+			local ResizePart = Instance.new('TextButton')
 			ResizePart.Position = Dim2(1, -10, 1, -10)
 			ResizePart.BorderColor3 = FromRgb(0, 0, 0)
 			ResizePart.Size = Dim2(0, 10, 0, 10)
@@ -464,9 +317,8 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			ResizePart.BackgroundTransparency = 1
 			ResizePart.Text = ''
 
-			local Resizing = false;
 			local Start, StartSize;
-			local OgSize = Frame.Size;
+			local Resizing, OldSize = false, Frame.Size;
 
 			ResizePart.InputBegan:Connect(function(Input)
 				if Input.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -474,75 +326,66 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Start = Input.Position
 					StartSize = Frame.Size
 				end;
-			end);
+			end)
 
 			ResizePart.InputEnded:Connect(function(Input)
-				if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+				if (Input.UserInputType == Enum.UserInputType.MouseButton1) then
 					Resizing = false
 				end;
-			end);
+			end)
 
 			Library:Connection(InputService.InputChanged, function(Input, GameEvent)
-				if Resizing and Input.UserInputType == Enum.UserInputType.MouseMovement then
-					local ViewportX = Camera.ViewportSize.X
-					local ViewportY = Camera.ViewportSize.Y
-					local CurrentSize = Dim2(StartSize.X.Scale, Clamp(StartSize.X.Offset + (Input.Position.X - Start.X), OgSize.X.Offset, ViewportX), StartSize.Y.Scale, Clamp( StartSize.Y.Offset + (Input.Position.Y - Start.Y), OgSize.Y.Offset, ViewportY))
+				if (Resizing and Input.UserInputType == Enum.UserInputType.MouseMovement) then
+					local CurrentSize = Dim2(StartSize.X.Scale, Clamp(StartSize.X.Offset + (Input.Position.X - Start.X), OldSize.X.Offset, Camera.ViewportSize.X), StartSize.Y.Scale, Clamp( StartSize.Y.Offset + (Input.Position.Y - Start.Y), OldSize.Y.Offset, Camera.ViewportSize.Y))
 					Frame.Size = CurrentSize
 				end;
-			end);
+			end)
 		end;
 
 		function Library:DragThing(Frame)
-			local Dragging = false 
-			local StartSize = Frame.Position
+			local Dragging, StartSize = false, Frame.Position
 			local Start
 
 			Frame.InputBegan:Connect(function(Input)
 				if Input.UserInputType == Enum.UserInputType.MouseButton1 then
 					Dragging = true
-					Start = Input.Position
-					StartSize = Frame.Position
-
+					Start, StartSize = Input.Position, Frame.Position
+			
 					if Library.CurrentElementOpened then
 						Library.CurrentElementOpened.SetVisible(false)
 						Library.CurrentElementOpened.Open = false
 						Library.CurrentElementOpened = nil
 					end;
 
-					if Frame.Parent:IsA('GuiMain') and Frame.Parent.DisplayOrder ~= (2^31-1) then
-						Library.DisplayOrderr += 1 --// shit code
-						Frame.Parent.DisplayOrder = Library.DisplayOrderr;
+					if (Frame.Parent:IsA('GuiMain') and Frame.Parent.DisplayOrder ~= (2^31-1)) then
+						Library.DisplayOrder += 1 --// shit code
+						Frame.Parent.DisplayOrder = Library.DisplayOrder;
 					elseif Frame.Parent.DisplayOrder < (2^31-1) then
-						Library.DisplayOrderr = 0
+						Library.DisplayOrder = 0
 					end;
 				end;
-			end);
+			end)
 
 			Frame.InputEnded:Connect(function(Input)
 				if Input.UserInputType == Enum.UserInputType.MouseButton1 then
 					Dragging = false
 				end;
-			end);
+			end)
 
 			Library:Connection(InputService.InputChanged, function(Input, GameEvent)
 				if Dragging and Input.UserInputType == Enum.UserInputType.MouseMovement then
-					local ViewportX = Camera.ViewportSize.X
-					local ViewportY = Camera.ViewportSize.Y
-
-					Frame.Position = Dim2(0, Clamp(StartSize.X.Offset + (Input.Position.X - Start.X), 0, ViewportX - Frame.Size.X.Offset ), 0, Clamp(StartSize.Y.Offset + (Input.Position.Y - Start.Y), 0, ViewportY - Frame.Size.Y.Offset))
+					Frame.Position = Dim2(0, Clamp(StartSize.X.Offset + (Input.Position.X - Start.X), 0, Camera.ViewportSize.X - Frame.Size.X.Offset ), 0, Clamp(StartSize.Y.Offset + (Input.Position.Y - Start.Y), 0, Camera.ViewportSize.Y - Frame.Size.Y.Offset))
 				end;
-			end);
+			end)
 		end;
 		
-		function Library:NewItem(Class, Properties)
-			local Inst = NewInst(Class)
-
+		function Library:Create(Class, Properties)
+			local Inst = Instance.new(Class);
 			for _, v in next, Properties do 
 				Inst[_] = v
 			end;
 
 			InsertTable(Library.Instances, Inst)
-
 			return Inst 
 		end;
 
@@ -563,7 +406,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			return EnumTable
 		end;
 
-		function Library:Tween(Time, Obj, Properties)
+		function Library:Tween(Obj, Properties, Time)
 			local Tween = TweenService:Create(Obj, TweenInfo.new(Time, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut, 0, false, 0), Properties):Play()
 			return Tween
 		end;
@@ -580,7 +423,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			ConfigHolder.RefreshOptions(List)
 		end;
-		
+
 		function Library:GetConfig()
 			local Config = {};
 
@@ -616,7 +459,6 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 		function Library:Round(Number, Float)
 			local Multiplier = 1 / (Float or 1)
-
 			return Floor(Number * Multiplier + 0.5) / Multiplier
 		end;
 
@@ -631,24 +473,24 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		function Library:ApplyStroke(Parent)
 			local Stroke = Library:Create('UIStroke', {
 				Parent = Parent,
-				Color = Themes.Preset.TextOutline, 
+				Color = Themes.Dracula.TextOutline, 
 				LineJoinMode = Enum.LineJoinMode.Miter
 			});
 			
 			Library:ApplyTheme(Stroke, 'TextOutline', 'Color')
 		end;
 
-		function Library:Create(Instance, Options)
-			local Inst = NewInst(Instance)
+		function Library:Create(Obj, Options)
+			local Inst = Instance.new(Obj)
 			
 			for Prop, Value in next, Options do 
 				Inst[Prop] = Value
 			end;
 			
-			if Instance == 'TextLabel' or Instance == 'TextButton' or Instance == 'TextBox' then	
+			if Obj == 'TextLabel' or Obj == 'TextButton' or Obj == 'TextBox' then	
 				Library:ApplyTheme(Inst, 'Text', 'TextColor3')
 				Library:ApplyStroke(Inst)
-			elseif Instance == 'GuiMain' then
+			elseif Obj == 'GuiMain' then
 				InsertTable(Library.Guis, Inst)
 			end;
 			
@@ -657,11 +499,11 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 	--// 
 
 	--// Elements
-        shared.Elem = Library:Create('GuiMain', {Enabled = true, Parent = Hui, Name = '', DisplayOrder = 1});
+        local Elem = Library:Create('GuiMain', {Enabled = true, Parent = gethui(), Name = '', DisplayOrder = 1});
 		local TooltipsGui = Library:Create('GuiMain', {
 			Enabled = true,
-			Parent = Hui,
-			Name = '',
+			Parent = gethui(),
+			-- Name = '',
 			DisplayOrder = 500, 
 		});
 
@@ -687,39 +529,39 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			local Items = Cfg.Items do 
 				--// Panel
-				Items.SGui = Library:Create('GuiMain', {Enabled = true, Parent = Hui, Name = '' });
+				Items.SGui = Library:Create('GuiMain', {Enabled = true, Parent = gethui(), Name = ''});
 					Items.MainHolder = Library:Create('Frame', {
 						Parent = Items.SGui,
-						Name = '',
+						-- Name = '',
 						AnchorPoint = NewVect2(Cfg.AnchorPoint.X, Cfg.AnchorPoint.Y),
 						Position = Cfg.Position,
 						Active = true, 
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Cfg.Size,
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Preset.Outline
+						BackgroundColor3 = Themes.Dracula.Outline
 					});
 					
 					Library:DragThing(Items.MainHolder)
 					Library:Resizeable(Items.MainHolder)
 
 					local Close = Library:Create('TextButton' , {
-						Parent = Items.MainHolder;
-						FontFace = Library.Font;
-						Name = '\0';
-						AnchorPoint = NewVect2(1, 0);
-						Active = false;
-						BorderColor3 = FromRgb(0, 0, 0);
-						Text = 'X';
-						Size = Dim2(0, 0, 0, 0);
-						Position = Dim2(1, -7, 0, 5);
-						BorderSizePixel = 0;
-						BackgroundTransparency = 1;
-						TextXAlignment = Enum.TextXAlignment.Right;
-						AutomaticSize = Enum.AutomaticSize.XY;
-						TextColor3 = Themes.Preset.Text;
-						TextSize = Library.TextSize;
-						ZIndex = 100;
+						Parent = Items.MainHolder,
+						FontFace = Library.Font,
+						-- -- Name = '\0',
+						AnchorPoint = NewVect2(1, 0),
+						Active = false,
+						BorderColor3 = FromRgb(0, 0, 0),
+						Text = 'X',
+						Size = Dim2(0, 0, 0, 0),
+						Position = Dim2(1, -7, 0, 5),
+						BorderSizePixel = 0,
+						BackgroundTransparency = 1,
+						TextXAlignment = Enum.TextXAlignment.Right,
+						AutomaticSize = Enum.AutomaticSize.XY,
+						TextColor3 = Themes.Dracula.Text,
+						TextSize = 10,
+						ZIndex = 100,
 						BackgroundColor3 = FromRgb(255, 255, 255)
 					});
 
@@ -733,21 +575,21 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 					Items.WindowInline = Library:Create('Frame', {
 						Parent = Items.MainHolder,
-						Name = '',
+						-- Name = '',
 						Position = Dim2(0, 1, 0, 1),
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, -2, 1, -2),
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Preset.Accent
+						BackgroundColor3 = Themes.Dracula.Accent
 					});
 					
 					Library:ApplyTheme(Items.WindowInline, 'Accent', 'BackgroundColor3')
 					
 					Items.WindowHolder = Library:Create('Frame', {
 						Parent = Items.WindowInline,
-						Name = '',
+						-- Name = '',
 						Position = Dim2(0, 1, 0, 1),
-						BorderColor3 = Themes.Preset.Outline,
+						BorderColor3 = Themes.Dracula.Outline,
 						Size = Dim2(1, -2, 1, -2),
 						BorderSizePixel = 0,
 						BackgroundColor3 = FromRgb(255, 255, 255)
@@ -755,7 +597,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 								
 					Items.UIGradient = Library:Create('UIGradient', {
 						Parent = Items.WindowHolder,
-						Name = '',
+						-- Name = '',
 						Rotation = 90,
 						Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 					});
@@ -764,29 +606,29 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					Items.Text = Library:Create('TextLabel', {
 						Parent = Items.WindowHolder,
-						Name = '',
+						-- Name = '',
 						FontFace = Library.Font,
-						TextColor3 = Themes.Preset.Accent,
+						TextColor3 = Themes.Dracula.Accent,
 						BorderColor3 = FromRgb(0, 0, 0),
 						Text = Cfg.Name,
 						BackgroundTransparency = 1,
 						Position = Dim2(0, 2, 0, 4),
 						BorderSizePixel = 0,
 						AutomaticSize = Enum.AutomaticSize.XY,
-						TextSize = Library.TextSize,
+						TextSize = 10;
 						BackgroundColor3 = FromRgb(255, 255, 255)
 					});
 					Library:ApplyTheme(Items.Text, 'Accent', 'TextColor3')
 					
 					Items.UIStroke = Library:Create('UIStroke', {
 						Parent = Items.Text,
-						Name = '',
+						-- Name = '',
 						LineJoinMode = Enum.LineJoinMode.Miter
 					});
 					
 					Items.UIPadding = Library:Create('UIPadding', {
 						Parent = Items.WindowHolder,
-						Name = '',
+						-- Name = '',
 						PaddingBottom = NewDim(0, 4),
 						PaddingRight = NewDim(0, 4),
 						PaddingLeft = NewDim(0, 4)
@@ -794,31 +636,31 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					Items.Outline = Library:Create('Frame', {
 						Parent = Items.WindowHolder,
-						Name = '',
+						-- Name = '',
 						Position = Dim2(0, 0, 0, 18),
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, 0, 1, -18),
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Preset.Inline
+						BackgroundColor3 = Themes.Dracula.Inline
 					});
 					
 					Library:ApplyTheme(Items.Outline, 'Inline', 'BackgroundColor3')
 					
 					Items.Inline = Library:Create('Frame', {
 						Parent = Items.Outline,
-						Name = '',
+						-- Name = '',
 						Position = Dim2(0, 1, 0, 1),
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, -2, 1, -2),
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Preset.Outline
+						BackgroundColor3 = Themes.Dracula.Outline
 					});
 					
 					Library:ApplyTheme(Items.Inline, 'Outline', 'BackgroundColor3')
 					
 					Items.Holder = Library:Create('Frame', {
 						Parent = Items.Inline,
-						Name = '',
+						-- Name = '',
 						Position = Dim2(0, 1, 0, 1),
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, -2, 1, -2),
@@ -828,7 +670,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					Items.UIGradient = Library:Create('UIGradient', {
 						Parent = Items.Holder,
-						Name = '',
+						-- Name = '',
 						Rotation = 90,
 						Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 					});
@@ -837,7 +679,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					Items.UIPadding = Library:Create('UIPadding', {
 						Parent = Items.Holder,
-						Name = '',
+						-- Name = '',
 						PaddingTop = NewDim(0, 5),
 						PaddingBottom = NewDim(0, 5),
 						PaddingRight = NewDim(0, 5),
@@ -846,8 +688,8 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 					Items.Glow = Library:Create('ImageLabel', {
 						Parent = Items.MainHolder,
-						Name = '',
-						ImageColor3 = Themes.Preset.Glow,
+						-- Name = '',
+						ImageColor3 = Themes.Dracula.Glow,
 						ScaleType = Enum.ScaleType.Slice,
 						BorderColor3 = FromRgb(0, 0, 0),
 						BackgroundColor3 = FromRgb(255, 255, 255),
@@ -859,7 +701,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Size = Dim2(1, 40, 1, 40),
 						ZIndex = 2,
 						BorderSizePixel = 0,
-						SliceCenter = NewRect(NewVect2(21, 21), NewVect2(79, 79))
+						SliceCenter = Rect.new(NewVect2(21, 21), NewVect2(79, 79))
 					});
 					Library:ApplyTheme(Items.Glow, 'Glow', 'ImageColor3')
 				--// 
@@ -867,30 +709,30 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				--// Button
 					Items.Button = Library:Create('TextButton', {
 						Parent = Library.DockHolder,
-						Name = '',
+						-- Name = '',
 						TextColor3 = FromRgb(0, 0, 0),
 						BorderColor3 = FromRgb(0, 0, 0),
 						Text = '',
 						Size = Dim2(0, 25, 0, 25),
 						BorderSizePixel = 0,
-						TextSize = (Library.TextSize + 3),
-						BackgroundColor3 = Themes.Preset.Inline
+						TextSize = (10 + 3),
+						BackgroundColor3 = Themes.Dracula.Inline
 					});
 					
 					local ButtonInline = Library:Create('Frame', {
 						Parent = Items.Button,
-						Name = '',
+						-- Name = '',
 						Position = Dim2(0, 1, 0, 1),
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, -2, 1, -2),
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Preset.Outline
+						BackgroundColor3 = Themes.Dracula.Outline
 					});
 					Library:ApplyTheme(ButtonInline, 'Outline', 'BackgroundColor3')
 					
 					local ButtonInline = Library:Create('Frame', {
 						Parent = ButtonInline,
-						Name = '',
+						-- Name = '',
 						Position = Dim2(0, 1, 0, 1),
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, -2, 1, -2),
@@ -901,7 +743,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					local UIGradient = Library:Create('UIGradient', {
 						Parent = ButtonInline,
-						Name = '',
+						-- Name = '',
 						Rotation = 90,
 						Color = ColorSeq{ColorKey(0, FromRgb(35, 35, 47)), ColorKey(1, FromRgb(41, 41, 55))}
 					});
@@ -909,8 +751,8 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					Items.Icon = Library:Create('ImageLabel', {
 						Parent = ButtonInline,
-						Name = '',
-						ImageColor3 = Themes.Preset.Accent,
+						-- Name = '',
+						ImageColor3 = Themes.Dracula.Accent,
 						Image = Cfg.Image,
 						BackgroundTransparency = 1,
 						BorderColor3 = FromRgb(0, 0, 0),
@@ -922,7 +764,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					local UIPadding = Library:Create('UIPadding', {
 						Parent = ButtonInline,
-						Name = '',
+						-- Name = '',
 						PaddingTop = NewDim(0, 4),
 						PaddingBottom = NewDim(0, 4),
 						PaddingRight = NewDim(0, 4),
@@ -934,21 +776,21 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			end;
 
 			Items.SGui:GetPropertyChangedSignal('Enabled'):Connect(function()
-				Items.Icon.ImageColor3 = Items.SGui.Enabled and Themes.Preset.Accent or Themes.Preset.Inline
-			end);
+				Items.Icon.ImageColor3 = Items.SGui.Enabled and Themes.Dracula.Accent or Themes.Dracula.Inline
+			end)
 
 			Items.Button.MouseButton1Click:Connect(function()
 				Items.SGui.Enabled = not Items.SGui.Enabled
-			end);
+			end)
 			
 			return Setmetatable(Cfg, Library)
 		end;
 
-		local SGui = Library:Create('GuiMain', {Enabled = true, Parent = Hui, Name = '', DisplayOrder = 999999 });
+		local SGui = Library:Create('GuiMain', {Enabled = true, Parent = gethui(), Name = '', DisplayOrder = 999999 });
 
 		local NotifHolder = Library:Create('GuiMain', {
 			Parent = SGui,
-			Name = '',
+			-- Name = '',
 			IgnoreGuiInset = true,
 			DisplayOrder = 999999, 
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -965,178 +807,177 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		end;
 
 		function Library:TargetIndicator()
-			local Cfg = {
-				Items = {};
-			}
-			-- local SGui = Library:Create('GuiMain', {Enabled = true, Parent = Hui, Name = '', DisplayOrder = 999999 });
-			local Items = Cfg.Items;do 
+			local Cfg = { Items = {} };
+			local Items = Cfg.Items;
+			do 
 				Items.Window = Library:Create('Frame' , {
-					Parent = shared.Elem;
-					Name = '\0';
-					Position = Dim2(0, Center.X - 722, 0, 542); --530);
-					BorderColor3 = FromRgb(0, 0, 0);
-					Size = Dim2(0, 322, 0, 147);
-					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline;
+					Parent = Elem,
+					-- Name = '\0',
+					Position = Dim2(0, Center.X - 722, 0, 542),
+					BorderColor3 = FromRgb(0, 0, 0),
+					Size = Dim2(0, 322, 0, 147),
+					BorderSizePixel = 0,
+					BackgroundColor3 = Themes.Dracula.Outline,
 				});
 				Library:DragThing(Items.Window);
 				Library:ApplyTheme(Items.Window, 'Outline', 'BackgroundColor3');
 				
 				Items.InfoTitle = Library:Create('TextLabel' , {
-					FontFace = Library.Font;
-					TextColor3 = Themes.Preset.Text;
-					BorderColor3 = FromRgb(0, 0, 0);
-					Text = 'Target Indicator';
-					Parent = Items.Window;
-					Name = '\0';
-					Size = Dim2(1, 0, 0, 0);
-					Position = Dim2(0, 7, 0, 5);
-					BackgroundTransparency = 1;
-					TextXAlignment = Enum.TextXAlignment.Left;
-					BorderSizePixel = 0;
-					ZIndex = 2;
-					AutomaticSize = Enum.AutomaticSize.Y;
-					TextSize = Library.TextSize;
+					FontFace = Library.Font,
+					TextColor3 = Themes.Dracula.Text,
+					BorderColor3 = FromRgb(0, 0, 0),
+					Text = 'Target Indicator',
+					Parent = Items.Window,
+					-- -- Name = '\0',
+					Size = Dim2(1, 0, 0, 0),
+					Position = Dim2(0, 7, 0, 5),
+					BackgroundTransparency = 1,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					BorderSizePixel = 0,
+					ZIndex = 2,
+					AutomaticSize = Enum.AutomaticSize.Y,
+					TextSize = 10,
 				});
 
 				Items.Accent = Library:Create('Frame' , {
-					Parent = Items.Window;
-					Name = '\0';
-					Position = Dim2(0, 1, 0, 1);
-					BorderColor3 = FromRgb(0, 0, 0);
-					Size = Dim2(1, -2, 1, -2);
-					BorderSizePixel = 0;
-					ZIndex = 1;
-					BackgroundColor3 = Themes.Preset.Accent
+					Parent = Items.Window,
+					-- -- Name = '\0',
+					Position = Dim2(0, 1, 0, 1),
+					BorderColor3 = FromRgb(0, 0, 0),
+					Size = Dim2(1, -2, 1, -2),
+					BorderSizePixel = 0,
+					ZIndex = 1,
+					BackgroundColor3 = Themes.Dracula.Accent,
 				});	Library:ApplyTheme(Items.Accent, 'Accent', 'BackgroundColor3')
 
 				Items.Background = Library:Create('Frame' , {
-					Parent = Items.Accent;
-					Name = '\0';
-					Position = Dim2(0, 1, 0, 1);
-					BorderColor3 = FromRgb(0, 0, 0);
-					Size = Dim2(1, -2, 1, -2);
-					ZIndex = 1;
-					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.LowContrast
+					Parent = Items.Accent,
+					-- Name = '\0',
+					Position = Dim2(0, 1, 0, 1),
+					BorderColor3 = FromRgb(0, 0, 0),
+					Size = Dim2(1, -2, 1, -2),
+					ZIndex = 1,
+					BorderSizePixel = 0,
+					BackgroundColor3 = Themes.Dracula.LowContrast
 				});
 				Library:ApplyTheme(Items.Background, 'LowContrast', 'BackgroundColor3')
 				
 				Items.Inline = Library:Create('Frame' , {
-					Parent = Items.Background;
-					Name = '\0';
-					Position = Dim2(0, 4, 0, 18);
-					BorderColor3 = FromRgb(0, 0, 0);
-					Size = Dim2(1, -8, 1, -22);
-					ZIndex = 1;
+					Parent = Items.Background,
+					-- -- Name = '\0',
+					Position = Dim2(0, 4, 0, 18),
+					BorderColor3 = FromRgb(0, 0, 0),
+					Size = Dim2(1, -8, 1, -22),
+					ZIndex = 1,
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(Items.Inline, 'Outline', 'BackgroundColor3')
 				
 				Items.Outline = Library:Create('Frame' , {
-					Parent = Items.Inline;
-					Name = '\0';
-					Position = Dim2(0, 1, 0, 1);
-					BorderColor3 = FromRgb(0, 0, 0);
-					Size = Dim2(1, -2, 1, -2);
-					ZIndex = 1;
-					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Inline
+					Parent = Items.Inline,
+					-- -- Name = '\0',
+					Position = Dim2(0, 1, 0, 1),
+					BorderColor3 = FromRgb(0, 0, 0),
+					Size = Dim2(1, -2, 1, -2),
+					ZIndex = 1,
+					BorderSizePixel = 0,
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Items.Outline, 'Inline', 'BackgroundColor3')
 				
 				Items.HighContrast = Library:Create('Frame' , {
-					Parent = Items.Outline;
-					Name = '\0';
-					Position = Dim2(0, 1, 0, 1);
-					BorderColor3 = FromRgb(0, 0, 0);
-					Size = Dim2(1, -2, 1, -2);
-					ZIndex = 1;
-					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.HighContrast
+					Parent = Items.Outline,
+					-- -- Name = '\0',
+					Position = Dim2(0, 1, 0, 1),
+					BorderColor3 = FromRgb(0, 0, 0),
+					Size = Dim2(1, -2, 1, -2),
+					ZIndex = 1,
+					BorderSizePixel = 0,
+					BackgroundColor3 = Themes.Dracula.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3')
 				
 				Items.Inline = Library:Create('Frame' , {
-					Parent = Items.HighContrast;
-					Name = '\0';
-					Position = Dim2(0, 4, 0, 4);
-					BorderColor3 = FromRgb(0, 0, 0);
-					Size = Dim2(1, -8, 1, -8);
-					ZIndex = 1;
-					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Inline
+					Parent = Items.HighContrast,
+					-- -- Name = '\0',
+					Position = Dim2(0, 4, 0, 4),
+					BorderColor3 = FromRgb(0, 0, 0),
+					Size = Dim2(1, -8, 1, -8),
+					ZIndex = 1,
+					BorderSizePixel = 0,
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Items.Inline, 'Inline', 'BackgroundColor3')
 				
 				Items.Outline = Library:Create('Frame' , {
-					Parent = Items.Inline;
-					Name = '\0';
-					Position = Dim2(0, 1, 0, 1);
-					BorderColor3 = FromRgb(0, 0, 0);
-					Size = Dim2(1, -2, 1, -2);
-					ZIndex = 1;
-					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline
+					Parent = Items.Inline,
+					-- -- Name = '\0',
+					Position = Dim2(0, 1, 0, 1),
+					BorderColor3 = FromRgb(0, 0, 0),
+					Size = Dim2(1, -2, 1, -2),
+					ZIndex = 1,
+					BorderSizePixel = 0,
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(Items.Outline, 'Outline', 'BackgroundColor3')
 				
 				Items.HighContrast = Library:Create('Frame' , {
-					Parent = Items.Outline;
-					Name = '\0';
-					Position = Dim2(0, 1, 0, 1);
-					BorderColor3 = FromRgb(0, 0, 0);
-					Size = Dim2(1, -2, 1, -2);
-					ZIndex = 1;
-					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.HighContrast
+					Parent = Items.Outline,
+					-- -- Name = '\0',
+					Position = Dim2(0, 1, 0, 1),
+					BorderColor3 = FromRgb(0, 0, 0),
+					Size = Dim2(1, -2, 1, -2),
+					ZIndex = 1,
+					BorderSizePixel = 0,
+					BackgroundColor3 = Themes.Dracula.HighContrast
 				});
-				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3');local ImageHolder = Items.HighContrast;
+				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3');
+				local ImageHolder = Items.HighContrast;
 				
 				Items.Inline = Library:Create('Frame' , {
 					Parent = Items.HighContrast;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 4, 0, 4);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -8, 1, -8);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Items.Inline, 'Inline', 'BackgroundColor3')
 				
 				Items.Outline = Library:Create('Frame' , {
 					Parent = Items.Inline;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(Items.Outline, 'Outline', 'BackgroundColor3')
 				
 				Items.HighContrast = Library:Create('Frame' , {
 					Parent = Items.Outline;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.HighContrast
+					BackgroundColor3 = Themes.Dracula.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3')
 
 				Items.InfoTitle = Library:Create('TextLabel' , {
 					FontFace = Library.Font;
-					TextColor3 = Themes.Preset.Text;
+					TextColor3 = Themes.Dracula.Text;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Text = 'Info';
 					Parent = Items.Outline;
-					Name = '\0';
+					-- Name = '\0';
 					Size = Dim2(1, 0, 0, 0);
 					Position = Dim2(0, 7, 0, 5);
 					BackgroundTransparency = 1;
@@ -1144,7 +985,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderSizePixel = 0;
 					ZIndex = 2;
 					AutomaticSize = Enum.AutomaticSize.Y;
-					TextSize = Library.TextSize;
+					TextSize = 10;
 				});
 
 				Library:Create('UIStroke' , {
@@ -1152,19 +993,19 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				});
 				
 				Items.Accent = Library:Create('Frame' , {
-					Name = '\0';
+					-- Name = '\0';
 					Parent = Items.HighContrast;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, 0, 0, 2);
 					ZIndex = 1;
-					BackgroundColor3 = Themes.Preset.Accent;
+					BackgroundColor3 = Themes.Dracula.Accent;
 					BorderSizePixel = 0;
 				});
 				Library:ApplyTheme(Items.Accent, 'Accent', 'BackgroundColor3');
 				
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = Items.Accent,
-					Name = '',
+					-- Name = '',
 					Rotation = 180,
 					Transparency = NumSeq{NumKey(0, 1), NumKey(0.4, 0.75), NumKey(1, 0)},
 					Color = ColorSeq{ColorKey(0, FromRgb(255, 255, 255)), ColorKey(1, FromRgb(255, 255, 255))}
@@ -1173,13 +1014,13 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Items.Shadow = Library:Create('Frame' , {
 					AnchorPoint = NewVect2(0, 1);
 					Parent = Items.Accent;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 0, 1, 0);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, 0, 0, 1);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Accent;
+					BackgroundColor3 = Themes.Dracula.Accent;
 				});
 				Library:ApplyTheme(Items.Shadow, 'Accent', 'BackgroundColor3');
 				
@@ -1191,7 +1032,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				Items.Holder = Library:Create('Frame' , {
 					Parent = Items.HighContrast;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 76, 0, 21);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -80, 0, 0);
@@ -1208,37 +1049,37 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 				Items.Inline = Library:Create('Frame' , {
 					Parent = ImageHolder;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 10, 0, 28);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(0, 68, 0, 67);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(Items.Inline, 'Outline', 'BackgroundColor3')
 				
 				Items.Outline = Library:Create('Frame' , {
 					Parent = Items.Inline;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Items.Outline, 'Inline', 'BackgroundColor3')
 				
 				Items.HighContrast = Library:Create('Frame' , {
 					Parent = Items.Outline;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.HighContrast
+					BackgroundColor3 = Themes.Dracula.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3')
 				Items.Profile = Library:Create('ImageLabel' , {
@@ -1246,7 +1087,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Parent = Items.HighContrast;
 					Image = getcustomasset(Library.Directory.. '/Assets/Images/White.Png');
 					BackgroundTransparency = 1;
-					Name = '\0';
+					-- Name = '\0';
 					Size = Dim2(1, 0, 1, 0);
 					ZIndex = 2;
 					BorderSizePixel = 0;
@@ -1254,8 +1095,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 				local Section = Setmetatable(Items, Library)
 				Items.Label = Section:Label({Name = 'Player: '});
-				-- Items.Armor = Section:Slider({Name = 'Armor', Flag = '', Custom = FromRgb(25, 0, 100), Min = 0, Max = 100, Default = 0, Input = true});
-				Items.Health = Section:Slider({Name = 'Health', Flag = '', Custom = FromRgb(25, 120, 0), Min = 0, Max = 100, Default = 50, Input = true});
+				Items.Health = Section:Slider({Name = 'Health', Flag = '', Custom = FromRgb(25, 120, 0), Min = 0, Max = 100, Default = 100, Input = true});
 				
 				Library:Create('UIStroke' , {Parent = Items.InfoTitle});
 			end;
@@ -1268,16 +1108,12 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Items.Window.Visible = Boolean
 			end;
 
-			function Cfg.SetArmor(Value)
-				Items.Armor.Set(Value)
-			end;
-
 			function Cfg.SetHealth(Value)
 				Items.Health.Set(Value)
 			end;
 
 			function Cfg.ChangeProfile(Player)
-				Items.Label.Set(FormatString('Player: %s', Player.Name)) --Items.Label.Set(FormatString('Player: %s (%s)', Player.Name, Player.DisplayName))
+				Items.Label.Set(FormatString('Player: %s', Player.Name)) -- Items.Label.Set(FormatString('Player: %s (%s)', Player.Name, Player.DisplayName))
 				Items.Profile.Image = 'https://www.roblox.com/headshot-thumbnail/image?userId='.. Player.UserId ..'&width=420&height=420&format=png'
 			end;
 
@@ -1285,30 +1121,27 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		end;
 
 		function Library:InitEquipment()
-			local Cfg = {
-				Items = {};
-			}
-			-- local SGui = Library:Create('GuiMain', {Enabled = true, Parent = Hui, Name = '', DisplayOrder = 999999 });
+			local Cfg = { Items = {}; }
 			local Items = Cfg.Items; do
 				Items.Window = Library:Create('Frame', {
-					Parent = shared.Elem;
-					Name = '\0';
+					Parent = Elem;
+					-- Name = '\0';
 					Position = Dim2(0, Center.X - 98, 0, 725);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(0, 304, 0, 100);
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:DragThing(Items.Window);
 				Library:ApplyTheme(Items.Window, 'Outline', 'BackgroundColor3'); 
 
 				Items.EquipmentTitle = Library:Create('TextLabel', {
 					FontFace = Library.Font;
-					TextColor3 = Themes.Preset.Text;
+					TextColor3 = Themes.Dracula.Text;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Text = 'Equipment';
 					Parent = Items.Window;
-					Name = '\0';
+					-- Name = '\0';
 					Size = Dim2(0, 1, 0, 1);
 					ZIndex = 2;
 					Position = Dim2(0, 5, 0, 5);
@@ -1317,110 +1150,110 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderSizePixel = 0;
 					ZIndex = 3;
 					AutomaticSize = Enum.AutomaticSize.XY;
-					TextSize = Library.TextSize;
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255);
 				});
 				Library:ApplyTheme(Items.EquipmentTitle, 'Text', 'TextColor3');
 
 				Items.Accent = Library:Create('Frame', {
 					Parent = Items.Window;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 				Library:ApplyTheme(Items.Accent, 'Accent', 'BackgroundColor3')
 
 				Items.Background = Library:Create('Frame', {
 					Parent = Items.Accent;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.LowContrast
+					BackgroundColor3 = Themes.Dracula.LowContrast
 				});
 				Library:ApplyTheme(Items.Background, 'LowContrast', 'BackgroundColor3')
 
 				Items.Inline = Library:Create('Frame', {
 					Parent = Items.Background;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 4, 0, 18);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -8, 1, -22);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(Items.Inline, 'Outline', 'BackgroundColor3')
 
 				Items.Outline = Library:Create('Frame', {
 					Parent = Items.Inline;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Items.Outline, 'Inline', 'BackgroundColor3')
 
 				Items.HighContrast = Library:Create('Frame', {
 					Parent = Items.Outline;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.HighContrast
+					BackgroundColor3 = Themes.Dracula.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3')
 
 				Items.Inline2 = Library:Create('Frame', {
 					Parent = Items.HighContrast;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 4, 0, 4);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -8, 1, -8);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Items.Inline2, 'Inline', 'BackgroundColor3')
 
 				Items.Outline2 = Library:Create('Frame', {
 					Parent = Items.Inline2;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(Items.Outline2, 'Outline', 'BackgroundColor3')
 
 				Items.HighContrast2 = Library:Create('Frame', {
 					Parent = Items.Outline2;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.HighContrast
+					BackgroundColor3 = Themes.Dracula.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast2, 'HighContrast', 'BackgroundColor3')
 
 				Items.ItemContainer = Library:Create('Frame', {
 					Parent = Items.HighContrast2;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 0, 0, 0);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, 0, 1, 0);
@@ -1451,46 +1284,47 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Size = Dim2(0, 50, 0, 50);
 						ZIndex = 3;
 						BorderSizePixel = 0;
-						BackgroundColor3 = Themes.Preset.Outline;
+						BackgroundColor3 = Themes.Dracula.Outline;
 						LayoutOrder = i;
 					});
 					Library:ApplyTheme(ItemInline, 'Outline', 'BackgroundColor3')
 
 					local ItemOutline = Library:Create('Frame', {
 						Parent = ItemInline;
-						Name = '\0';
+						-- Name = '\0';
 						Position = Dim2(0, 1, 0, 1);
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, -2);
 						BorderSizePixel = 0;
-						BackgroundColor3 = Themes.Preset.Inline
+						BackgroundColor3 = Themes.Dracula.Inline
 					});
 					Library:ApplyTheme(ItemOutline, 'Inline', 'BackgroundColor3')
 
 					local Item0 = Library:Create('Frame', {
 						Parent = ItemOutline;
-						Name = '\0';
+						-- Name = '\0';
 						Position = Dim2(0, 1, 0, 1);
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, -2);
 						ZIndex = 3;
 						BorderSizePixel = 0;
-						BackgroundColor3 = Themes.Preset.HighContrast
+						BackgroundColor3 = Themes.Dracula.HighContrast
 					});
 					Library:ApplyTheme(Item0, 'HighContrast', 'BackgroundColor3')
 
 					local ItemHighlight = Library:Create('UIGradient', {
 						Parent = Item;
-						Name = '';
+						-- Name = '';
 						Rotation = 180;
 						Transparency = NumSeq{NumKey(0, 1), NumKey(0.4, 0.75), NumKey(1, 0)};
 						Color = ColorSeq{ColorKey(0, FromRgb(255, 255, 255)), ColorKey(1, FromRgb(255, 255, 255))};
 					});
 
 					local ItemStroke = Library:Create('UIStroke', {
-						Color = Themes.Preset.Inline;
+						Color = Themes.Dracula.Inline;
 						Parent = Item;
 					});
+
 					-- Library:ApplyTheme(ItemStroke, 'Inline', 'Color')
 
 					local ItemOutlineFrame = Library:Create('Frame', {
@@ -1517,7 +1351,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					});
 
 					Items['Item' .. i] = Item0;
-				end
+				end;
 
 				Library:Create('UIStroke', {
 					Parent = Items.EquipmentTitle
@@ -1542,43 +1376,40 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					local Img = Item:FindFirstChild('ItemImage')
 					if Img then
 						Img:Destroy()
-					end
+					end;
 			
 					if ImageId then
 						Library:Create('ImageLabel', {Name = 'ItemImage'; Parent = Item; BackgroundTransparency = 1; Size = Dim2(1, 0, 1, 0); ZIndex = 3; Image = 'rbxassetid://' .. ImageId; ScaleType = Enum.ScaleType.Fit});
-					end
-				end
+					end;
+				end;
 			end;
 
 			return Setmetatable(Cfg, Library)
 		end;
 
 		function Library:InitHotbar()
-			local Cfg = {
-				Items = {};
-			}
-			-- local SGui = Library:Create('GuiMain', {Enabled = true, Parent = Hui, Name = '', DisplayOrder = 999999 });
+			local Cfg = { Items = {}; }
 			local Items = Cfg.Items; do
 				Items.Window = Library:Create('Frame', {
-					Parent = shared.Elem;
-					Name = '\0';
+					Parent = Elem;
+					-- Name = '\0';
 					--15
 					Position = Dim2(0, Center.X + 510, 0, 561);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(0, 90, 0, 224);
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:DragThing(Items.Window);
 				Library:ApplyTheme(Items.Window, 'Outline', 'BackgroundColor3');
 
 				Items.HotbarTitle = Library:Create('TextLabel', {
 					FontFace = Library.Font;
-					TextColor3 = Themes.Preset.Text;
+					TextColor3 = Themes.Dracula.Text;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Text = 'Hotbar';
 					Parent = Items.Window;
-					Name = '\0';
+					-- Name = '\0';
 					Size = Dim2(1, 0, 0, 0);
 					Position = Dim2(0, 7, 0, 5);
 					BackgroundTransparency = 1;
@@ -1586,108 +1417,108 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderSizePixel = 0;
 					ZIndex = 5;
 					AutomaticSize = Enum.AutomaticSize.Y;
-					TextSize = Library.TextSize;
+					TextSize = 10;
 				});
 				Library:ApplyTheme(Items.HotbarTitle, 'Text', 'TextColor3');
 
 				Items.Accent = Library:Create('Frame', {
 					Parent = Items.Window;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 				Library:ApplyTheme(Items.Accent, 'Accent', 'BackgroundColor3')
 
 				Items.Background = Library:Create('Frame', {
 					Parent = Items.Accent;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.LowContrast
+					BackgroundColor3 = Themes.Dracula.LowContrast
 				});
 				Library:ApplyTheme(Items.Background, 'LowContrast', 'BackgroundColor3')
 
 				Items.Inline = Library:Create('Frame', {
 					Parent = Items.Background;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 4, 0, 18);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -8, 1, -22);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(Items.Inline, 'Outline', 'BackgroundColor3')
 
 				Items.Outline = Library:Create('Frame', {
 					Parent = Items.Inline;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Items.Outline, 'Inline', 'BackgroundColor3')
 
 				Items.HighContrast = Library:Create('Frame', {
 					Parent = Items.Outline;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.HighContrast
+					BackgroundColor3 = Themes.Dracula.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3')
 
 				Items.Inline2 = Library:Create('Frame', {
 					Parent = Items.HighContrast;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 4, 0, 4);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -8, 1, -8);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Items.Inline2, 'Inline', 'BackgroundColor3')
 
 				Items.Outline2 = Library:Create('Frame', {
 					Parent = Items.Inline2;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(Items.Outline2, 'Outline', 'BackgroundColor3')
 
 				Items.HighContrast2 = Library:Create('Frame', {
 					Parent = Items.Outline2;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.HighContrast
+					BackgroundColor3 = Themes.Dracula.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast2, 'HighContrast', 'BackgroundColor3')
 
 				Items.ItemContainer = Library:Create('Frame', {
 					Parent = Items.HighContrast2;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 8, 0, 8);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -16, 1, -16);
@@ -1711,32 +1542,32 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Size = Dim2(0, 50, 0, 50);
 						ZIndex = 4;
 						BorderSizePixel = 0;
-						BackgroundColor3 = Themes.Preset.Outline;
+						BackgroundColor3 = Themes.Dracula.Outline;
 						LayoutOrder = i;
 					});
 					Library:ApplyTheme(ItemInline, 'Outline', 'BackgroundColor3')
 
 					local ItemOutline = Library:Create('Frame', {
 						Parent = ItemInline;
-						Name = '\0';
+						-- Name = '\0';
 						Position = Dim2(0, 1, 0, 1);
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, -2);
 						ZIndex = 4;
 						BorderSizePixel = 0;
-						BackgroundColor3 = Themes.Preset.HighContrast
+						BackgroundColor3 = Themes.Dracula.HighContrast
 					});
 					Library:ApplyTheme(ItemOutline, 'Inline', 'BackgroundColor3')
 
 					local Item0 = Library:Create('Frame', {
 						Parent = ItemOutline;
-						Name = '\0';
+						-- Name = '\0';
 						Position = Dim2(0, 1, 0, 1);
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, -2);
 						ZIndex = 4;
 						BorderSizePixel = 0;
-						BackgroundColor3 = Themes.Preset.HighContrast
+						BackgroundColor3 = Themes.Dracula.HighContrast
 					});
 					Library:ApplyTheme(Item0, 'HighContrast', 'BackgroundColor3')
 
@@ -1746,7 +1577,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Parent = Item0;
 					});
 					Items['Item' .. i] = Item0;
-				end
+				end;
 
 				Library:Create('UIStroke', {
 					Parent = Items.HotbarTitle
@@ -1771,12 +1602,12 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					local Img = Item:FindFirstChild('ItemImage')
 					if Img then
 						Img:Destroy()
-					end
+					end;
 			
 					if ImageId then
 						Library:Create('ImageLabel', {Name = 'ItemImage'; Parent = Item; BackgroundTransparency = 1; Size = Dim2(1, 0, 1, 0); ZIndex = 5; Image = 'rbxassetid://' .. ImageId; ScaleType = Enum.ScaleType.Fit});
-					end
-				end
+					end;
+				end;
 			end;
 
 			return Setmetatable(Cfg, Library)
@@ -1785,28 +1616,27 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		function Library:InitAmmo()
 			local Cfg = {
 				Items = {};
-			}
-			-- local SGui = Library:Create('GuiMain', {Enabled = true, Parent = Hui, Name = '', DisplayOrder = 999999 });
+			};
 			local Items = Cfg.Items; do
 				Items.Window = Library:Create('Frame', {
-					Parent = shared.Elem;
-					Name = '\0';
+					Parent = Elem;
+					-- Name = '\0';
 					Position = Dim2(0, Center.X - 874, 0, 542);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(0, 150, 0, 50);
-					ZIndex = Library.DisplayOrderr;
+					ZIndex = Library.DisplayOrder;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:DragThing(Items.Window);
 				Library:ApplyTheme(Items.Window, 'Outline', 'BackgroundColor3'); 	
 				Items.AmmoTitle = Library:Create('TextLabel', {
 					FontFace = Library.Font;
-					TextColor3 = Themes.Preset.Text;
+					TextColor3 = Themes.Dracula.Text;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Text = 'Ammo';
 					Parent = Items.Window;
-					Name = '\0';
+					-- Name = '\0';
 					Size = Dim2(0, 1, 0, 1);
 					ZIndex = 6;
 					Position = Dim2(0, 10, 0, 6);
@@ -1815,95 +1645,95 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderSizePixel = 0;
 					ZIndex = 6;
 					AutomaticSize = Enum.AutomaticSize.XY;
-					TextSize = Library.TextSize;
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255);
 				});
 				Library:ApplyTheme(Items.AmmoTitle, 'Text', 'TextColor3');
 
 				Items.Accent = Library:Create('Frame', {
 					Parent = Items.Window;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 				Library:ApplyTheme(Items.Accent, 'Accent', 'BackgroundColor3')
 
 				Items.Background = Library:Create('Frame', {
 					Parent = Items.Accent;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.LowContrast
+					BackgroundColor3 = Themes.Dracula.LowContrast
 				});
 				Library:ApplyTheme(Items.Background, 'LowContrast', 'BackgroundColor3')
 
 				Items.Inline = Library:Create('Frame', {
 					Parent = Items.Background;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 4, 0, 18);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -8, 1, -22);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(Items.Inline, 'Outline', 'BackgroundColor3')
 
 				Items.Outline = Library:Create('Frame', {
 					Parent = Items.Inline;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Items.Outline, 'Inline', 'BackgroundColor3')
 
 				Items.HighContrast = Library:Create('Frame', {
 					Parent = Items.Outline;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.HighContrast
+					BackgroundColor3 = Themes.Dracula.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3')
 
 				Items.ProgressContainer = Library:Create('Frame', {
 					Parent = Items.HighContrast;
-					Name = '\0';
+					-- Name = '\0';
 					AnchorPoint = NewVect2(0.5, 1);
 					Position = Dim2(0.5, 0, 1, -2);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(0, 125, 0, 11);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Outline;
+					BackgroundColor3 = Themes.Dracula.Outline;
 				});
 				Library:ApplyTheme(Items.ProgressContainer, 'Outline', 'BackgroundColor3')
 
-				Items.ProgressContainerStroke = Library:Create('UIStroke', {Color = Themes.Preset.Inline; Parent = Items.ProgressContainer});
+				Items.ProgressContainerStroke = Library:Create('UIStroke', {Color = Themes.Dracula.Inline; Parent = Items.ProgressContainer});
 				
 				Items.ProgressInline = Library:Create('Frame', {
 					Parent = Items.ProgressContainer;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Items.ProgressInline, 'Inline', 'BackgroundColor3')
 
@@ -1915,7 +1745,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Preset.Accent;
+					BackgroundColor3 = Themes.Dracula.Accent;
 				});
 				Library:ApplyTheme(Items.ProgressBar, 'Accent', 'BackgroundColor3');
 
@@ -1931,7 +1761,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 				Items.AmmoValue = Library:Create('TextLabel', {
 					FontFace = Library.Font;
-					TextColor3 = Themes.Preset.Text;
+					TextColor3 = Themes.Dracula.Text;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Text = '2/2';
 					Name = 'Value';
@@ -1943,7 +1773,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Position = Dim2(0.5, 0, 0.5, 0);
 					BorderSizePixel = 0;
 					AutomaticSize = Enum.AutomaticSize.XY;
-					TextSize = Library.TextSize;
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255);
 					Parent = Items.ProgressBar;
 				}); Library:ApplyTheme(Items.AmmoValue, 'Text', 'TextColor3');
@@ -1976,7 +1806,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			end;
 
 			function Cfg.SetProgress(Percentage)
-				Percentage = Max(0, Min(1, Percentage))
+				Percentage = Max(0, Floor(1, Percentage))
 				Items.ProgressBar.Size = Dim2(Percentage, -2, 1, -2)
 			end;
 
@@ -1985,6 +1815,104 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			end;
 
 			return Setmetatable(Cfg, Library)
+		end;
+
+		function Library:Watermark(Options) 
+			local Cfg = {
+				Default = Options.Text or Options.Default or os.os.date('Kira.xyz | %b %d %Y | %H:%M')
+			}
+
+			local WatermarkOutline = Library:Create('Frame', {
+				Parent = SGui,
+                Visible = false,
+				-- Name = '',
+				BorderColor3 = FromRgb(0, 0, 0),
+				AnchorPoint = NewVect2(1, 1),
+				Position = Dim2(0, Center.X + 200, 0, 0),
+				Size = Dim2(0, 0, 0, 24),
+				BorderSizePixel = 0,
+				AutomaticSize = Enum.AutomaticSize.X,
+				BackgroundColor3 = Themes.Dracula.Outline
+			});
+
+			Library:ApplyTheme(WatermarkOutline, 'Outline', 'BackgroundColor3');
+			Library:DragThing(WatermarkOutline);
+            Library.Watermark = WatermarkOutline;
+
+			local WatermarkInline = Library:Create('Frame', {
+				Parent = WatermarkOutline,
+				-- Name = '',
+				Position = Dim2(0, 1, 0, 1),
+				BorderColor3 = FromRgb(0, 0, 0),
+				Size = Dim2(1, -2, 1, -2),
+				BorderSizePixel = 0,
+				BackgroundColor3 = Themes.Dracula.Inline
+			});
+			Library:ApplyTheme(WatermarkInline, 'Inline', 'BackgroundColor3')
+			
+			local WatermarkBackground = Library:Create('Frame', {
+				Parent = WatermarkInline,
+				-- Name = '',
+				Position = Dim2(0, 1, 0, 1),
+				BorderColor3 = FromRgb(0, 0, 0),
+				Size = Dim2(1, -2, 1, -2),
+				BorderSizePixel = 0,
+				BackgroundColor3 = FromRgb(255, 255, 255)
+			});
+			
+			local UIGradient = Library:Create('UIGradient', {
+				Parent = WatermarkBackground,
+				-- Name = '',
+				Rotation = 90,
+				Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
+			});
+			Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
+			
+			local Text = Library:Create('TextLabel', {
+				Parent = WatermarkBackground,
+				-- Name = '',
+				FontFace = Library.Font,
+				TextColor3 = Themes.Dracula.Text,
+				BorderColor3 = FromRgb(0, 0, 0),
+				Text = 'Kira.xyz',
+				Size = Dim2(0, 0, 1, 0),
+				BackgroundTransparency = 1,
+				Position = Dim2(0, -1, 0, 1),
+				BorderSizePixel = 0,
+				AutomaticSize = Enum.AutomaticSize.X,
+				TextSize = 10;
+				BackgroundColor3 = FromRgb(255, 255, 255)
+			});
+			
+			Library:Create('UIStroke', {
+				Parent = Text,
+				-- Name = '',
+				LineJoinMode = Enum.LineJoinMode.Miter
+			});
+			
+			local Accent = Library:Create('Frame', {
+				Parent = WatermarkOutline,
+				-- Name = '',
+				Position = Dim2(0, 2, 0, 2),
+				BorderColor3 = FromRgb(0, 0, 0),
+				Size = Dim2(1, -4, 0, 2),
+				BorderSizePixel = 0,
+				BackgroundColor3 = Themes.Dracula.Accent
+			});
+			Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
+			
+			local UIGradient = Library:Create('UIGradient', {
+				Parent = Accent,
+				-- Name = '',
+				Rotation = 180,
+				Transparency = NumSeq{NumKey(0, 1), NumKey(0.4, 0.75), NumKey(1, 0)},
+				Color = ColorSeq{ColorKey(0, FromRgb(255, 255, 255)), ColorKey(1, FromRgb(255, 255, 255))}
+			});
+			
+			function Cfg.UpdateText(Input)
+				Text.Text = '  '.. Input ..'  '
+			end;
+			return Cfg
 		end;
 
 		function Library:Window(Properties)
@@ -1999,7 +1927,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			Library.Cache = Library:Create('GuiMain', {
 				Enabled = false,
-				Parent = Hui,
+				Parent = gethui(),
 				Name = '' 
 			});
 
@@ -2020,7 +1948,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					end;
 				end;
 
-				Library:Tween(0.185, Blur, {Size = Boolean and (Flags['Blur Size'] or 30) or 0});
+				Library:Tween(Blur, {Size = Boolean and (Flags['Blur Size']) or 0}, 0.185);
 
 				DockOutline.Visible = Boolean;
 
@@ -2043,14 +1971,14 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			--// Dock init
 				DockOutline = Library:Create('Frame', {
 					Parent = SGui,
-					Name = '',
+					-- Name = '',
 					Visible = true,
 					BorderColor3 = FromRgb(0, 0, 0),
 					AnchorPoint = NewVect2(0.5, 0),
 					Position = Dim2(0.5, 0, 0, 20),
 					Size = Dim2(0, 157, 0, 39),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 
 				Library:ApplyTheme(DockOutline, 'Outline', 'BackgroundColor3');
@@ -2060,21 +1988,21 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 				local DockInline = Library:Create('Frame', {
 					Parent = DockOutline,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(DockInline, 'Inline', 'BackgroundColor3')
 				
 				local DockHolder = Library:Create('Frame', {
 					Parent = DockInline,
-					Name = '',
+					-- Name = '',
 					Size = Dim2(1, -2, 1, -2),
 					Position = Dim2(0, 1, 0, 1),
-					BorderColor3 = Themes.Preset.Outline,
+					BorderColor3 = Themes.Dracula.Outline,
 					BorderSizePixel = 0,
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
@@ -2082,17 +2010,17 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local Accent = Library:Create('Frame', {
 					Parent = DockHolder,
-					Name = '',
+					-- Name = '',
 					Size = Dim2(1, 0, 0, 2),
 					BorderColor3 = FromRgb(0, 0, 0),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 				Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
 				--// Thins
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = Accent,
-					Name = '',
+					-- Name = '',
 					Rotation = 180,
 					Transparency = NumSeq{NumKey(0, 1), NumKey(0.4, 0.75), NumKey(1, 0)},
 					Color = ColorSeq{ColorKey(0, FromRgb(255, 255, 255)), ColorKey(1, FromRgb(255, 255, 255))}
@@ -2100,7 +2028,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local ButtonHolder = Library:Create('Frame', {
 					Parent = DockHolder,
-					Name = '',
+					-- Name = '',
 					BackgroundTransparency = 1,
 					Size = Dim2(1, 0, 1, 0),
 					BorderColor3 = FromRgb(0, 0, 0),
@@ -2110,7 +2038,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local UIListLayout = Library:Create('UIListLayout', {
 					Parent = ButtonHolder,
-					Name = '',
+					-- Name = '',
 					Padding = NewDim(0, 5),
 					FillDirection = Enum.FillDirection.Horizontal,
 					SortOrder = Enum.SortOrder.LayoutOrder
@@ -2118,7 +2046,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local UIPadding = Library:Create('UIPadding', {
 					Parent = ButtonHolder,
-					Name = '',
+					-- Name = '',
 					PaddingTop = NewDim(0, 6),
 					PaddingBottom = NewDim(0, 4),
 					PaddingRight = NewDim(0, 4),
@@ -2127,7 +2055,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = DockHolder,
-					Name = '',
+					-- Name = '',
 					Rotation = 90,
 					Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 				});
@@ -2137,37 +2065,36 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			--// Keybind List
 				local Outline = Library:Create('Frame', {
 					Parent = SGui,
-					Name = '',
+					-- Name = '',
 					Visible = false, 
 					Active = true,
 					Draggable = true, 
-					--kys
 					-- Position = Dim2(0, 0, 0, 200),
 					Position = Dim2(0, Center.X - 906, 0, 594);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 182, 0, 25),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
-				Library:ApplyTheme(Outline, 'Outline', 'BackgroundColor3')
-				Library:DragThing(Outline)
-				Library:Resizeable(Outline)
-				Library.KeybindListFrame = Outline 
-				
+				Library:ApplyTheme(Outline, 'Outline', 'BackgroundColor3');
+				Library:DragThing(Outline);
+				Library:Resizeable(Outline);
+				Library.KeybindListFrame = Outline;
+                
 				local Inline = Library:Create('Frame', {
 					Parent = Outline,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 
 				local Background = Library:Create('Frame', {
 					Parent = Inline,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
@@ -2177,25 +2104,25 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = Background,
-					Name = '',
+					-- Name = '',
 					Rotation = 90,
-					Color = ColorSeq{ColorKey(0, Themes.Preset.LowContrast), ColorKey(1, Themes.Preset.HighContrast)}
+					Color = ColorSeq{ColorKey(0, Themes.Dracula.LowContrast), ColorKey(1, Themes.Dracula.HighContrast)}
 				});
 				Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
 				
 				local Bg = Library:Create('Frame', {
 					Parent = Background,
-					Name = 'A',
+					-- Name = '',
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 0, 0, 2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 				Library:ApplyTheme(Bg, 'Accent', 'BackgroundColor3')
 
 				Library:Create('UIGradient', {
 					Parent = Bg,
-					Name = '',
+					-- Name = '',
 					Enabled = true, 
 					Rotation = 180,
 					Transparency = NumSeq{NumKey(0, 1), NumKey(0.4, 0.75), NumKey(1, 0)},
@@ -2204,52 +2131,52 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local Text = Library:Create('TextLabel', {
 					Parent = Background,
-					Name = '',
+					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = 'Keybinds',
 					BackgroundTransparency = 1,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					Size = Dim2(1, 0, 1, 0),
 					BorderSizePixel = 0,
-					TextSize = Library.TextSize,
-					BackgroundColor3 = Themes.Preset.Text
+					TextSize = 10;
+					BackgroundColor3 = Themes.Dracula.Text
 				}, 'Text')
 				
 				local UIStroke = Library:Create('UIStroke', {
 					Parent = Text,
-					Name = '',
+					-- Name = '',
 					LineJoinMode = Enum.LineJoinMode.Miter
 				});
 				
 				local TextHolder = Library:Create('Frame', {
 					Parent = Background,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, -2, 1, 1),
 					Size = Dim2(1, 4, 0, 0),
 					BorderColor3 = FromRgb(0, 0, 0),
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.Y,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(TextHolder, 'Outline', 'BackgroundColor3')
 
 				local Inline = Library:Create('Frame', {
 					Parent = TextHolder,
-					Name = '',
+					-- Name = '',
 					Size = Dim2(1, -2, 1, -2),
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					BorderSizePixel = 0,
 					--AutomaticSize = Enum.AutomaticSize.Y,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 				
 				local Background = Library:Create('Frame', {
 					Parent = Inline,
-					Name = '',
+					-- Name = '',
 					Size = Dim2(1, -2, 1, -2),
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
@@ -2257,26 +2184,27 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					--AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
+                
 				Library.KeybindList = Background
 				
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = Background,
-					Name = '',
+					-- Name = '',
 					Rotation = 90,
-					Color = ColorSeq{ColorKey(0, Themes.Preset.LowContrast), ColorKey(1, Themes.Preset.HighContrast)}
+					Color = ColorSeq{ColorKey(0, Themes.Dracula.LowContrast), ColorKey(1, Themes.Dracula.HighContrast)}
 				});
 				Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
 				
 				Library:Create('UIListLayout', {
 					Parent = Background,
-					Name = '',
+					-- Name = '',
 					Padding = NewDim(0, -1),
 					SortOrder = Enum.SortOrder.LayoutOrder
 				});
 				
 				Library:Create('UIPadding', {
 					Parent = Background,
-					Name = '',
+					-- Name = '',
 					PaddingBottom = NewDim(0, 4),
 					PaddingLeft = NewDim(0, 5)
 				});
@@ -2294,7 +2222,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 				Window['TabHolder'] = Library:Create('Frame', {
 					Parent = Items.Holder,
-					Name = ' ',
+					-- Name = '';,
 					BackgroundTransparency = 1,
 					Size = Dim2(1, 0, 0, 22),
 					BorderColor3 = FromRgb(0, 0, 0),
@@ -2313,7 +2241,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 				local SectionHolder = Library:Create('Frame', {
 					Parent = Items.Holder,
-					Name = ' ',
+					-- Name = '';,
 					BackgroundTransparency = 1,
 					Position = Dim2(0, -1, 0, 19),
 					BorderColor3 = FromRgb(0, 0, 0),
@@ -2325,31 +2253,31 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 				local Outline = Library:Create('Frame', {
 					Parent = SectionHolder,
-					Name = '\0',
+					-- Name = '\0',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 0, 1, 2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				
 				Library:ApplyTheme(Outline, 'Outline', 'BackgroundColor3')
 
 				local Inline = Library:Create('Frame', {
 					Parent = Outline,
-					Name = '\0',
+					-- Name = '\0',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 
 				local Background = Library:Create('Frame', {
 					Parent = Inline,
-					Name = '\0',
+					-- Name = '\0',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
@@ -2389,87 +2317,50 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local Items = Style.Items
 				local Column = Setmetatable(Items, Library):Column() 
 				local Section = Column:Section({Name = 'Theme'});
-				Section:Label({Name = 'Accent'}):Colorpicker({Name = 'Accent', Color = Themes.Preset.Accent, Flag = 'Accent', Callback = function(Color) Library:UpdateTheme('Accent', Color) end});
-				Section:Label({Name = 'Contrast'}):Colorpicker({Name = 'High', Color = Themes.Preset.HighContrast, Flag = 'HighContrast', Callback = function(Color)
+				Section:Label({Name = 'Accent'}):Colorpicker({Name = 'Accent', Color = Themes.Dracula.Accent, Flag = 'Accent', Callback = function(Color) Library:UpdateTheme('Accent', Color) end});
+				Section:Label({Name = 'Contrast'}):Colorpicker({Name = 'High', Color = Themes.Dracula.HighContrast, Flag = 'HighContrast', Callback = function(Color)
 					if (Flags['LowContrast'] and Flags['HighContrast']) then
 						Library:UpdateTheme('Contrast', ColorSeq{ColorKey(0, Flags['HighContrast'].Color), ColorKey(1, Flags['LowContrast'].Color)});
 					end;
-
-					Library:UpdateTheme('HighContrast', Flags['HighContrast'].Color) end}):Colorpicker({Name = 'Low', Color = Themes.Preset.LowContrast, Flag = 'LowContrast', Callback = function(Color)
+					Library:UpdateTheme('HighContrast', Flags['HighContrast'].Color) end;}):Colorpicker({Name = 'Low', Color = Themes.Dracula.LowContrast, Flag = 'LowContrast', Callback = function(Color)
 					Library:UpdateTheme('Contrast', ColorSeq{ColorKey(0, Flags['HighContrast'].Color), ColorKey(1, Flags['LowContrast'].Color)});
 					Library:UpdateTheme('LowContrast', Flags['LowContrast'].Color)
 				end});
 
-				Section:Label({Name = 'Inline'}):Colorpicker({Name = 'Inline', Color = Themes.Preset.Inline, Callback = function(Color)
+				Section:Label({Name = 'Inline'}):Colorpicker({Name = 'Inline', Color = Themes.Dracula.Inline, Callback = function(Color)
 					Library:UpdateTheme('Inline', Color)
-				end, Flag = 'Inline'});
+				end; Flag = 'Inline'});
 
-				Section:Label({Name = 'Outline'}):Colorpicker({Name = 'Outline', Color = Themes.Preset.Outline, Callback = function(Color)
+				Section:Label({Name = 'Outline'}):Colorpicker({Name = 'Outline', Color = Themes.Dracula.Outline, Callback = function(Color)
 					Library:UpdateTheme('Outline', Color)
-				end, Flag = 'Outline'});
+				end; Flag = 'Outline'});
 
-				Section:Label({Name = 'Text Color'}):Colorpicker({Name = 'Main', Color = Themes.Preset.Text, Callback = function(Color)
+				Section:Label({Name = 'Text Color'}):Colorpicker({Name = 'Main', Color = Themes.Dracula.Text, Callback = function(Color)
 					Library:UpdateTheme('Text', Color)
-				end, Flag = 'Main'}):Colorpicker({Name = 'Outline', Color = Themes.Preset.TextOutline, Callback = function(Color)
+				end; Flag = 'Main'}):Colorpicker({Name = 'Outline', Color = Themes.Dracula.TextOutline, Callback = function(Color)
 					Library:UpdateTheme('TextOutline', Color)
-				end, Flag = 'Outline'});
+				end; Flag = 'Outline'});
 
-				Section:Label({Name = 'Glow'}):Colorpicker({Name = 'Glow', Color = Themes.Preset.Glow, Callback = function(Color)
+				Section:Label({Name = 'Glow'}):Colorpicker({Name = 'Glow', Color = Themes.Dracula.Glow, Callback = function(Color)
 					Library:UpdateTheme('Glow', Color)
-				end, Flag = 'Glow'});
+				end; Flag = 'Glow'});
 
 				Section:Slider({Name = 'Blur Size', Flag = 'Blur Size', Min = 1, Max = 56, Default = 30, Interval = 0.5, Callback = function(Value)
 					if Window.Opened then
 						Blur.Size = Value
 					end;
 				end});
-
+    
 				local Section = Column:Section({Name = 'Other'});
-				Section:Label({Name = 'UI Bind'}):Keybind({Callback = Window.SetMenuVisibility, Key = Enum.KeyCode.End, Flag = 'Menu Bind'});
-				Section:Toggle({Name = 'Keybind List', Default = false, Flag = 'Menu KeybindList'});
-
-				Section:Toggle({Name = 'Watermark', Flag = 'Menu Watermark'});
+				Section:Label({Name = 'UI Bind'}):Keybind({Flag = 'Menu Bind', Key = Enum.KeyCode.End, Callback = Window.SetMenuVisibility});
+				Section:Toggle({Name = 'Keybind List', Default = false, Flag = 'Menu KeybindList', Callback = function(Bool) Library.KeybindListFrame.Visible = (Bool) end});
+				Section:Toggle({Name = 'Watermark', Default = false, Flag = 'Menu Watermark', Callback = function(Bool) pcall(function() Library.Watermark.Visible = Bool end); end}); --// Gay ass pcall </3
 				Section:Toggle({Name = 'Spin Esp Preview', Flag = 'Menu Spin Preview', Default = false});
-				Section:Slider({Name = 'Text Size', Flag = 'Menu Text Size', Min = Library.TextSize, Max = 13, Default = Library.TextSize, Interval = 1});
-				if Typeof(GetFpsCap()) == 'number' then
-					Section:Slider({Name = 'Fps Cap', Flag = 'Menu Fps Cap', Min = 30, Max = 1000, Default = GetFpsCap() or 60, Interval = 1});
-				else
-					Section:Slider({Name = 'Fps Cap', Flag = 'Menu Fps Cap', Min = 30, Max = 1000, Default = 240, Interval = 1});
-				end;
-
-				--[[
-				Section:Slider({Name = 'Max Players', Flag = 'MaxPlayers', Min = 1, Max = 40, Default = 15, Interval = 1});
-				
-				Section:ButtonHolder({});
-				Section:Button({Name = 'Copy JobId', Callback = function()
-					setclipboard(game.JobId)
-				end});
-				
-				Section:ButtonHolder({});
-				Section:Button({Name = 'Copy GameID', Callback = function()
-					setclipboard(game.GameId)
-				end});
-				Section:ButtonHolder({});
-				Section:Button({Name = 'Copy Join Script', Callback = function()
-					setclipboard('game:GetService('TeleportService'):TeleportToPlaceInstance(' .. game.PlaceId .. ', '' .. game.JobId .. '', game.Players.LocalPlayer)')
-				end});
-				]]
+				Section:Slider({Name = 'Fps Cap', Flag = 'Menu Fps Cap', Min = 30, Max = 500, Default = (getfpscap() or 240), Interval = 1, Callback = function(Value) setfpscap(Value) end});
 				Section:ButtonHolder({});
 				Section:Button({Name = 'Rejoin', Callback = function()
-					game:GetService('TeleportService'):TeleportToPlaceInstance(game.PlaceId, game.JobId, Client)
+					cloneref(game:GetService('TeleportService')):TeleportToPlaceInstance(game.PlaceId, game.JobId, Client);
 				end});
-				--[[
-				Section:ButtonHolder({});
-				Section:Button({Name = 'Join New Server', Callback = function()
-					local ApiReq = game:GetService('HttpService'):JSONDecode(game:HttpGetAsync('https://games.roblox.com/v1/games/' .. game.PlaceId .. '/servers/Public?sortOrder=Asc&limit=100'))
-					local Data = ApiReq.Data[Random(1, #ApiReq.Data)]
-						
-					if Data.playing <= Flags['MaxPlayers'] then
-						game:GetService('TeleportService'):TeleportToPlaceInstance(game.PlaceId, Data.id)
-					end;
-				end});
-				]]
-			--// 
 
 			--// Cfg Holder
 				local Holder = Library:Panel({
@@ -2480,11 +2371,6 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				}); 
 
 				local Items = Holder.Items
-
-				getgenv().LoadConfig = function(Name)
-					Library:LoadConfig(readfile(Library.Directory .. '/Configs/' .. Name .. '.Cfg'))
-				end;
-
 				local Column = Setmetatable(Items, Library):Column()
 				local Section = Column:Section({Name = 'Options'});
 					ConfigHolder = Section:List({Flag = 'ConfigNameList'});
@@ -2528,19 +2414,20 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Section:Button({Name = 'Unload Config', Callback = function()
 						Library:LoadConfig(Library.OldConfig)
 					end});
-					Section:Button({Name = 'Unload Menu', Callback = function()
-						Library:LoadConfig()
- 
-						for _, Gui in Library.InputService do 
+					Section:Button({Name = 'Eject Cheat', Callback = function()
+						Library:LoadConfig(Library.OldConfig);
+						Blur:Destroy();
+						for _, Gui in Library.Guis do 
 							Gui:Destroy() 
 						end;
-
 						for _, Connection in Library.Connections do 
 							Connection:Disconnect() 
 						end;
-						Blur:Destroy()
+						for _, Inst in Library.Instances do 
+							Inst:Destroy()
+						end;
+						Library = nil;
 					end});
-			--// 
 					
 			--// Esp Preview
 				local Holder = Library:Panel({
@@ -2571,17 +2458,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 				local Column = Setmetatable(Items, Library):Column() 
 				local Section = Column:Section({Name = 'Playerlist'});
-				local Playerlist = Section:Playerlist({});
-				--[[
-				Section:ButtonHolder({});
-				Section:Button({Name = 'Teleport to', Callback = function()
-					if (Client.Character and shared.SelectedPlayer ~= 'No one') then
-						Client.Character:FindFirstChild('HumanoidRootPart').CFrame = Players[shared.SelectedPlayer].Character:GetPivot()
-					else
-						return
-					end
-				end});
-				]]
+				Library.Playerlist = Section:Playerlist({});
 				Section:Dropdown({Name = 'Priority', Items = {'Enemy', 'Priority', 'Neutral', 'Friendly'}, Default = 'Neutral', Flag = 'PlayerlistDropdown', Callback = function(Text)
 					Library.Prioritize(Text)
 				end});
@@ -2590,120 +2467,13 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			return Setmetatable(Window, Library)
 		end;
 
-		function Library:Watermark(Options) 
-			local Cfg = {
-				Default = Options.Text or Options.Default or Date('Kira.xyz | %b %d %Y | %H:%M')
-			}
-
-			local WatermarkOutline = Library:Create('Frame', {
-				Parent = SGui,
-				Name = '',
-				BorderColor3 = FromRgb(0, 0, 0),
-				AnchorPoint = NewVect2(1, 1),
-				Position = Dim2(0, Center.X + 200, 0, 0),
-				Size = Dim2(0, 0, 0, 24),
-				BorderSizePixel = 0,
-				AutomaticSize = Enum.AutomaticSize.X,
-				BackgroundColor3 = Themes.Preset.Outline
-			});
-
-			Library:ApplyTheme(WatermarkOutline, 'Outline', 'BackgroundColor3')
-			-- WatermarkOutline.Position = DimOffset(WatermarkOutline.AbsolutePosition.X, WatermarkOutline.AbsolutePosition.Y)
-			Library:DragThing(WatermarkOutline)
-
-			local WatermarkInline = Library:Create('Frame', {
-				Parent = WatermarkOutline,
-				Name = '',
-				Position = Dim2(0, 1, 0, 1),
-				BorderColor3 = FromRgb(0, 0, 0),
-				Size = Dim2(1, -2, 1, -2),
-				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Inline
-			});
-			Library:ApplyTheme(WatermarkInline, 'Inline', 'BackgroundColor3')
-			
-			local WatermarkBackground = Library:Create('Frame', {
-				Parent = WatermarkInline,
-				Name = '',
-				Position = Dim2(0, 1, 0, 1),
-				BorderColor3 = FromRgb(0, 0, 0),
-				Size = Dim2(1, -2, 1, -2),
-				BorderSizePixel = 0,
-				BackgroundColor3 = FromRgb(255, 255, 255)
-			});
-			
-			local UIGradient = Library:Create('UIGradient', {
-				Parent = WatermarkBackground,
-				Name = '',
-				Rotation = 90,
-				Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
-			});
-			Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
-			
-			local Text = Library:Create('TextLabel', {
-				Parent = WatermarkBackground,
-				Name = '',
-				FontFace = Library.Font,
-				TextColor3 = Themes.Preset.Text,
-				BorderColor3 = FromRgb(0, 0, 0),
-				Text = 'Kira.xyz',
-				Size = Dim2(0, 0, 1, 0),
-				BackgroundTransparency = 1,
-				Position = Dim2(0, -1, 0, 1),
-				BorderSizePixel = 0,
-				AutomaticSize = Enum.AutomaticSize.X,
-				TextSize = Library.TextSize,
-				BackgroundColor3 = FromRgb(255, 255, 255)
-			});
-			
-			Library:Create('UIStroke', {
-				Parent = Text,
-				Name = '',
-				LineJoinMode = Enum.LineJoinMode.Miter
-			});
-			
-			local Accent = Library:Create('Frame', {
-				Parent = WatermarkOutline,
-				Name = '',
-				Position = Dim2(0, 2, 0, 2),
-				BorderColor3 = FromRgb(0, 0, 0),
-				Size = Dim2(1, -4, 0, 2),
-				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Accent
-			});
-			Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
-			
-			local UIGradient = Library:Create('UIGradient', {
-				Parent = Accent,
-				Name = '',
-				Rotation = 180,
-				Transparency = NumSeq{NumKey(0, 1), NumKey(0.4, 0.75), NumKey(1, 0)},
-				Color = ColorSeq{ColorKey(0, FromRgb(255, 255, 255)), ColorKey(1, FromRgb(255, 255, 255))}
-			});
-			
-			function Cfg.UpdateText(Input)
-				Text.Text = '  '.. Input ..'  '
-			end;
-
-			function Cfg.SetVisible(Boolean) 
-				WatermarkOutline.Visible = Boolean
-			end;
-
-			function Cfg.GetVisibility() 
-				return WatermarkOutline.Visible
-			end;
-
-			Cfg.UpdateText(Cfg.Default)
-
-			return Cfg
-		end;
-
 		function Library:EspPreview(Properties)
 			local Cfg = {Items = {}, Rotation = 0; Objects = {};}
-
-			Client.Character.Archivable = true
+			if not (Client.Character.Archivable) then 
+				Client.Character.Archivable = true
+			end;
+	
 			local Character = Client.Character:Clone()
-			Client.Character.Archivable = false
 			Character.Animate:Destroy()
 
 			local Items = Cfg.Items; do
@@ -2722,8 +2492,8 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					FieldOfView = 80;
 					CameraType = Enum.CameraType.Track;
 					CFrame = NewCF(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1);
-					Parent = Workspace;
-					Name = '\0'
+					Parent = gethui();
+					-- Name = '\0'
 				});
 
 				Items.ViewportFrame.CurrentCamera = Items.Camera
@@ -2732,18 +2502,18 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Items.Camera.CameraSubject = Character;
 				Character.SetPrimaryPartCFrame(Character, NewCF(NewVect3(0, 0, -5)) * NewAnglesCF(Rad(5), Rad(180), 0));
 
-				Library:Connection(RunService.RenderStepped, function()
-					if (shared.MenuIsOpen and Flags['Menu Spin Preview']) then
-						Cfg.Rotation += 0.75;
-						Character.SetPrimaryPartCFrame(Character, NewCF(NewVect3(0, 0, -5)) * NewAnglesCF(Rad(5), Rad(Cfg.Rotation), 0))
-					end;
+				Library:Connection(RunService.PostSimulation, function()
+					if (not Library.MenuIsOpen and not Flags['Menu Spin Preview']) then return end;
+					Cfg.Rotation += 0.75;
+					Character.SetPrimaryPartCFrame(Character, NewCF(NewVect3(0, 0, -5)) * NewAnglesCF(Rad(5), Rad(Cfg.Rotation), 0))
 				end);
-			end;
+            end;
 
-			local Objects = Cfg.Objects; do 
+			local Objects = Cfg.Objects; 
+                do
 				Objects['Holder'] = Library:Create('Frame' , {
 					Parent = Items.ViewportFrame;
-					Name = '\0';
+					-- Name = '\0';
 					BackgroundTransparency = 1;
 					Position = Dim2(0.5, 0, 0.5, 10);
 					BorderColor3 = FromRgb(0, 0, 0);
@@ -2761,10 +2531,10 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Objects['Name'] = Library:Create('TextLabel' , {
 					FontFace = Library.Font;
 					Parent = Library.Cache;
-					TextColor3 = Themes.Preset.Text; --Flags['NameTextColor'].Color or FromRgb(255, 255, 255);
+					TextColor3 = Themes.Dracula.Text;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Text = FormatString('%s (@%s)', Client.DisplayName, Client.Name);
-					Name = '\0';
+					-- Name = '\0';
 					TextStrokeTransparency = 0;
 					AnchorPoint = NewVect2(0, 1);
 					Size = Dim2(1, 0, 0, 0);
@@ -2772,12 +2542,12 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Position = Dim2(0, 0, 0, -5);
 					BorderSizePixel = 0;
 					AutomaticSize = Enum.AutomaticSize.Y;
-					TextSize = Library.TextSize;
+					TextSize = 10;
 				});
 				
 				Objects['BoxHandler'] = Library:Create('Frame' , {
 					Parent = Library.Cache;
-					Name = '\0';
+					-- Name = '\0';
 					BackgroundTransparency = 1;
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
@@ -2789,13 +2559,13 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Objects['BoxColor'] = Library:Create('UIStroke' , {
 					Color = FromRgb(255, 255, 255);
 					LineJoinMode = Enum.LineJoinMode.Miter;
-					Name = '\0';
+					-- Name = '\0';
 					Parent = Objects['BoxHandler']
 				});
 				
 				Objects['Outline'] = Library:Create('Frame' , {
 					Parent = Objects['BoxHandler'];
-					Name = '\0';
+					-- Name = '\0';
 					BackgroundTransparency = 1;
 					Position = Dim2(0, 1, 0, 1);
 					BorderColor3 = FromRgb(0, 0, 0);
@@ -2816,7 +2586,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Parent = Library.Cache;
 						BackgroundTransparency = 1;
 						Position = Dim2(0, -1, 0, 2);
-						Name = '\0';
+						-- Name = '\0';
 						Size = Dim2(1, 0, 1, 0);
 						BorderSizePixel = 0;
 						BackgroundColor3 = FromRgb(255, 255, 255)
@@ -2838,7 +2608,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, -2);
 						BorderSizePixel = 0;
-						BackgroundColor3 = FromRgb(255, 255, 255) --Flags['BoxColor'].Color
+						BackgroundColor3 = FromRgb(255, 255, 255)
 					});
 					
 					Objects['2'] = Library:Create('Frame' , {
@@ -2857,7 +2627,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, 1);
 						BorderSizePixel = 0;
-						BackgroundColor3 = FromRgb(255, 255, 255) --Flags['BoxColor'].Color
+						BackgroundColor3 = FromRgb(255, 255, 255)
 					});
 					
 					Objects['3'] = Library:Create('Frame' , {
@@ -2877,7 +2647,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, -2);
 						BorderSizePixel = 0;
-						BackgroundColor3 = FromRgb(255, 255, 255) --Flags['BoxColor'].Color
+						BackgroundColor3 = FromRgb(255, 255, 255)
 					});
 					
 					Objects['4'] = Library:Create('Frame' , {
@@ -2897,7 +2667,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, 1);
 						BorderSizePixel = 0;
-						BackgroundColor3 = FromRgb(255, 255, 255) --Flags['BoxColor'].Color
+						BackgroundColor3 = FromRgb(255, 255, 255)
 					});
 					
 					Objects['5'] = Library:Create('Frame' , {
@@ -2917,7 +2687,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, -2);
 						BorderSizePixel = 0;
-						BackgroundColor3 = FromRgb(255, 255, 255) --Flags['BoxColor'].Color
+						BackgroundColor3 = FromRgb(255, 255, 255)
 					});
 					
 					Objects['6'] = Library:Create('Frame' , {
@@ -2938,7 +2708,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, 1);
 						BorderSizePixel = 0;
-						BackgroundColor3 = FromRgb(255, 255, 255) --Flags['BoxColor'].Color
+						BackgroundColor3 = FromRgb(255, 255, 255)
 					});
 					
 					Objects['7'] = Library:Create('Frame' , {
@@ -2958,7 +2728,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, -2);
 						BorderSizePixel = 0;
-						BackgroundColor3 = FromRgb(255, 255, 255) --Flags['BoxColor'].Color
+						BackgroundColor3 = FromRgb(255, 255, 255)
 					});
 					
 					Objects['7'] = Library:Create('Frame' , {
@@ -2979,7 +2749,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, 1);
 						BorderSizePixel = 0;
-						BackgroundColor3 = FromRgb(255, 255, 255) --Flags['BoxColor'].Color
+						BackgroundColor3 = FromRgb(255, 255, 255)
 					});
 				--//
 				
@@ -2987,7 +2757,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Objects['HealthBar'] = Library:Create('Frame' , {
 						AnchorPoint = NewVect2(1, 0);
 						Parent = Library.Cache;
-						Name = '\0';
+						-- Name = '\0';
 						Position = Dim2(0, -5, 0, 0);
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(0, 4, 1, 0);
@@ -2997,7 +2767,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					Objects['HealthBar'] = Library:Create('Frame' , {
 						Parent = Objects['HealthBar'];
-						Name = '\0';
+						-- Name = '\0';
 						Position = Dim2(0, 1, 0, 1);
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, -2);
@@ -3009,53 +2779,53 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				--// Distance Esp
 					Objects['Distance'] = Library:Create('TextLabel' , {
 						FontFace = Library.Font;
-						TextColor3 = Themes.Preset.Text; --Flags['DistanceColor'].Color or FromRgb(255, 255, 255);
+						TextColor3 = Themes.Dracula.Text;
 						BorderColor3 = FromRgb(0, 0, 0);
 						Text = '127st';
 						Parent = Library.Cache;
 						TextStrokeTransparency = 0;
-						Name = '\0';
+						-- Name = '\0';
 						Size = Dim2(1, 0, 0, 0);
 						BackgroundTransparency = 1;
 						Position = Dim2(0, 0, 1, 5);
 						BorderSizePixel = 0;
 						AutomaticSize = Enum.AutomaticSize.Y;
-						TextSize = Library.TextSize;
+						TextSize = 10;
 					});
 				--// 
 
 				--// Weapon Esp
 					Objects['Weapon'] = Library:Create('TextLabel' , {
 						FontFace = Library.Font;
-						TextColor3 = Themes.Preset.Text; --Flags['WeaponColor'].Color or FromRgb(255, 255, 255);
+						TextColor3 = Themes.Dracula.Text;
 						BorderColor3 = FromRgb(0, 0, 0);
 						Text = '[ Weapon ]';
 						Parent = Library.Cache;
 						TextStrokeTransparency = 0;
-						Name = '\0';
+						-- Name = '\0';
 						Size = Dim2(1, 0, 0, 0);
 						BackgroundTransparency = 1;
 						Position = Dim2(0, 0, 1, 19);
 						BorderSizePixel = 0;
 						AutomaticSize = Enum.AutomaticSize.Y;
-						TextSize = Library.TextSize;
+						TextSize = 10;
 				});
-			end 
+			end; 
 
 			Cfg.ChangeHealth = function()
 				if Flags['HealthBar'] and Flags['HealthBar'].Parent ~= Objects['Holder'] then 
 					return 
-				end
+				end;
 
 				local Humanoid = Character.Humanoid
 				
-				local Multiplier = Humanoid.MaxHealth * Abs(Sin(GetTick * 2)) / Humanoid.MaxHealth
-				local Color = FromRgb(200, 0, 0):Lerp(FromRgb(0, 200, 0), Multiplier) --Flags['LowHealth'].Color:Lerp( Flags['HighHealth'].Color, Multiplier)
+				-- local Multiplier = Humanoid.MaxHealth * Abs(Sin(Library.Tick * 2)) / Humanoid.MaxHealth
+				local Color = FromRgb(200, 0, 0):Lerp(FromRgb(0, 200, 0), Multiplier)
 				
 				Objects['HealthBar'].Size = Dim2(1, -2, Multiplier, -2)
 				Objects['HealthBar'].Position = Dim2(0, 1, 1 - Multiplier, 1)
 				Objects['HealthBar'].BackgroundColor3 = Color
-			end
+			end;
 
 			function Cfg.RefreshElements()
 				Objects.Holder.Parent = Flags['Enabled'] and Items.ViewportFrame or Library.Cache
@@ -3075,8 +2845,8 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Object[1].TextColor3 = Flags[Flag].Color
 					else 
 						Object.Parent = Flags[Flag] and Objects['Holder'] or Library.Cache
-					end
-				end 
+					end;
+				end; 
 				
 				local IsCorner = Flags['BoxType'] == 'Corner'
 
@@ -3089,26 +2859,26 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Objects['BoxHandler'].Parent = Objects['Holder']
 						Objects['BoxOutline'].Parent = Objects['Holder']
 						Objects['Corners'].Parent = Library.Cache
-					end 
+					end; 
 				else
 					Objects['Corners'].Parent = Library.Cache
 					Objects['BoxHandler'].Parent = Library.Cache
 					Objects['BoxOutline'].Parent = Library.Cache
-				end 
+				end; 
 
 				Objects['BoxColor'].Color = Flags['BoxColor'].Color 
 
 				for _, Corner in Objects['Corners']:GetChildren() do
-					Corner.Frame.BackgroundColor3 = FromRgb(255, 255, 255) --Flags['BoxColor'].Color
-				end
-			end
-
-			-- Library:Connection(RunService.RenderStepped, function()
-				-- if shared.MenuIsOpen then
-					-- Cfg.ChangeHealth()
-				-- end;
-			-- end);
-
+					Corner.Frame.BackgroundColor3 = FromRgb(255, 255, 255)
+				end;
+			end;
+		--[[
+			Library:Connection(RunService.RenderStepped, function()
+				if shared.MenuIsOpen then
+					Cfg.ChangeHealth()
+				end;
+			end)
+		]]
 			return Setmetatable(Cfg, Library)
 		end;
 
@@ -3127,29 +2897,29 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			--// Instances
 				local WatermarkOutline = Library:Create('Frame', {
 					Parent = NotifHolder,
-					Name = '',
+					-- Name = '',
 					Size = Dim2(0, 0, 0, 24),
 					BorderColor3 = FromRgb(0, 0, 0),
 					BorderSizePixel = 0,
 					Position = Dim2(0, 20, 0, 72 + (#Library.Notifications * 28)),
 					AutomaticSize = Enum.AutomaticSize.X,
-					BackgroundColor3 = Themes.Preset.Outline,
+					BackgroundColor3 = Themes.Dracula.Outline,
 					AnchorPoint = NewVect2(1, 0)
 				});
 			
 				local WatermarkInline = Library:Create('Frame', {
 					Parent = WatermarkOutline,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 
 				local WatermarkBackground = Library:Create('Frame', {
 					Parent = WatermarkInline,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
@@ -3159,15 +2929,15 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 		
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = WatermarkBackground,
-					Name = '',
-					Color = ColorSeq{ColorKey(0, Themes.Preset.LowContrast), ColorKey(1, Themes.Preset.HighContrast)}
+					-- Name = '',
+					Color = ColorSeq{ColorKey(0, Themes.Dracula.LowContrast), ColorKey(1, Themes.Dracula.HighContrast)}
 				});
 		
 				local Text = Library:Create('TextLabel', {
 					Parent = WatermarkBackground,
-					Name = '',
+					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '  ' .. Cfg.Text .. '  ',
 					Size = Dim2(0, 0, 1, 0),
@@ -3175,25 +2945,25 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Position = Dim2(0, 0, 0, -1),
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.X,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 		
 				local Accent = Library:Create('Frame', {
 					Parent = WatermarkOutline,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 2, 0, 2),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 1, 1, -4),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 
 				Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
 		
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = Accent,
-					Name = '',
+					-- Name = '',
 					Rotation = 90,
 					--Transparency
 					Color = ColorSeq{ColorKey(0, FromRgb(255, 255, 255)), ColorKey(1, FromRgb(167, 167, 167))}
@@ -3201,17 +2971,17 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local AccentBottom = Library:Create('Frame', {
 					Parent = WatermarkOutline,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 2, 1, -3),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, -4, 0, 1),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 				
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = Accent,
-					Name = '',
+					-- Name = '',
 					Rotation = 90,
 					Color = ColorSeq{ColorKey(0, FromRgb(255, 255, 255)), ColorKey(1, FromRgb(167, 167, 167))}
 				});
@@ -3248,7 +3018,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Wait(1.5)
 
 				WatermarkOutline:Destroy()
-			end);
+			end)
 		end;
 
 		function Library:Tab(Options)	
@@ -3261,15 +3031,15 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local TabHolder = Library:Create('TextButton', {
 					Parent = self.TabHolder,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
-					Name = '\0',
+					-- Name = '\0',
 					BorderSizePixel = 0,
 					Size = Dim2(0, 0, 1, -2),
 					ZIndex = 5,
-					TextSize = Library.TextSize,
-					BackgroundColor3 = Themes.Preset.Outline,
+					TextSize = 10;
+					BackgroundColor3 = Themes.Dracula.Outline,
 					AutoButtonColor = false
 				});
 				Library:ApplyTheme(TabHolder, 'Outline', 'BackgroundColor3')
@@ -3277,19 +3047,19 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local Inline = Library:Create('Frame', {
 					Parent = TabHolder,
 					Size = Dim2(1, -2, 1, 0),
-					Name = '\0',
+					-- Name = '\0',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					ZIndex = 5,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 
 				local Background = Library:Create('Frame', {
 					Parent = Inline,
 					Size = Dim2(1, -2, 1, -1),
-					Name = '\0',
+					-- Name = '\0',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					ZIndex = 5,
@@ -3307,15 +3077,15 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local Text = Library:Create('TextLabel', {
 					Parent = Background,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = Cfg.Name,
-					Name = '\0',
+					-- Name = '\0',
 					BackgroundTransparency = 1,
 					Size = Dim2(1, 0, 1, 0),
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.X,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					ZIndex = 5,
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				}, 'Text')
@@ -3324,7 +3094,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local SectionHolder = Library:Create('Frame', {
 					Parent = Library.SectionHolder,
 					BackgroundTransparency = 1,
-					Name = '\0',
+					-- Name = '\0',
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 0, 1, 0),
 					BorderSizePixel = 0,
@@ -3347,7 +3117,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					local Button = Library.CurrentTab[1]
 					Button.Size = Dim2(1, -2, 1, -1)
 					Button:FindFirstChildOfClass('UIGradient').Rotation = 90
-					Button:FindFirstChildOfClass('TextLabel').TextColor3 = Themes.Preset.Text
+					Button:FindFirstChildOfClass('TextLabel').TextColor3 = Themes.Dracula.Text
 						
 					Library.CurrentTab[2].Visible = false
 					
@@ -3359,7 +3129,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local Button = Library.CurrentTab[1] 
 				Button.Size = Dim2(1, -2, 1, 0) --// Enabled
 				Button:FindFirstChildOfClass('UIGradient').Rotation = -90
-				Button:FindFirstChildOfClass('TextLabel').TextColor3 = Themes.Preset.Accent 
+				Button:FindFirstChildOfClass('TextLabel').TextColor3 = Themes.Dracula.Accent 
 
 				Library.CurrentTab[2].Visible = true 
 
@@ -3383,11 +3153,11 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			local Column = Library:Create('Frame', {
 				Parent = Holder,
 				BackgroundTransparency = 1,
-				Name = '\0',
+				-- Name = '\0',
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, 0, 1, 0),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Inline
+				BackgroundColor3 = Themes.Dracula.Inline
 			});
 			Library:ApplyTheme(Column, 'Inline', 'BackgroundColor3')
 			
@@ -3411,28 +3181,28 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 			local Section = Library:Create('Frame', {
 				Parent = self.Holder,
-				Name = '',
+				-- Name = '',
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, 0, 1, 0),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Inline
+				BackgroundColor3 = Themes.Dracula.Inline
 			});
 			Library:ApplyTheme(Section, 'Inline', 'BackgroundColor3')
 			
 			local Inline = Library:Create('Frame', {
 				Parent = Section,
-				Name = '',
+				-- Name = '',
 				Position = Dim2(0, 1, 0, 1),
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -2, 1, -2),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Outline
+				BackgroundColor3 = Themes.Dracula.Outline
 			});
 			Library:ApplyTheme(Inline, 'Outline', 'BackgroundColor3')
 			
 			local __Background = Library:Create('Frame', {
 				Parent = Inline,
-				Name = '',
+				-- Name = '',
 				ClipsDescendants = true,
 				Position = Dim2(0, 1, 0, 1),
 				BorderColor3 = FromRgb(0, 0, 0),
@@ -3444,25 +3214,25 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			local Accent = Library:Create('Frame', {
 				Parent = __Background,
-				Name = '',
+				-- Name = '',
 				Size = Dim2(1, 0, 0, 2),
 				BorderColor3 = FromRgb(0, 0, 0),
 				ZIndex = 3,
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Accent
+				BackgroundColor3 = Themes.Dracula.Accent
 			});
 			Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
 			
 			local UIGradient = Library:Create('UIGradient', {
 				Parent = Accent,
-				Name = '',
+				-- Name = '',
 				Rotation = 90,
 				Color = ColorSeq{ColorKey(0, FromRgb(255, 255, 255)), ColorKey(1, FromRgb(167, 167, 167))}
 			});
 			
 			local UIGradient = Library:Create('UIGradient', {
 				Parent = __Background,
-				Name = '',
+				-- Name = '',
 				Rotation = 90,
 				Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 			});
@@ -3470,7 +3240,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			local TabHolder = Library:Create('Frame', {
 				Parent = __Background,
-				Name = '',
+				-- Name = '',
 				ClipsDescendants = true,
 				BackgroundTransparency = 1,
 				Position = Dim2(0, -1, 0, 0),
@@ -3482,7 +3252,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			Library:Create('UIListLayout', {
 				Parent = TabHolder,
-				Name = '',
+				-- Name = '',
 				FillDirection = Enum.FillDirection.Horizontal,
 				HorizontalFlex = Enum.UIFlexAlignment.Fill,
 				Padding = NewDim(0, -3),
@@ -3495,23 +3265,23 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				--// Tab
 					local Tabb = Library:Create('TextButton', {
 						Parent = TabHolder,
-						Name = '',
+						-- Name = '',
 						AutoButtonColor = false,
 						FontFace = Library.Font,
-						TextColor3 = Themes.Preset.Text,
+						TextColor3 = Themes.Dracula.Text,
 						BorderColor3 = FromRgb(0, 0, 0),
 						Text = '',
 						BorderSizePixel = 0,
 						Size = Dim2(0, 0, 1, 0),
 						ZIndex = 1,
-						TextSize = Library.TextSize,
-						BackgroundColor3 = Themes.Preset.Outline
+						TextSize = 10;
+						BackgroundColor3 = Themes.Dracula.Outline
 					});
 					Library:ApplyTheme(Tabb, 'Outline', 'BackgroundColor3')
 					
 					local Background = Library:Create('Frame', {
 						Parent = Tabb,
-						Name = '',
+						-- Name = '',
 						Size = Dim2(1, 0, 1, -2),
 						Position = Dim2(0, 1, 0, 1),
 						BorderColor3 = FromRgb(0, 0, 0),
@@ -3522,7 +3292,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					local UIGradient = Library:Create('UIGradient', {
 						Parent = Background,
-						Name = '',
+						-- Name = '',
 						Rotation = 90,
 						Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 					});
@@ -3530,23 +3300,23 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					local Text = Library:Create('TextLabel', {
 						Parent = Background,
-						Name = '',
+						-- Name = '',
 						FontFace = Library.Font,
-						TextColor3 = Themes.Preset.Text,
+						TextColor3 = Themes.Dracula.Text,
 						BorderColor3 = FromRgb(0, 0, 0),
 						Text = Tab,
 						BackgroundTransparency = 1,
 						Size = Dim2(1, 0, 1, 0),
 						BorderSizePixel = 0,
 						AutomaticSize = Enum.AutomaticSize.X,
-						TextSize = Library.TextSize,
+						TextSize = 10;
 						BackgroundColor3 = FromRgb(255, 255, 255)
 					});
 					Library:ApplyTheme(Text, 'Accent', 'TextColor3')
 					
 					local UIStroke = Library:Create('UIStroke', {
 						Parent = Text,
-						Name = '',
+						-- Name = '',
 						LineJoinMode = Enum.LineJoinMode.Miter
 					});
 				--// 
@@ -3554,8 +3324,8 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				--// Element Handler
 					local ScrollingFrame = Library:Create('ScrollingFrame', {
 						Parent = __Background,
-						Name = '',
-						ScrollBarImageColor3 = Themes.Preset.Accent,
+						-- Name = '',
+						ScrollBarImageColor3 = Themes.Dracula.Accent,
 						Active = true,
 						MidImage = getcustomasset(Library.Directory.. '/Assets/Images/White.Png'),
 						TopImage = MidImage,
@@ -3576,7 +3346,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					local Elements = Library:Create('Frame', {
 						Parent = ScrollingFrame,
-						Name = '',
+						-- Name = '',
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, 0, 0, 0),
 						BorderSizePixel = 0,
@@ -3586,7 +3356,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					local UIListLayout = Library:Create('UIListLayout', {
 						Parent = Elements,
-						Name = '',
+						-- Name = '',
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						HorizontalAlignment = Enum.HorizontalAlignment.Center,
 						Padding = NewDim(0, 4)
@@ -3594,7 +3364,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					
 					local UIPadding = Library:Create('UIPadding', {
 						Parent = ScrollingFrame,
-						Name = '',
+						-- Name = '',
 						PaddingBottom = NewDim(0, 60)
 					});
 				--
@@ -3603,7 +3373,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					ScrollingFrame.Visible = Boolean 
 					UIGradient.Rotation = Boolean and -90 or 90
 					Tabb.Size = Dim2(0, 0, 1, Boolean and 1 or 0)
-					Text.TextColor3 = Boolean and Themes.Preset.Accent or Themes.Preset.Text
+					Text.TextColor3 = Boolean and Themes.Dracula.Accent or Themes.Dracula.Text
 				end;
 
 				Library:Connection(Tabb.MouseButton1Click, function()
@@ -3618,7 +3388,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					end;
 
 					Multi:OpenTab(true) 
-				end);
+				end)
 
 				Cfg.Sections[#Cfg.Sections + 1] = Setmetatable(Multi, Library)
 			end;
@@ -3635,28 +3405,28 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			local Section = Library:Create('Frame', {
 				Parent = self.Holder,
-				Name = '\0',
+				-- Name = '\0',
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, 0, 1, 0),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Inline
+				BackgroundColor3 = Themes.Dracula.Inline
 			});
 			Library:ApplyTheme(Section, 'Inline', 'BackgroundColor3')
 
 			local Inline = Library:Create('Frame', {
 				Parent = Section,
-				Name = '\0',
+				-- Name = '\0',
 				Position = Dim2(0, 1, 0, 1),
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -2, 1, -2),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Outline
+				BackgroundColor3 = Themes.Dracula.Outline
 			});
 			Library:ApplyTheme(Inline, 'Outline', 'BackgroundColor3')
 
 			local Background = Library:Create('Frame', {
 				Parent = Inline,
-				Name = '\0',
+				-- Name = '\0',
 				Position = Dim2(0, 1, 0, 1),
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -2, 1, -2),
@@ -3667,15 +3437,15 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			local Text = Library:Create('TextLabel', {
 				Parent = Background,
 				FontFace = Library.Font,
-				TextColor3 = Themes.Preset.Text,
+				TextColor3 = Themes.Dracula.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = Cfg.Name,
-				Name = '\0',
+				-- Name = '\0',
 				BackgroundTransparency = 1,
 				Position = Dim2(0, 6, 0, 4),
 				BorderSizePixel = 0,
 				AutomaticSize = Enum.AutomaticSize.XY,
-				TextSize = Library.TextSize,
+				TextSize = 10;
 				BackgroundColor3 = FromRgb(255, 255, 255)
 			});
 
@@ -3686,11 +3456,11 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 			local Accent = Library:Create('Frame', {
 				Parent = Background,
-				Name = '\0',
+				-- Name = '\0',
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, 0, 0, 2),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Accent
+				BackgroundColor3 = Themes.Dracula.Accent
 			});
 			Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
 
@@ -3709,7 +3479,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 			local ScrollingFrame = Library:Create('ScrollingFrame', {
 				Parent = Background,
-				ScrollBarImageColor3 = Themes.Preset.Accent,
+				ScrollBarImageColor3 = Themes.Dracula.Accent,
 				Active = true,
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				ScrollBarThickness = 2,
@@ -3732,11 +3502,11 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Library.CurrentElementOpened.Open = false 
 					Library.CurrentElementOpened = nil
 				end;
-			end);
+			end)
 
 			local Elements = Library:Create('Frame', {
 				Parent = ScrollingFrame,
-				Name = '\0',
+				-- Name = '\0',
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, 0, 0, 0),
 				BorderSizePixel = 0,
@@ -3764,9 +3534,9 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Name = Options.Name or nil,
 				Suffix = Options.Suffix or '',
 				Flag = (Options.Flag or '(Slider) EMPTY FLAG: '),
-				Callback = Options.Callback or function() end, 
+				Callback = Options.Callback or function() end; 
 				Visible = Options.Visible or true, 
-				InputDisabled = Options.Input or false,
+				InputDisabled = Options.InputDisabled or false,
 				CustomColor = Options.Custom or nil;
 
 				Min = Options.Min or Options.Minimum or 0,
@@ -3776,13 +3546,13 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 				Dragging = false,
 				Value = Options.Default or 10, 
-			} 
+			};
 
 			--// Instances 
-				local SliderREAL = Library:Create('TextLabel', {
+				local RealSlider = Library:Create('TextLabel', {
 					Parent = self.Holder, 
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					Name = 'Slider',
@@ -3793,14 +3563,14 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					TextXAlignment = Enum.TextXAlignment.Left,
 					AutomaticSize = Enum.AutomaticSize.Y,
 					TextYAlignment = Enum.TextYAlignment.Top,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 				
 				local TextLabel;
 				if Cfg.Name then
 					local LeftComponents = Library:Create('Frame', {
-						Parent = SliderREAL,
+						Parent = RealSlider,
 						Name = 'LeftComponents',
 						BackgroundTransparency = 1,
 						Position = Dim2(0, 2, 0, -1),
@@ -3813,7 +3583,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					TextLabel = Library:Create('TextLabel', {
 						Parent = LeftComponents,
 						FontFace = Library.Font,
-						TextColor3 = Themes.Preset.Text,
+						TextColor3 = Themes.Dracula.Text,
 						BorderColor3 = FromRgb(0, 0, 0),
 						Text = Cfg.Name,
 						Name = 'Text',
@@ -3821,20 +3591,20 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Size = Dim2(0, 0, 1, -1),
 						BorderSizePixel = 0,
 						AutomaticSize = Enum.AutomaticSize.X,
-						TextSize = Library.TextSize,
+						TextSize = 10;
 						BackgroundColor3 = FromRgb(255, 255, 255)
 					}, 'Text')
 
 					Library:Create('UIListLayout', {
 						Parent = LeftComponents,
 						Padding = NewDim(0, 5),
-						Name = '_',
+						-- Name = '',
 						FillDirection = Enum.FillDirection.Horizontal
 					});
 				end;
 				
 				local BottomComponents = Library:Create('Frame', {
-					Parent = SliderREAL,
+					Parent = RealSlider,
 					Name = 'BottomComponents',
 					Position = Dim2(0, 0, 0, Cfg.Name and 15 or 0),
 					BorderColor3 = FromRgb(0, 0, 0),
@@ -3850,14 +3620,14 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -1, 1, 12),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline,
+					BackgroundColor3 = Themes.Dracula.Outline,
 					Text = '',
 					AutoButtonColor = false,
 				});
 				Library:ApplyTheme(Slider, 'Outline', 'BackgroundColor3')
 
 				if not Cfg.InputDisabled then
-					Library:Hover(SliderREAL, Slider)
+					Library:Hover(RealSlider, Slider)
 				end;
 
 				local Inline = Library:Create('Frame', {
@@ -3868,7 +3638,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
 					ZIndex = 1;
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 
@@ -3893,7 +3663,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local SliderText = Library:Create('TextLabel', {
 					Parent = Contrast,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '12.50/100.00',
 					Name = 'Text',
@@ -3901,7 +3671,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Position = Dim2(0, 0, 0, -1),
 					Size = Dim2(1, 0, 1, 0),
 					BorderSizePixel = 0,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					ZIndex = 2,
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
@@ -3912,7 +3682,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 0, 1, 0),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Cfg.CustomColor or Themes.Preset.Accent
+					BackgroundColor3 = Cfg.CustomColor or Themes.Dracula.Accent
 				});
 				if not Cfg.CustomColor then Library:ApplyTheme(Fill, 'Accent', 'BackgroundColor3') end;
 
@@ -3938,55 +3708,51 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Library:Create('UIListLayout', {
 					Parent = BottomComponents,
 					Padding = NewDim(0, 10),
-					Name = '_',
+					-- Name = '',
 					SortOrder = Enum.SortOrder.LayoutOrder
 				});
 			--//
 				function Cfg.Set(Value)
-					if typeof(Value) == 'userdata' then
-						return 
-					end
-
+					if typeof(Value) == 'userdata' then return end;
+					local NewSize = (Dim2((Cfg.Value - Cfg.Min) / (Cfg.Max - Cfg.Min), 0, 1, 0));
+					if Fill == NewSize then return end;
 					Cfg.Value = Clamp(Library:Round(Value, Cfg.Intervals), Cfg.Min, Cfg.Max)
-
-					Library:Tween(0.045, Fill, {Size = Dim2((Cfg.Value - Cfg.Min) / (Cfg.Max - Cfg.Min), 0, 1, 0)})
+					Library:Tween(Fill, {Size = NewSize}, 0.045);
 
 					SliderText.Text = (Tostring(Cfg.Value).. ' ' .. Cfg.Suffix .. ' / ' .. Tostring(Cfg.Max).. ' ' .. Cfg.Suffix)
 					Flags[Cfg.Flag] = Cfg.Value
 
 					Cfg.Callback(Flags[Cfg.Flag])
-				end
-
-				function Cfg.SetElementVisible(Boolean)
-					SliderREAL.Visible = Boolean 
-
-					if TextLabel then
-						TextLabel.Visible = Boolean 
-					end;
 				end;
 
-				if not Cfg.InputDisabled then
+				function Cfg.SetElementVisible(Boolean)
+					if not (TextLabel) then return end; 
+					RealSlider.Visible = Boolean;
+					TextLabel.Visible = Boolean;
+				end;
+
+				if (not Cfg.InputDisabled) then
 					Library:Connection(InputService.InputChanged, function(Input)
-						if Cfg.Dragging and Input.UserInputType == Enum.UserInputType.MouseMovement then
+						if (Cfg.Dragging and Input.UserInputType == Enum.UserInputType.MouseMovement) then
 							local SizeX = (Input.Position.X - Slider.AbsolutePosition.X) / Slider.AbsoluteSize.X
 							local Value = ((Cfg.Max - Cfg.Min) * SizeX) + Cfg.Min
 							Cfg.Set(Value)
 						end;
-					end);
+					end)
 
 					Library:Connection(InputService.InputEnded, function(Input)
-						if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+						if (Input.UserInputType == Enum.UserInputType.MouseButton1) then
 							Cfg.Dragging = false 
 						end;
-					end);
+					end)
 
 					Slider.MouseButton1Down:Connect(function()
 						Cfg.Dragging = true
-					end);
+					end)
 				end;
 
 				if Cfg.Tooltip then
-					Library:Tooltip({Name = Cfg.Tooltip, Path = SliderREAL});
+					Library:Tooltip({Name = Cfg.Tooltip, Path = RealSlider});
 				end;
 
 				Cfg.Set(Cfg.Default)
@@ -4005,7 +3771,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Enabled = Options.Enabled or nil,
 				Name = Options.Name or 'Toggle',
 				Flag = (Options.Flag or '(Toggle) EMPTY FLAG: '),
-				Callback = Options.Callback or function() end,
+				Callback = Options.Callback or function() end;
 				Default = Options.Default or false,
 				Colorpicker = Options.Color or nil,
 				Visible = Options.Visible or true,
@@ -4027,7 +3793,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					TextXAlignment = Enum.TextXAlignment.Left,
 					AutomaticSize = Enum.AutomaticSize.Y,
 					TextYAlignment = Enum.TextYAlignment.Top,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 				
@@ -4070,7 +3836,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local Text = Library:Create('TextLabel', {
 					Parent = LeftComponents,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = Cfg.Name,
 					Name = 'Text',
@@ -4078,7 +3844,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Size = Dim2(0, 0, 1, -1),
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.X,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 			
@@ -4090,7 +3856,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Library:Create('UIListLayout', {
 					Parent = LeftComponents,
 					Padding = NewDim(0, 5),
-					Name = '_',
+					-- Name = '',
 					FillDirection = Enum.FillDirection.Horizontal
 				});
 			
@@ -4104,7 +3870,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Size = Dim2(0, 14, 0, 14),
 					BorderSizePixel = 0,
 					ZIndex = 1, 
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(Toggle, 'Outline', 'BackgroundColor3')
 				Library:ApplyTheme(Toggle, 'Accent', 'BackgroundColor3')
@@ -4117,7 +3883,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
 					ZIndex = 2;
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 			
@@ -4130,7 +3896,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 				Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
 
@@ -4155,7 +3921,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = Background,
 					Rotation = 90,
-					Name = '_',
+					-- Name = '',
 					Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 				});
 				Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
@@ -4164,7 +3930,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			Library:Hover(ToggleHolder, Toggle)
 				
 			function Cfg.Set(Boolean)
-				Library:Tween(0.185, Accent, {BackgroundTransparency = Boolean and 0 or 1});
+				Library:Tween(Accent, {BackgroundTransparency = Boolean and 0 or 1}, 0.185);
 				Flags[Cfg.Flag] = Boolean
 				
 				Cfg.Callback(Boolean)
@@ -4178,13 +3944,13 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Cfg.Enabled = not Cfg.Enabled
 		
 				Cfg.Set(Cfg.Enabled)
-			end);
+			end)
 
 			Library:Connection(Toggle.MouseButton1Click, function()
 				Cfg.Enabled = not Cfg.Enabled
 		
 				Cfg.Set(Cfg.Enabled)
-			end);
+			end)
 
 			if Cfg.Tooltip then
 				Library:Tooltip({Name = Cfg.Tooltip, Path = ToggleHolder});
@@ -4207,8 +3973,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Name = Options.Name or 'Color', 
 				Flag = (Options.Flag or '(Colorpicker) EMPTY FLAG: '),
 				Color = (Options.Color or FromRgb(255, 255, 255)),
-				Alpha = (Options.Alpha or 1),
-				Callback = (Options.Callback or function() end);
+				Callback = (Options.Callback or function() end),
 				RightHolder = self.RightHolder,
 			}
 
@@ -4226,7 +3991,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 24, 0, 14),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline,
+					BackgroundColor3 = Themes.Dracula.Outline,
 					Text = '',
 					AutoButtonColor = false,
 				});
@@ -4240,7 +4005,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 			
@@ -4272,7 +4037,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 190, 0, 210),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline,
+					BackgroundColor3 = Themes.Dracula.Outline,
 					Visible = false,
 					ZIndex = 1
 				});
@@ -4287,7 +4052,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 				Library:ApplyTheme(WindowInline, 'Accent', 'BackgroundColor3')
 				
@@ -4295,7 +4060,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Parent = WindowInline,
 					Name = 'WindowHolder',
 					Position = Dim2(0, 1, 0, 1),
-					BorderColor3 = Themes.Preset.Outline,
+					BorderColor3 = Themes.Dracula.Outline,
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
 					BackgroundColor3 = FromRgb(255, 255, 255)
@@ -4304,7 +4069,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = WindowHolder,
 					Rotation = 90,
-					Name = '_',
+					-- Name = '',
 					Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 				});
 				Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
@@ -4312,7 +4077,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local Text = Library:Create('TextLabel', {
 					Parent = WindowHolder,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = Cfg.Name,
 					Name = 'Text',
@@ -4320,7 +4085,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Position = Dim2(0, 2, 0, 4),
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.XY,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 				
@@ -4331,7 +4096,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				Library:Create('UIPadding', {
 					Parent = WindowHolder,
-					Name = '_',
+					-- Name = '',
 					PaddingBottom = NewDim(0, 4),
 					PaddingRight = NewDim(0, 4),
 					PaddingLeft = NewDim(0, 4)
@@ -4344,13 +4109,13 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 0, 1, -40),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(MainHolder, 'Inline', 'BackgroundColor3')
 				
 				Cfg.Holder = Library:Create('Frame' , {
 					Parent = ColorpickerHolder;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(0, 6, 1, -21);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -120, 0, 0);
@@ -4361,7 +4126,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 				Cfg.Holder = Library:Create('Frame' , {
 					Parent = ColorpickerHolder;
-					Name = '\0';
+					-- Name = '\0';
 					Position = Dim2(1, 2, 1, -23);
 					BorderColor3 = FromRgb(0, 0, 0);
 					AnchorPoint = NewVect2(1, 0);
@@ -4373,13 +4138,13 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Section:ButtonHolder({});
 				Section:Button({Name = 'Copy', Callback = function()
 					Library.CopiedFlag = Flags[Cfg.Flag];
-					if (Cfg.Flag .. ' RainbowFlag')== true then
+					if (Cfg.Flag .. ' RainbowFlag') == true then
 						Library.IsRainbow = (Cfg.Flag .. ' RainbowFlag');
 					end;
 				end});
 				Section:Button({Name = 'Paste', Callback = function()
-					RainbowToggle.Set(Library.IsRainbow);
-					Cfg.Set(Library.CopiedFlag.Color, Library.CopiedFlag.Transparency);
+					RainbowToggle.Set(Library.IsRainbow or false);
+					Cfg.Set(Library.CopiedFlag.Color);
 				end});
 
 				local MainHolderInline = Library:Create('Frame', {
@@ -4389,7 +4154,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(MainHolderInline, 'Outline', 'BackgroundColor3')
 				
@@ -4406,7 +4171,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = MainHolderBackground,
 					Rotation = 90,
-					Name = '_',
+					-- Name = '',
 					Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 				});
 				Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
@@ -4414,7 +4179,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Library:Create('UIPadding', {
 					Parent = MainHolderBackground,
 					PaddingTop = NewDim(0, 4),
-					Name = '_',
+					-- Name = '',
 					PaddingBottom = NewDim(0, 4),
 					PaddingRight = NewDim(0, 4),
 					PaddingLeft = NewDim(0, 4)
@@ -4428,7 +4193,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 14, 1, -20),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline,
+					BackgroundColor3 = Themes.Dracula.Inline,
 					Transparency = 1,
 					Text = '',
 					AutoButtonColor = false
@@ -4441,7 +4206,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				
 				local Frame = Library:Create('Frame', {
@@ -4476,7 +4241,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 14, 0, 14),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Visualize, 'Inline', 'BackgroundColor3')
 				
@@ -4488,7 +4253,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Position = Dim2(0, 1, 0, 1),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(Outline, 'Outline', 'BackgroundColor3')
 				
@@ -4513,7 +4278,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -20, 1, -0.5),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(SatValPicker, 'Inline', 'BackgroundColor3')
 				
@@ -4524,7 +4289,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(Outline, 'Outline', 'BackgroundColor3')
 				
@@ -4586,19 +4351,19 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				--
 
 			function Cfg.SetVisible(Boolean)
-				if (ColorpickerHolder and ColorpickerButton) then
-				if not Boolean then
-					Library:Tween(0.185, ColorpickerHolder, {Position = Dim2(0, ColorpickerButton.AbsolutePosition.X, ColorpickerButton.AbsolutePosition.Y)})	
+				if not (ColorpickerHolder and ColorpickerButton) then return end;
+				if not (Boolean) then
+					Library:Tween(ColorpickerHolder, {Position = Dim2(0, ColorpickerButton.AbsolutePosition.X, ColorpickerButton.AbsolutePosition.Y)}, 0.185);
 				else
-					Library:Tween(0.185, ColorpickerHolder, {Position = Dim2(0, ColorpickerButton.AbsolutePosition.X, 0, ColorpickerButton.AbsolutePosition.Y)})
+					Library:Tween(ColorpickerHolder, {Position = Dim2(0, ColorpickerButton.AbsolutePosition.X, 0, ColorpickerButton.AbsolutePosition.Y)}, 0.185);
 					Wait(0.185)
-					Library:Tween(0.185, ColorpickerHolder, {Position = Dim2(0, ColorpickerButton.AbsolutePosition.X + 28, 0, ColorpickerButton.AbsolutePosition.Y)})
-				end
+					Library:Tween(ColorpickerHolder, {Position = Dim2(0, ColorpickerButton.AbsolutePosition.X + 28, 0, ColorpickerButton.AbsolutePosition.Y)}, 0.185);
+				end;
 
 				ColorpickerHolder.Visible = Boolean
 
-				if Boolean then
-					if Library.CurrentElementOpened and Library.CurrentElementOpened ~= Cfg then
+				if (Boolean) then
+					if (Library.CurrentElementOpened and Library.CurrentElementOpened ~= Cfg) then
 							Library.CurrentElementOpened.SetVisible(false)
 							Library.CurrentElementOpened.Open = false 
 						end;
@@ -4606,18 +4371,16 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Library.CurrentElementOpened = Cfg
 					end;
 				end;
-			end
 
 			ColorpickerButton.MouseButton1Click:Connect(function()		
-				Cfg.Open = not Cfg.Open
+				Cfg.Open = (not Cfg.Open)
 				Cfg.SetVisible(Cfg.Open) 
-			end);
+			end)
 
 			function Cfg.Set(Color)
 				if (Color) then
-					H, s, v = Color:ToHSV()
-				end;
-
+				    H, s, v = Color:ToHSV()
+                end;
 				local HsvPosition = FromHsv(H, s, v)
 				local Color = FromHsv(H, s, v)
 				
@@ -4634,12 +4397,12 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local SOffset = (s < 1) and 0 or -3
 				local VOffset = (1 - v < 1) and 0 or -3
 
-				Library:Tween(0.045, HuePicker, {Position = Dim2(0, 0, Value, Offset)})
-				Library:Tween(0.035, SatValCursor, {Position = Dim2(s, SOffset, 1 - v, VOffset)})
+				Library:Tween(HuePicker, {Position = Dim2(0, 0, Value, Offset)}, 0.045)
+				Library:Tween(SatValCursor, {Position = Dim2(s, SOffset, 1 - v, VOffset)}, 0.035)
 				
 				Flags[Cfg.Flag] = {} 
 				Flags[Cfg.Flag]['Color'] = Color
-				Flags[Cfg.Flag]['Transparency'] = A
+				-- Flags[Cfg.Flag]['Transparency'] = A
 				Cfg.Callback(Color)
 			end;
 
@@ -4657,30 +4420,29 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				Hue.MouseButton1Down:Connect(function()
 					DraggingHue = true 
-				end);
+				end)
 
 				Sat.MouseButton1Down:Connect(function()
 					DraggingSat = true
-				end);
+				end)
 
 				InputService.InputEnded:Connect(function(Input)
 					if Input.UserInputType == Enum.UserInputType.MouseButton1 then
 						DraggingSat = false
 						DraggingHue = false
 					end;
-				end);
+				end)
 
 				InputService.InputChanged:Connect(function(Input)
 					if (DraggingSat or DraggingHue) and Input.UserInputType == Enum.UserInputType.MouseMovement then
 						Cfg.UpdateColor() 
 					end;
-				end);
+				end)
 
-				Library:Connection(RunService.RenderStepped, function()
-					if Flags[Cfg.Flag .. ' RainbowFlag'] == true then
-						Cfg.Set(FromHsv(Abs(Sin(GetTick)), s, v))
-					end;
-				end);
+				Library:Connection(RunService.PostSimulation, function()
+					if not (Flags[Cfg.Flag .. ' RainbowFlag']) then return end;
+					Cfg.Set(FromHsv(Abs(Sin(Library.Tick)), s, v));
+				end)
 
 				Cfg.Set(Cfg.Color);
 				Library.ConfigFlags[Cfg.Flag] = Cfg.Set;
@@ -4693,7 +4455,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 			local Cfg = {
 				Flag = (Options.Flag or '(Keybind) EMPTY FLAG: '),
-				Callback = Options.Callback or function() end,
+				Callback = Options.Callback or function() end;
 				Open = false,
 				Binding = nil, 
 				Name = Options.Name or nil, 
@@ -4707,38 +4469,36 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			}
 
 			Flags[Cfg.Flag] = {} 
-			
-			local KeybindElement;
-			if Cfg.Name then 
+			-- if not Cfg.Name then return end;
+			local KeybindElement; 
 				KeybindElement = Library:Create('TextLabel', {
-					Parent = Library.KeybindList,
-					Name = '',
-					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
-					BorderColor3 = FromRgb(0, 0, 0),
-					Text = '[ Hold ] Fly - X',
-					Size = Dim2(1, -5, 0, 18),
-					Visible = false, 
-					Position = Dim2(0, 5, 0, -1),
-					BorderSizePixel = 0,
-					BackgroundTransparency = 1,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-					AutomaticSize = Enum.AutomaticSize.Y,
-					TextSize = Library.TextSize,
-					BackgroundColor3 = Themes.Preset.Text
-				}, 'text')
-			end 
+				Parent = Library.KeybindList,
+				-- Name = '',
+				FontFace = Library.Font,
+				TextColor3 = Themes.Dracula.Text,
+				BorderColor3 = FromRgb(0, 0, 0),
+				Text = '[ Hold ] Fly - X',
+				Size = Dim2(1, -5, 0, 18),
+				Visible = false, 
+				Position = Dim2(0, 5, 0, -1),
+				BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				AutomaticSize = Enum.AutomaticSize.Y,
+				TextSize = 10;
+				BackgroundColor3 = Themes.Dracula.Text
+			}, 'text')
 
 			local ElementOutline = Library:Create('TextButton', {
 				Parent = Parent,
-				Name = '',
+				-- Name = '',
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = '', 
 				Size = Dim2(0, 24, 0, 14),
 				BorderSizePixel = 0,
 				AutomaticSize = Enum.AutomaticSize.X,
-				BackgroundColor3 = Themes.Preset.Outline
+				BackgroundColor3 = Themes.Dracula.Outline
 			}) Library:ApplyTheme(ElementOutline, 'Outline', 'BackgroundColor3')
 
 			Library:Create('UIPadding', {
@@ -4751,14 +4511,14 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 			local Inline = Library:Create('Frame', {
 				Parent = ElementOutline,
-				Name = '',
+				-- Name = '',
 				Position = Dim2(0, 1, 0, 1),
 				BorderColor3 = FromRgb(0, 0, 0),
 				AutomaticSize = Enum.AutomaticSize.X,
 				Size = Dim2(1, -2, 1, -2),
 				ZIndex = 2;
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Inline
+				BackgroundColor3 = Themes.Dracula.Inline
 			}) Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 
 			Library:Create('UIPadding', {
@@ -4768,38 +4528,38 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			local Handler = Library:Create('Frame', {
 				Parent = Inline,
-				Name = '',
+				-- Name = '',
 				ZIndex = 2;
 				Position = Dim2(0, 1, 0, 1),
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -2, 1, -2),
 				BorderSizePixel = 0,
 				AutomaticSize = Enum.AutomaticSize.X,
-				BackgroundColor3 = Themes.Preset.HighContrast --FromRgb(255, 255, 255)
+				BackgroundColor3 = FromRgb(255, 255, 255)
 			})
 
 			local UIGradient = Library:Create('UIGradient', {
 				Parent = Handler,
-				Name = '',
+				-- Name = '',
 				Rotation = 90,
-				Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
+				Color = ColorSeq{ColorKey(0, Themes.Dracula.LowContrast), ColorKey(1, Themes.Dracula.HighContrast)}
 			});
-			Library:ApplyTheme(Handler, 'HighContrast', 'BackgroundColor3')
+            --// Nigga
+			Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
 			
 			local KeyText = Library:Create('TextLabel', {
 				Parent = Handler,
-				Name = '',
+				-- Name = '',
 				FontFace = Library.Font,
-				TextColor3 = Themes.Preset.Text,
+				TextColor3 = Themes.Dracula.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				ZIndex = 2;
-				Text = 'nil',
 				Size = Dim2(1, 0, 1, 0),
 				BackgroundTransparency = 1,
-				Position = Dim2(0, 0, 0, -2),
+				Position = Dim2(0, 0, 0, -1),
 				BorderSizePixel = 0,
 				AutomaticSize = Enum.AutomaticSize.XY,
-				TextSize = Library.TextSize,
+				TextSize = 10;
 				BackgroundColor3 = FromRgb(255, 255, 255)
 			})
 
@@ -4812,7 +4572,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			--// Mode selector
 				local KeybindSelector = Library:Create('Frame', {
 					Parent = SGui,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, ElementOutline.AbsolutePosition.X + 1, 0, ElementOutline.AbsolutePosition.Y + 17),
 					BorderColor3 = FromRgb(255, 255, 255),
 					BorderSizePixel = 2,
@@ -4823,7 +4583,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				Library:Create('UIListLayout', {
 					Parent = KeybindSelector,
-					Name = '',
+					-- Name = '',
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					HorizontalFlex = Enum.UIFlexAlignment.Fill,
 					Padding = NewDim(0, 2)
@@ -4831,28 +4591,28 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local ButtonHold = Library:Create('TextButton', {
 					Parent = KeybindSelector,
-					Name = '',
+					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = 'Hold',
 					BackgroundTransparency = 1,
 					AutomaticSize = Enum.AutomaticSize.XY,
 					BorderSizePixel = 0,
 					ZIndex = 2,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				})
 				
 				Library:Create('UIStroke', {
 					Parent = ButtonHold,
-					Name = '',
+					-- Name = '',
 					LineJoinMode = Enum.LineJoinMode.Miter
 				})
 				
 				Library:Create('UIPadding', {
 					Parent = KeybindSelector,
-					Name = '',
+					-- Name = '',
 					PaddingTop = NewDim(0, 3),
 					PaddingBottom = NewDim(0, 5),
 					PaddingRight = NewDim(0, 5),
@@ -4861,58 +4621,58 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local ButtonToggle = Library:Create('TextButton', {
 					Parent = KeybindSelector,
-					Name = '',
+					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = 'Toggle',
 					BackgroundTransparency = 1,
 					AutomaticSize = Enum.AutomaticSize.XY,
 					BorderSizePixel = 0,
 					ZIndex = 2,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				})
 				
 				Library:Create('UIStroke', {
 					Parent = ButtonToggle,
-					Name = '',
+					-- Name = '',
 					LineJoinMode = Enum.LineJoinMode.Miter
 				})
 				
 				local ButtonAlways = Library:Create('TextButton', {
 					Parent = KeybindSelector,
-					Name = '',
+					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = 'Always',
 					BackgroundTransparency = 1,
 					AutomaticSize = Enum.AutomaticSize.XY,
 					BorderSizePixel = 0,
 					ZIndex = 2,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				})
 				
 				Library:Create('UIStroke', {
 					Parent = ButtonAlways,
-					Name = '',
+					-- Name = '',
 					LineJoinMode = Enum.LineJoinMode.Miter
 				})
 				
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = KeybindSelector,
-					Name = '',
+					-- Name = '',
 					Rotation = 90,
 					Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 				});
-				-- Library:ApplyTheme(UIGradient, 'HighContrast', 'Color')
+				Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
 				
 				local UIStroke = Library:Create('UIStroke', {
 					Parent = KeybindSelector,
-					Name = '',
-					Color = Themes.Preset.Inline,
+					-- Name = '',
+					Color = Themes.Dracula.Inline,
 					LineJoinMode = Enum.LineJoinMode.Miter,
 					ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 				})
@@ -4956,12 +4716,12 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Cfg.Active = __cached 
 					Flags[Cfg.Flag]['Active'] = __cached 
 					Cfg.Callback(__cached)
-				elseif (Tostring(Input):find('Enum')) then 
-					Input = Input.Name == 'Escape' and 'none' or Input
-					Cfg.Key = Input or 'none'	
+				elseif (Tostring(Input):find('Enum')) then
+					Input = (Input.Name == 'Escape' and 'None' or Input)
+					Cfg.Key = (Input or 'None')
 
-					local _text = Keys[Cfg.Key] or Tostring(Cfg.Key):gsub('Enum.', '')
-					local _text2 = (Tostring(_text):gsub('KeyCode.', ''):gsub('UserInputType.', '')) or 'none'
+					local _text = (Keys[Cfg.Key] or Tostring(Cfg.Key):gsub('Enum.', ''))
+					local _text2 = (Tostring(_text):gsub('KeyCode.', ''):gsub('UserInputType.', '') or 'None')
 					Cfg.KeyName = _text2
 
 					Flags[Cfg.Flag]['Mode'] = Cfg.Mode 
@@ -4975,14 +4735,14 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 					if Input == 'Always' then 
 						Cfg.Active = true 
-					end 
+					end; 
 
 					Cfg.Callback(Cfg.Active or false)
 				elseif type(Input) == 'table' then 
-					Input.Key = type(Input.Key) == 'string' and Input.Key ~= 'none' and Library:ConvertEnum(Input.Key) or Input.Key
+					Input.Key = (type(Input.Key) == 'string' and Input.Key ~= 'None' and Library:ConvertEnum(Input.Key) or Input.Key)
 
-					Input.Key = Input.Key == Enum.KeyCode.Escape and 'none' or Input.Key
-					Cfg.Key = Input.Key or 'none'
+					Input.Key = (Input.Key == Enum.KeyCode.Escape and 'None' or Input.Key)
+					Cfg.Key = (Input.Key or 'None')
 
 					Cfg.Mode = Input.Mode or 'Toggle'
 
@@ -5005,14 +4765,14 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				if Cfg.Name then 
 					KeybindElement.Visible = Cfg.Active
 
-					Library:Tween(0.185, KeybindElement, {TextTransparency = Cfg.Active and 0 or 1, }) 
-					Library:Tween(0.185, KeybindElement:FindFirstChildOfClass('UIStroke'), { Transparency = Cfg.Active and 0 or 1, }) 
+					Library:Tween(KeybindElement, {TextTransparency = Cfg.Active and 0 or 1}, 0.185) 
+					Library:Tween(KeybindElement:FindFirstChildOfClass('UIStroke'), {Transparency = Cfg.Active and 0 or 1}, 0.185) 
 
 					local text = Tostring(Cfg.Key) ~= 'Enums' and (Keys[Cfg.Key] or Tostring(Cfg.Key):gsub('Enum.', '')) or nil
 					local __text = text and (Tostring(text):gsub('KeyCode.', ''):gsub('UserInputType.', ''))
 
 					if Cfg.Name then 
-						KeybindElement.Text = '[' .. UpperString(SubString(Cfg.Mode, 1, 1)) .. SubString(Cfg.Mode, 2) .. '] ' .. Cfg.Name .. ' - ' .. __text
+						KeybindElement.Text = '[' .. string.upper(SubString(Cfg.Mode, 1, 1)) .. SubString(Cfg.Mode, 2) .. '] ' .. Cfg.Name .. ' - ' .. __text
 					end;
 				end;
 			end;
@@ -5021,28 +4781,27 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Cfg.SetMode('Hold')
 				Cfg.SetVisible(false)
 				Cfg.Open = false
-			end);
+			end)
 
 			ButtonToggle.MouseButton1Click:Connect(function()
 				Cfg.SetMode('Toggle')
 				Cfg.SetVisible(false)
 				Cfg.Open = false
-			end);
+			end)
 
 			ButtonAlways.MouseButton1Click:Connect(function()
 				Cfg.SetMode('Always')
 				Cfg.SetVisible(false)
 				Cfg.Open = false 
-			end);
+			end)
 
 			ElementOutline.MouseButton2Click:Connect(function()
 				Cfg.Open = not Cfg.Open;
 				Cfg.SetVisible(Cfg.Open)
-			end);
+			end)
 
 			ElementOutline.MouseButton1Down:Connect(function()
-				Wait()
-				KeyText.Text = 'none'	
+				KeyText.Text = 'None'	
 
 				if Cfg.Binding then return end;
 
@@ -5053,8 +4812,8 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 					Cfg.Binding:Disconnect() 
 					Cfg.Binding = nil
-				end);
-			end);
+				end)
+			end)
 
 			Library:Connection(InputService.InputBegan, function(Input, GameEvent) 
 				local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
@@ -5069,7 +4828,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						end;
 					end;
 				end;
-			end);
+			end)
 
 			Library:Connection(InputService.InputEnded, function(Input, GameEvent) 
 				if GameEvent then 
@@ -5083,7 +4842,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Cfg.Set(false)
 					end;
 				end;
-			end);
+			end)
 		
 			Cfg.Set({Mode = Cfg.Mode, Active = Cfg.Active, Key = Cfg.Key})
 		
@@ -5099,7 +4858,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Name = Options.Name or nil,
 				Flag = (Options.Flag or '(Dropdown) EMPTY FLAG: '),
 				Items = Options.Items or {'1', '2', '3'},
-				Callback = Options.Callback or function() end,
+				Callback = Options.Callback or function() end;
 				Multi = Options.Multi or false, 
 				Visible = Options.Visible or true,
 				Open = false, 
@@ -5112,10 +4871,10 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			Cfg.Default = Options.Default or (Cfg.Multi and {Cfg.Items[1]}) or Cfg.Items[1] or nil
 
 			--// Dropdown Elements
-				local DropdownREAL = Library:Create('TextLabel', {
+				local RealDropdown = Library:Create('TextLabel', {
 					Parent = Parent,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					Name = 'Dropdown',
@@ -5126,14 +4885,14 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					TextXAlignment = Enum.TextXAlignment.Left,
 					AutomaticSize = Enum.AutomaticSize.Y,
 					TextYAlignment = Enum.TextYAlignment.Top,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 
 				local MainText
 				if Cfg.Name then
 					local LeftComponents = Library:Create('Frame', {
-						Parent = DropdownREAL,
+						Parent = RealDropdown,
 						Name = 'LeftComponents',
 						BackgroundTransparency = 1,
 						Position = Dim2(0, 2, 0, -1),
@@ -5146,7 +4905,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					MainText = Library:Create('TextLabel', {
 						Parent = LeftComponents,
 						FontFace = Library.Font,
-						TextColor3 = Themes.Preset.Text,
+						TextColor3 = Themes.Dracula.Text,
 						BorderColor3 = FromRgb(0, 0, 0),
 						Text = Cfg.Name,
 						Name = 'Text',
@@ -5154,7 +4913,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Size = Dim2(0, 0, 1, -1),
 						BorderSizePixel = 0,
 						AutomaticSize = Enum.AutomaticSize.X,
-						TextSize = Library.TextSize,
+						TextSize = 10;
 						BackgroundColor3 = FromRgb(255, 255, 255)
 					});
 					
@@ -5166,12 +4925,12 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Library:Create('UIListLayout', {
 						Parent = LeftComponents,
 						Padding = NewDim(0, 5),
-						Name = '_',
+						-- Name = '',
 						FillDirection = Enum.FillDirection.Horizontal
 					});
 
 					local RightComponents = Library:Create('Frame', {
-						Parent = DropdownREAL,
+						Parent = RealDropdown,
 						Name = 'RightComponents',
 						Position = Dim2(1, -1, 0, 1),
 						BorderColor3 = FromRgb(0, 0, 0),
@@ -5193,7 +4952,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				end;
 
 				local BottomComponents = Library:Create('Frame', {
-					Parent = DropdownREAL,
+					Parent = RealDropdown,
 					Name = 'BottomComponents',
 					Position = Dim2(0, 0, 0, Cfg.Name and 15 or 0),
 					BorderColor3 = FromRgb(0, 0, 0),
@@ -5209,13 +4968,13 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -27, 1, 18),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline,
+					BackgroundColor3 = Themes.Dracula.Outline,
 					Text = '',
 					AutoButtonColor = false, 
 				});
 				Library:ApplyTheme(Dropdown, 'Outline', 'BackgroundColor3')
 				
-				Library:Hover(DropdownREAL, Dropdown)
+				Library:Hover(RealDropdown, Dropdown)
 
 				local Inline = Library:Create('Frame', {
 					Parent = Dropdown,
@@ -5225,7 +4984,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 				
@@ -5237,7 +4996,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Size = Dim2(1, -2, 1, -2),
 					ZIndex = 2;
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 				Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
 				
@@ -5254,7 +5013,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local Plus = Library:Create('TextLabel', {
 					Parent = Contrast,
 					TextWrapped = true,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					ZIndex = 2;
 					Text = '+',
@@ -5277,7 +5036,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				local Text = Library:Create('TextLabel', {
 					Parent = Contrast,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					ZIndex = 2;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = 'aa',
@@ -5288,7 +5047,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					TextXAlignment = Enum.TextXAlignment.Left,
 					BorderSizePixel = 0,
 					TextTruncate = Enum.TextTruncate.AtEnd,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 				
@@ -5314,7 +5073,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Library:Create('UIListLayout', {
 					Parent = BottomComponents,
 					Padding = NewDim(0, 10),
-					Name = '_',
+					-- Name = '',
 					SortOrder = Enum.SortOrder.LayoutOrder
 				});
 			--
@@ -5329,7 +5088,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					Size = Dim2(0, Dropdown.AbsoluteSize.X, 0, Cfg.Scrolling and 180 or 0),
 					BorderSizePixel = 0,
 					AutomaticSize = Cfg.Scrolling and Enum.AutomaticSize.None or Enum.AutomaticSize.Y,
-					BackgroundColor3 = Themes.Preset.Outline,
+					BackgroundColor3 = Themes.Dracula.Outline,
 					Visible = false
 				});
 				
@@ -5341,7 +5100,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					BorderColor3 = FromRgb(0, 0, 0),
 					ZIndex = 2,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 				
@@ -5356,7 +5115,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Size = Dim2(1, -2, 1, 1),
 						ZIndex = 2,
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Preset.Accent
+						BackgroundColor3 = Themes.Dracula.Accent
 					});
 					Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
 				else 
@@ -5372,11 +5131,11 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						Size = Dim2(1, -2, 1, 1),
 						ZIndex = 2,
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Preset.Accent,
+						BackgroundColor3 = Themes.Dracula.Accent,
 						CanvasSize = Dim2(0, 0, 0, 0),
 						AutomaticCanvasSize = Enum.AutomaticSize.Y,
 						ScrollBarThickness = 2,
-						ScrollBarImageColor3 = Themes.Preset.Accent
+						ScrollBarImageColor3 = Themes.Dracula.Accent
 					});
 					Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
 					Library:ApplyTheme(Background, 'Accent', 'ScrollBarImageColor3')
@@ -5424,14 +5183,14 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local Stroke = Library:Create('UIStroke', {
 					Parent = Inline,
-					Color = Themes.Preset.Outline,
+					Color = Themes.Dracula.Outline,
 					LineJoinMode = Enum.LineJoinMode.Miter
 				});
 				Library:ApplyTheme(Stroke, 'Outline', 'Color')
 			--// 
 				
 			function Cfg.SetElementVisible(Boolean)
-				DropdownREAL.Visible = Boolean 
+				RealDropdown.Visible = Boolean 
 				if MainText then
 					MainText.Visible = Boolean
 				end;
@@ -5441,10 +5200,10 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Library.CurrentElementOpened = Cfg.Ignore or Cfg
 
 				local Old = Dropdown.AbsolutePosition.Y + 20
-				Library:Tween(0.185, DropdownHolder, {Size = Dim2(0, Dropdown.AbsoluteSize.X, 0, DropdownHolder.Size.Y.Offset)})
-				Library:Tween(0.185, DropdownHolder, {Position = Dim2(0, Dropdown.AbsolutePosition.X, 0, Dropdown.AbsolutePosition.Y)})
+				Library:Tween(DropdownHolder, {Size = Dim2(0, Dropdown.AbsoluteSize.X, 0, DropdownHolder.Size.Y.Offset)}, 0.185)
+				Library:Tween(DropdownHolder, {Position = Dim2(0, Dropdown.AbsolutePosition.X, 0, Dropdown.AbsolutePosition.Y)}, 0.185)
 				Wait(0.185)
-				Library:Tween(0.185, DropdownHolder, {Position = Dim2(0, Dropdown.AbsolutePosition.X, 0, Old)})
+				Library:Tween(DropdownHolder, {Position = Dim2(0, Dropdown.AbsolutePosition.X, 0, Old)}, 0.185)
 
 				DropdownHolder.Visible = Boolean
 				Plus.Text = (Boolean and '-' or '+')
@@ -5470,9 +5229,9 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					if v.Text == Value or (IsTable and FindTable(Value, v.Text)) then
 						InsertTable(Selected, v.Text)
 						Cfg.MultiItems = Selected
-						v.TextColor3 = Themes.Preset.Accent
+						v.TextColor3 = Themes.Dracula.Accent
 					else 
-						v.TextColor3 = Themes.Preset.Text
+						v.TextColor3 = Themes.Dracula.Text
 					end;
 				end;
 
@@ -5492,14 +5251,14 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					local TextButton = Library:Create('TextButton', {
 						Parent = Contrast,
 						FontFace = Library.Font,
-						TextColor3 = Themes.Preset.Text,
+						TextColor3 = Themes.Dracula.Text,
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, 0, 0, 0),
 						BackgroundTransparency = 1,
 						BorderSizePixel = 0,
 						TextWrapped = true,
 						AutomaticSize = Enum.AutomaticSize.Y,
-						TextSize = Library.TextSize,
+						TextSize = 10;
 						TextXAlignment = Enum.TextXAlignment.Left,
 						ZIndex = 2, 
 						Text = v,
@@ -5531,7 +5290,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 							Cfg.Set(TextButton.Text)
 						end;
-					end);
+					end)
 				end;
 			end;
 
@@ -5539,7 +5298,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Cfg.Open = not Cfg.Open 
 
 				Cfg.SetVisible(Cfg.Open)
-			end);
+			end)
 
 			Cfg:RefreshOptions(Cfg.Items) 
 
@@ -5555,8 +5314,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 		function Library:List(Options)
 			local Cfg = {
-				Callback = (Options and Options.Callback or function() end); 
-
+				Callback = (Options and Options.Callback or function() end),
 				Scale = Options.Size or 232, 
 				Items = Options.Items or {'1', '2', '3'}, 
 				--// Order = Options.Order or 1, 
@@ -5570,9 +5328,9 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			--// Instances 
 				local ListHolder = Library:Create('TextLabel', {
 					Parent = self.Holder,
-					Name = '',
+					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					ZIndex = 2,
@@ -5582,13 +5340,13 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					TextXAlignment = Enum.TextXAlignment.Left,
 					AutomaticSize = Enum.AutomaticSize.Y,
 					TextYAlignment = Enum.TextYAlignment.Top,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 				
 				local UIPadding = Library:Create('UIPadding', {
 					Parent = ListHolder,
-					Name = '',
+					-- Name = '',
 					PaddingLeft = NewDim(0, 1)
 				});
 				
@@ -5599,7 +5357,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local BottomComponents = Library:Create('Frame', {
 					Parent = ListHolder,
-					Name = '',
+					-- Name = '',
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 26, 0, 0),
 					BorderSizePixel = 0,
@@ -5608,47 +5366,47 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				Library:Create('UIListLayout', {
 					Parent = BottomComponents,
-					Name = '',
+					-- Name = '',
 					Padding = NewDim(0, 10),
 					SortOrder = Enum.SortOrder.LayoutOrder
 				});
 				
 				local List = Library:Create('Frame', {
 					Parent = BottomComponents,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 0, 0, 2),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -27, 1, Cfg.Scale),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(MainHolder, 'Outline', 'BackgroundColor3')
 				
 				local Inline = Library:Create('Frame', {
 					Parent = List,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 				
 				local Background = Library:Create('Frame', {
 					Parent = Inline,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 				Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
 				
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = Background,
-					Name = '',
+					-- Name = '',
 					Rotation = 90,
 					Color = ColorSeq{ColorKey(0, FromRgb(255, 255, 255)), ColorKey(1, FromRgb(167, 167, 167))}
 				});
@@ -5656,7 +5414,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local Contrast = Library:Create('Frame', {
 					Parent = Background,
-					Name = '',
+					-- Name = '',
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 0, 1, 0),
 					BorderSizePixel = 0,
@@ -5665,7 +5423,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = Contrast,
-					Name = '',
+					-- Name = '',
 					Rotation = 90,
 					Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 				});
@@ -5673,8 +5431,8 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local ScrollingFrame = Library:Create('ScrollingFrame', {
 					Parent = Contrast,
-					Name = '',
-					ScrollBarImageColor3 = Themes.Preset.Accent,
+					-- Name = '',
+					ScrollBarImageColor3 = Themes.Dracula.Accent,
 					Active = true,
 					MidImage = getcustomasset(Library.Directory.. '/Assets/Images/White.Png'),
 					TopImage = MidImage,
@@ -5692,14 +5450,14 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local UIPadding = Library:Create('UIPadding', {
 					Parent = ScrollingFrame,
-					Name = '',
+					-- Name = '',
 					PaddingBottom = NewDim(0, 4),
 					PaddingTop = NewDim(0, 4)
 				});
 				
 				local UIListLayout = Library:Create('UIListLayout', {
 					Parent = ScrollingFrame,
-					Name = '',
+					-- Name = '',
 					Padding = NewDim(0, 4),
 					SortOrder = Enum.SortOrder.LayoutOrder
 				});
@@ -5708,16 +5466,16 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			function Cfg.RenderOption(Text) 
 				local TextButton = Library:Create('TextButton', {
 					Parent = ScrollingFrame,
-					Name = '',
+					-- Name = '',
 					Text = Tostring(Text),
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					BackgroundTransparency = 1,
 					Size = Dim2(1, 0, 0, 0),
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.Y,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 
@@ -5751,22 +5509,22 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 					Button.MouseButton1Click:Connect(function()
 						if (Cfg.CurrentInstance and Cfg.CurrentInstance ~= Button) then
-							Cfg.CurrentInstance.TextColor3 = Themes.Preset.Text 
+							Cfg.CurrentInstance.TextColor3 = Themes.Dracula.Text 
 						end;
 
 						Cfg.CurrentInstance = Button 
-						Button.TextColor3 = Themes.Preset.Accent 
+						Button.TextColor3 = Themes.Dracula.Accent 
 
 						Flags[Cfg.Flag] = Button.Text
 						
 						Cfg.Callback(Button.Text)
-					end);
+					end)
 				end;
 			end;
 
 			function Cfg.FilterOptions(Text)
 				for _, v in next, Cfg.OptionInstances do 
-					if FindString(v.Text, Text) then
+					if string.find(v.Text, Text) then
 						v.Visible = true 
 					else 
 						v.Visible = false
@@ -5777,9 +5535,9 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			function Cfg.Set(Value)
 				for _, Buttons in next, Cfg.OptionInstances do 
 					if Buttons.Text == Value then
-						Buttons.TextColor3 = Themes.Preset.Accent 
+						Buttons.TextColor3 = Themes.Dracula.Accent 
 					else 
-						Buttons.TextColor3 = Themes.Preset.Text 
+						Buttons.TextColor3 = Themes.Dracula.Text 
 					end;
 				end;
 
@@ -5801,16 +5559,16 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				PlaceHolder = Options.PlaceHolder or Options.PlaceHolderText or Options.Holder or Options.Holdertext or 'type here...',
 				Default = Options.Default,
 				Flag = (Options.Flag or '(Textbox) EMPTY FLAG: '),
-				Callback = Options.Callback or function() end,
+				Callback = Options.Callback or function() end;
 				Visible = Options.Visible or true,
 			}
 			
 			--// Instances 
 				local TextboxHolder = Library:Create('TextLabel', {
 					Parent = self.Holder,
-					Name = '',
+					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					ZIndex = 2,
@@ -5820,13 +5578,13 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					TextXAlignment = Enum.TextXAlignment.Left,
 					AutomaticSize = Enum.AutomaticSize.Y,
 					TextYAlignment = Enum.TextYAlignment.Top,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 				
 				Library:Create('UIPadding', {
 					Parent = TextboxHolder,
-					Name = '',
+					-- Name = '',
 					PaddingLeft = NewDim(0, 1)
 				});
 				
@@ -5837,12 +5595,12 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local Button = Library:Create('Frame', {
 					Parent = TextboxHolder,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 0, 0, 2),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -27, 0, 18),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:Hover(TextboxHolder, Button)
 				
@@ -5850,36 +5608,36 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local Inline = Library:Create('Frame', {
 					Parent = Button,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					ZIndex = 2;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 				
 				local Background = Library:Create('Frame', {
 					Parent = Inline,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					ZIndex = 2;
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 				
 				Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
 				
 				local TextBox = Library:Create('TextBox', {
 					Parent = Background,
-					Name = '',
+					-- Name = '',
 					CursorPosition = -1,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '', 
 					Size = Dim2(1, 0, 1, 0),
@@ -5890,7 +5648,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					PlaceholderText = 'Type here...',
 					ClearTextOnFocus = false,
 					ZIndex = 3;
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 				
@@ -5901,7 +5659,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local TextButton = Library:Create('TextButton', {
 					Parent = Background,
-					Name = '',
+					-- Name = '',
 					FontFace = Library.Font,
 					TextColor3 = FromRgb(0, 0, 0),
 					BorderColor3 = FromRgb(0, 0, 0),
@@ -5909,14 +5667,14 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					AutoButtonColor = false,
 					Size = Dim2(1, 0, 1, 0),
 					BorderSizePixel = 0,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					ZIndex = 2;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 				
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = TextButton,
-					Name = '',
+					-- Name = '',
 					Rotation = 90,
 					Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 				});
@@ -5925,7 +5683,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				Library:Create('UIListLayout', {
 					Parent = TextboxHolder,
-					Name = '',
+					-- Name = '',
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalFlex = Enum.UIFlexAlignment.Fill,
 					Padding = NewDim(0, 4),
@@ -5935,7 +5693,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				TextBox:GetPropertyChangedSignal('Text'):Connect(function()
 					Flags[Cfg.Flag] = TextBox.Text
 					Cfg.Callback(TextBox.Text)
-				end);
+				end)
 			--// 
 
 			function Cfg.SetElementVisible(Boolean)
@@ -5968,9 +5726,9 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 			local ButtonHolder = Library:Create('TextLabel', {
 				Parent = self.Holder,
-				Name = '',
+				-- Name = '',
 				FontFace = Library.Font,
-				TextColor3 = Themes.Preset.Text,
+				TextColor3 = Themes.Dracula.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = '',
 				ZIndex = 2,
@@ -5980,7 +5738,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				TextXAlignment = Enum.TextXAlignment.Left,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				TextYAlignment = Enum.TextYAlignment.Top,
-				TextSize = Library.TextSize,
+				TextSize = 10;
 				BackgroundColor3 = FromRgb(255, 255, 255), 
 			});
 
@@ -5994,7 +5752,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				Library:Create('UIListLayout', {
 					Parent = ButtonHolder,
-					Name = '',
+					-- Name = '',
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalFlex = Enum.UIFlexAlignment.Fill,
 					Padding = NewDim(0, 5),
@@ -6015,18 +5773,18 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 		function Library:Button(Options)
 			local Cfg = {
-				Callback = Options.Callback or function() end, 
+				Callback = Options.Callback or function() end; 
 				Name = Options.Text or Options.Name or 'Button',
 			}
 
 			local Button = Library:Create('TextButton', {
 				Parent = self.CurrentHolder,
-				Name = '',
+				-- Name = '',
 				Position = Dim2(0, 0, 0, 2),
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -27, 0, 18),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Outline,
+				BackgroundColor3 = Themes.Dracula.Outline,
 				Text = ''
 			});
 
@@ -6036,33 +5794,33 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			local Inline = Library:Create('Frame', {
 				Parent = Button,
-				Name = '',
+				-- Name = '',
 				ZIndex = 2;
 				Position = Dim2(0, 1, 0, 1),
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -2, 1, -2),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Inline
+				BackgroundColor3 = Themes.Dracula.Inline
 			});
 			
 			Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 			
 			local Background = Library:Create('Frame', {
 				Parent = Inline,
-				Name = '',
+				-- Name = '',
 				ZIndex = 2;
 				Position = Dim2(0, 1, 0, 1),
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -2, 1, -2),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Preset.Accent
+				BackgroundColor3 = Themes.Dracula.Accent
 			});
 			
 			Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
 			
 			local _UIGradient = Library:Create('UIGradient', {
 				Parent = Background,
-				Name = '',
+				-- Name = '',
 				Rotation = 90,
 				Color = ColorSeq{ColorKey(0, FromRgb(255, 255, 255)), ColorKey(1, FromRgb(167, 167, 167))}
 			});
@@ -6071,7 +5829,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			local Contrast = Library:Create('Frame', {
 				Parent = Background,
-				Name = '',
+				-- Name = '',
 				ZIndex = 2;
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, 0, 1, 0),
@@ -6081,7 +5839,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			local UIGradient = Library:Create('UIGradient', {
 				Parent = Contrast,
-				Name = '',
+				-- Name = '',
 				Rotation = 90,
 				Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 			});
@@ -6090,10 +5848,10 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			local Text = Library:Create('TextLabel', {
 				Parent = Contrast,
-				Name = '',
+				-- Name = '',
 				TextWrapped = true,
 				ZIndex = 2;
-				TextColor3 = Themes.Preset.Text,
+				TextColor3 = Themes.Dracula.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = Cfg.Name,
 				Size = Dim2(1, -4, 1, 0),
@@ -6102,19 +5860,19 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				BorderSizePixel = 0,
 				FontFace = Library.Font,
-				TextSize = Library.TextSize,
+				TextSize = 10;
 				BackgroundColor3 = FromRgb(255, 255, 255)
 			});
 			
 			local UIStroke = Library:Create('UIStroke', {
 				Parent = Text,
-				Name = '',
+				-- Name = '',
 				LineJoinMode = Enum.LineJoinMode.Miter
 			});
 
 			Button.MouseButton1Click:Connect(function()
 				Cfg.Callback() 
-			end);
+			end)
 
 			return Setmetatable(Cfg, Library)
 		end;
@@ -6124,9 +5882,9 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 			local Dropdown = Library:Create('TextLabel', {
 				Parent = self.Holder,
-				Name = '',
+				-- Name = '',
 				FontFace = Library.Font,
-				TextColor3 = Themes.Preset.Text,
+				TextColor3 = Themes.Dracula.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = '',
 				ZIndex = 2,
@@ -6136,7 +5894,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				TextXAlignment = Enum.TextXAlignment.Left,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				TextYAlignment = Enum.TextYAlignment.Top,
-				TextSize = Library.TextSize,
+				TextSize = 10;
 				BackgroundColor3 = FromRgb(255, 255, 255)
 			});
 			
@@ -6147,7 +5905,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			local LeftComponents = Library:Create('Frame', {
 				Parent = Dropdown,
-				Name = '',
+				-- Name = '',
 				BackgroundTransparency = 1,
 				Position = Dim2(0, 2, 0, -1),
 				BorderColor3 = FromRgb(0, 0, 0),
@@ -6158,16 +5916,16 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			
 			local TextLabel = Library:Create('TextLabel', {
 				Parent = LeftComponents,
-				Name = '',
+				-- Name = '',
 				FontFace = Library.Font,
-				TextColor3 = Themes.Preset.Text,
+				TextColor3 = Themes.Dracula.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = Cfg.Name,
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				BorderSizePixel = 0,
 				AutomaticSize = Enum.AutomaticSize.Y,
-				TextSize = Library.TextSize,
+				TextSize = 10;
 				BackgroundColor3 = FromRgb(255, 255, 255)
 			});
 
@@ -6203,33 +5961,26 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 						
 			return Setmetatable(Cfg, Library)
 		end;
-
+		
 		function Library:Playerlist(Options) 
 			local Cfg = {
-				Callback = Options.Callback or function() end,
-
-				Labels = {
-					Name,
-					Display,
-					Uid,
-				}
-			}
-
-			local SelectedButton;
+				Callback = Options.Callback or function() end;
+				Labels = {Name, Display, Uid}
+			};
 
 			local Patterns = {
 				['Priority'] = FromRgb(255, 255, 0),
 				['Enemy'] = FromRgb(255, 0, 0),
-				['Neutral'] = Themes.Preset.Text,
+				['Neutral'] = Themes.Dracula.Text,
 				['Friendly'] = FromRgb(0, 255, 255)
-			}
+			};
 
 			--// Elements 
 				local PlayerlistHolder = Library:Create('TextLabel', {
 					Parent = self.Holder,
-					Name = '',
+					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					ZIndex = 2,
@@ -6239,13 +5990,13 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					TextXAlignment = Enum.TextXAlignment.Left,
 					AutomaticSize = Enum.AutomaticSize.Y,
 					TextYAlignment = Enum.TextYAlignment.Top,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 
 				local UIPadding = Library:Create('UIPadding', {
 					Parent = PlayerlistHolder,
-					Name = '',
+					-- Name = '',
 					PaddingBottom = NewDim(0, -2),
 					PaddingLeft = NewDim(0, 1)
 				});
@@ -6257,7 +6008,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local BottomComponents = Library:Create('Frame', {
 					Parent = PlayerlistHolder,
-					Name = '',
+					-- Name = '',
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 26, 0, 0),
 					BorderSizePixel = 0,
@@ -6266,46 +6017,46 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				Library:Create('UIListLayout', {
 					Parent = BottomComponents,
-					Name = '',
+					-- Name = '',
 					Padding = NewDim(0, 10),
 					SortOrder = Enum.SortOrder.LayoutOrder
 				});
 				
 				local List = Library:Create('Frame', {
 					Parent = BottomComponents,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 0, 0, 2),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -27, 1, 232),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(List, 'Outline', 'BackgroundColor3')
 				
 				local Inline = Library:Create('Frame', {
 					Parent = List,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Inline
+					BackgroundColor3 = Themes.Dracula.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 				
 				local Background = Library:Create('Frame', {
 					Parent = Inline,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Accent
+					BackgroundColor3 = Themes.Dracula.Accent
 				});
 				
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = Background,
-					Name = '',
+					-- Name = '',
 					Rotation = 90,
 					Color = ColorSeq{ColorKey(0, FromRgb(255, 255, 255)), ColorKey(1, FromRgb(167, 167, 167))}
 				});
@@ -6313,7 +6064,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local Contrast = Library:Create('Frame', {
 					Parent = Background,
-					Name = '',
+					-- Name = '',
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 0, 1, 0),
 					BorderSizePixel = 0,
@@ -6322,7 +6073,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = Contrast,
-					Name = '',
+					-- Name = '',
 					Rotation = 90,
 					Color = ColorSeq{ColorKey(0, FromRgb(41, 41, 55)), ColorKey(1, FromRgb(35, 35, 47))}
 				});
@@ -6330,8 +6081,8 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local ScrollingFrame = Library:Create('ScrollingFrame', {
 					Parent = Contrast,
-					Name = '',
-					ScrollBarImageColor3 = Themes.Preset.Accent,
+					-- Name = '',
+					ScrollBarImageColor3 = Themes.Dracula.Accent,
 					Active = true,
 					MidImage = getcustomasset(Library.Directory.. '/Assets/Images/White.Png'),
 					TopImage = MidImage,
@@ -6349,7 +6100,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local UIPadding = Library:Create('UIPadding', {
 					Parent = ScrollingFrame,
-					Name = '',
+					-- Name = '',
 					PaddingTop = NewDim(0, 4),
 					PaddingBottom = NewDim(0, 4),
 					PaddingRight = NewDim(0, 4),
@@ -6358,7 +6109,7 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local UIListLayout = Library:Create('UIListLayout', {
 					Parent = ScrollingFrame,
-					Name = '',
+					-- Name = '',
 					Padding = NewDim(0, 4),
 					SortOrder = Enum.SortOrder.LayoutOrder
 				});
@@ -6370,23 +6121,23 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local TextButton = Library:Create('TextButton', {
 					Parent = ScrollingFrame,
-					Name = '',
+					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					BackgroundTransparency = 1,
 					Size = Dim2(1, 0, 0, 0),
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.Y,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 
 				local PlayerName = Library:Create('TextLabel', {
 					Parent = TextButton,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = Tostring(Player),
 					BorderSizePixel = 0,
@@ -6394,70 +6145,68 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					AutomaticSize = Enum.AutomaticSize.Y,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					LayoutOrder = -100, 
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 				Library:ApplyTheme(PlayerName, 'Text', 'TextColor3')
 				Library:ApplyTheme(PlayerName, 'Accent', 'TextColor3')
-								
-				--[[
-				local TextLabel = Library:Create('TextLabel', {
+				
+				local PlayerType = Library:Create('TextLabel', {
 					Parent = TextButton,
-					Name = '',
+					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Preset.Text,
+					TextColor3 = Themes.Dracula.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
-					Text = 'None',
+					Text = 'Player',
 					BackgroundTransparency = 1,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.Y,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 								
 				local Frame = Library:Create('Frame', {
-					Parent = TextLabel,
-					Name = '',
+					Parent = PlayerType,
+					-- Name = '',
 					Position = Dim2(0, -10, 0, 0),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 1, 0, 12),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(MainHolder, 'Outline', 'BackgroundColor3')
-				]]
 				
 				local PriorityText = Library:Create('TextLabel', {
 					Parent = TextButton,
-					Name = '',
+					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Tostring(Player) ~= Client.Name and Themes.Preset.Text or FromRgb(0, 0, 255),
+					TextColor3 = Tostring(Player) ~= Client.Name and Themes.Dracula.Text or FromRgb(0, 0, 255),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = Tostring(Player) ~= Client.Name and 'Neutral' or 'LocalPlayer',
 					BackgroundTransparency = 1,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.Y,
-					TextSize = Library.TextSize,
+					TextSize = 10;
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
 
 				local Frame = Library:Create('Frame', {
 					Parent = PriorityText,
-					Name = '',
+					-- Name = '',
 					Position = Dim2(0, -10, 0, 0),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 1, 0, 12),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(MainHolder, 'Outline', 'BackgroundColor3')
 				
 				local UIListLayout = Library:Create('UIListLayout', {
 					Parent = TextButton,
-					Name = '',
+					-- Name = '',
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalFlex = Enum.UIFlexAlignment.Fill,
 					SortOrder = Enum.SortOrder.LayoutOrder,
@@ -6466,18 +6215,18 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				
 				local UIPadding = Library:Create('UIPadding', {
 					Parent = TextButton,
-					Name = '',
+					-- Name = '',
 					PaddingRight = NewDim(0, 2),
 					PaddingLeft = NewDim(0, 2)
 				});
 
 				local Line = Library:Create('Frame', {
-					Parent = ScrollingFrame,
-					Name = '',
-					BorderColor3 = FromRgb(0, 0, 0),
-					Size = Dim2(1, 0, 0, 1),
-					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Preset.Outline
+					Parent = ScrollingFrame;
+					-- Name = '';
+					BorderColor3 = FromRgb(0, 0, 0);
+					Size = Dim2(1, 0, 0, 1);
+					BorderSizePixel = 0;
+					BackgroundColor3 = Themes.Dracula.Outline
 				});
 				Library:ApplyTheme(MainHolder, 'Outline', 'BackgroundColor3')
 
@@ -6485,35 +6234,30 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 				Path.Line = Line 
 				Path.Priority = 'Player'
 				Path.PriorityText = PriorityText
-				--// Library.SelectedPlayer = Players[Tostring(Player)]
+
+				if not Players:FindFirstChild(PlayerName.Text) then
+					PlayerType.Text = 'Ai';
+				end;
 				
 				TextButton.MouseButton1Click:Connect(function()
-					if PlayerName == Client.Name then
-						return 
-					end;
+					if (PlayerName == Client.Name) then return end;
+					PlayerName.TextColor3 = Themes.Dracula.Accent 
 
-					if SelectedButton then
-						SelectedButton.TextColor3 = Themes.Preset.Text 
-						SelectedButton = nil 
-					end;
-
-					SelectedButton = PlayerName 
-					PlayerName.TextColor3 = Themes.Preset.Accent 
-
-					Library.SelectedPlayer = PlayerName.Text
-
-					if Library.SelectedPlayer ~= nil then
-						shared.SelectedPlayer = Library.SelectedPlayer
-					else
-						shared.SelectedPlayer = 'No one'
-					end
+					Library.SelectedPlayer = PlayerName.Text or ' h'
 
 					Library.ConfigFlags['PlayerlistDropdown'](Path.PriorityText.Text)
 
+
 					if Cfg.Labels.Name then
 						Cfg.Labels.Name.Set('User: ' .. PlayerName.Text)
-						Cfg.Labels.Display.Set('DisplayName: ' .. Players[PlayerName.Text].DisplayName)
-						Cfg.Labels.Uid.Set('User Id: ' .. Players[PlayerName.Text].UserId)
+
+						if (Players:FindFirstChild(PlayerName.Text)) then
+							Cfg.Labels.Display.Set('DisplayName: ' .. Players[Player].DisplayName);
+							Cfg.Labels.Uid.Set('User Id: ' .. Players[Player].UserId);
+						else
+							Cfg.Labels.Display.Set('DisplayName: '.. PlayerName.Text);
+							Cfg.Labels.Uid.Set('User Id: [N/A]');
+						end;
 					end;
 				end);
 
@@ -6522,14 +6266,12 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 
 			function Cfg.Search(Text)
 				for _, Player in next, Players:GetPlayers() do 
-					local Name = Tostring(Player)
-					local Path = Library.PlayerlistData[Name]
-
-					if Path then
-						local sanity = LowerString(Name):match(LowerString(Text)) and true or false
-						Path.Instance.Visible = sanity
-						Path.Line.Visible = sanity
-					end;
+					local Name = Tostring(Player);
+					local Path = Library.PlayerlistData[Name];
+					if not (Path) then return end;
+					local Sanity = string.lower(Name):match(string.lower(Text)) and true or false
+					Path.Instance.Visible = Sanity
+					Path.Line.Visible = Sanity
 				end;
 			end;
 
@@ -6541,10 +6283,9 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			end;
 
 			function Library.Prioritize(Text) 
-				if not Library.SelectedPlayer then
-					return 
+				if not (Library.SelectedPlayer or not Library.PlayerlistData) then
+                    return
 				end;
-
 				local Path = Library.PlayerlistData[Library.SelectedPlayer]
 				Path.PriorityText.Text = Text
 				Path.PriorityText.TextColor3 = Patterns[Text]
@@ -6562,25 +6303,43 @@ function Console:Warn(Message) clonefunction(warn)(Message) end;
 			Players.PlayerAdded:Connect(Cfg.CreatePlayer)
 			Players.PlayerRemoving:Connect(Cfg.RemovePlayer)
 			
+            function Cfg.AddEntry(Obj, Type)
+                local Path
+
+                if Type == 'Group' then
+                    --// Very scuffed indeed
+                    Path = {Name = Obj.Name, Members = Obj};
+                    for _, Entry in ipairs(Library.PlayerlistData) do
+                        if (Entry.Members and Entry.Name == Path.Name) then
+                            for _, Member in ipairs(Path) do
+                                InsertTable(Entry.Members, Member)
+                            end;
+                            return Entry
+                        end;
+                    end;
+                    InsertTable(Library.PlayerlistData, Path)
+                    Cfg.CreatePlayer(Obj)
+                elseif Type == 'Single' then
+                    Path = Cfg.CreatePlayer(Obj)
+                    InsertTable(Library.PlayerlistData, Path)
+                end;
+
+                return Path
+            end;
+
 			for _, Player in Players:GetPlayers() do 
-				local PlayerObject = Cfg.CreatePlayer(Player.Name)
-				InsertTable(Library.PlayerlistData, PlayerObject)
+                Cfg.AddEntry(Player.Name, 'Single')
 			end;
 
 			self:Textbox({Name = 'Search', Callback = function(Value)
 				Cfg.Search(Value)
 			end});
+            
 			Cfg.Labels.Name = self:Label({Name = 'Name: ..?'});
 			Cfg.Labels.Display = self:Label({Name = 'Display Name: ..?'});
 			Cfg.Labels.Uid = self:Label({Name = 'User Id: ..?'});
 
 			return Setmetatable(Cfg, Library)
 		end;
-	--// Tick
-	Library:Connection(RunService.RenderStepped, function()
-		if Library:CompareVars(GetTick, clonefunction(tick)(), 'number') then
-			GetTick = clonefunction(tick)();
-		end;
-	end);
-
+        
 return Library, Themes;
