@@ -202,7 +202,7 @@ local Wait = (task.wait);
 		[Enum.KeyCode.Plus] = '+',
 		[Enum.KeyCode.Period] = '.',
 		[Enum.KeyCode.Backquote] = '`',
-		[Enum.UserInputType.MouseButton1] = 'MB1',
+		-- [Enum.UserInputType.MouseButton1] = 'MB1',
 		[Enum.UserInputType.MouseButton2] = 'MB2',
 		[Enum.UserInputType.MouseButton3] = 'MB3',
 		[Enum.KeyCode.Escape] = 'Esc',
@@ -4708,10 +4708,7 @@ local Wait = (task.wait);
 			function Cfg.Set(Input)
 				if type(Input) == 'boolean' then 
 					local __cached = Input 
-
-					if Cfg.Mode == 'Always' then 
-						__cached = true 
-					end;
+					if Cfg.Mode == 'Always' then __cached = true end;
 
 					Cfg.Active = __cached 
 					Flags[Cfg.Flag]['Active'] = __cached 
@@ -4733,9 +4730,7 @@ local Wait = (task.wait);
 				elseif FindTable({'Toggle', 'Hold', 'Always'}, Input) then 
 					Cfg.SetMode(Input)
 
-					if Input == 'Always' then 
-						Cfg.Active = true 
-					end; 
+					if (Input == 'Always') then Cfg.Active = true end; 
 
 					Cfg.Callback(Cfg.Active or false)
 				elseif type(Input) == 'table' then 
@@ -4752,15 +4747,11 @@ local Wait = (task.wait);
 
 					local text = Tostring(Cfg.Key) ~= 'Enums' and (Keys[Cfg.Key] or Tostring(Cfg.Key):gsub('Enum.', '')) or nil
 					local __text = text and (Tostring(text):gsub('KeyCode.', ''):gsub('UserInputType.', ''))
-						KeyText.Text = (__text)
+					KeyText.Text = (__text)
 					Cfg.KeyName = __text
 				end;
 
-				Flags[Cfg.Flag] = {
-					Mode = Cfg.Mode,
-					Key = Cfg.Key, 
-					Active = Cfg.Active
-				};
+				Flags[Cfg.Flag] = {Mode = Cfg.Mode, Key = Cfg.Key, Active = Cfg.Active};
 					
 				if Cfg.Name then 
 					KeybindElement.Visible = Cfg.Active
@@ -4781,44 +4772,40 @@ local Wait = (task.wait);
 				Cfg.SetMode('Hold')
 				Cfg.SetVisible(false)
 				Cfg.Open = false
-			end)
+			end);
 
 			ButtonToggle.MouseButton1Click:Connect(function()
 				Cfg.SetMode('Toggle')
 				Cfg.SetVisible(false)
 				Cfg.Open = false
-			end)
+			end);
 
 			ButtonAlways.MouseButton1Click:Connect(function()
 				Cfg.SetMode('Always')
 				Cfg.SetVisible(false)
 				Cfg.Open = false 
-			end)
+			end);
 
 			ElementOutline.MouseButton2Click:Connect(function()
-				Cfg.Open = not Cfg.Open;
+				Cfg.Open = not (Cfg.Open);
 				Cfg.SetVisible(Cfg.Open)
-			end)
+			end);
 
 			ElementOutline.MouseButton1Down:Connect(function()
-				KeyText.Text = 'None'	
-
+				KeyText.Text = 'None'
 				if Cfg.Binding then return end;
-
-				Cfg.Binding = Library:Connection(InputService.InputBegan, function(Input, GameEvent)
-					local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
-
-					Cfg.Set(SelectedKey)
-
-					Cfg.Binding:Disconnect() 
-					Cfg.Binding = nil
-				end)
-			end)
+                Cfg.Binding = Library:Connection(InputService.InputBegan, function(Input, GameEvent)
+                if (Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.MouseButton2 or Input.UserInputType == Enum.UserInputType.MouseButton3 or Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.MouseWheel or Input.KeyCode == Enum.KeyCode.W or Input.KeyCode == Enum.KeyCode.A or Input.KeyCode == Enum.KeyCode.S or Input.KeyCode == Enum.KeyCode.D) then return end;
+                Cfg.Set(Input.KeyCode);
+                Cfg.Binding:Disconnect();
+                Cfg.Binding = nil;
+                end);
+            end);
 
 			Library:Connection(InputService.InputBegan, function(Input, GameEvent) 
 				local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
-
-				if not GameEvent then 
+				
+                if not GameEvent then 
 					if SelectedKey == Cfg.Key then 
 						if Cfg.Mode == 'Toggle' then 
 							Cfg.Active = not Cfg.Active
@@ -4831,12 +4818,9 @@ local Wait = (task.wait);
 			end)
 
 			Library:Connection(InputService.InputEnded, function(Input, GameEvent) 
-				if GameEvent then 
-					return 
-				end;
-
+				if GameEvent then return end;
 				local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
-		
+
 				if SelectedKey == Cfg.Key then
 					if Cfg.Mode == 'Hold' then 
 						Cfg.Set(false)
