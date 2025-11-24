@@ -1819,7 +1819,7 @@ local Wait = (task.wait);
 
 		function Library:Watermark(Options) 
 			local Cfg = {
-				Default = Options.Text or Options.Default or os.os.date('Kira.xyz | %b %d %Y | %H:%M')
+				Default = Options.Text or Options.Default or os.date('Kira.xyz | %b %d %Y | %H:%M')
 			}
 
 			local WatermarkOutline = Library:Create('Frame', {
