@@ -202,7 +202,7 @@ local Wait = (task.wait);
 		[Enum.KeyCode.Plus] = '+',
 		[Enum.KeyCode.Period] = '.',
 		[Enum.KeyCode.Backquote] = '`',
-		-- [Enum.UserInputType.MouseButton1] = 'MB1',
+		[Enum.UserInputType.MouseButton1] = 'MB1',
 		[Enum.UserInputType.MouseButton2] = 'MB2',
 		[Enum.UserInputType.MouseButton3] = 'MB3',
 		[Enum.KeyCode.Escape] = 'Esc',
@@ -496,22 +496,13 @@ local Wait = (task.wait);
 			
 			return Inst 
 		end;
-	--// 
-
+		--// Lmfao
+		local Elem = Library:Create('GuiMain', {Enabled = true, Parent = gethui(), Name = '', DisplayOrder = 1});
+		local Elem2 = Library:Create('GuiMain', {Enabled = true, Parent = gethui(), Name = '', DisplayOrder = 1});
+		local Elem3 = Library:Create('GuiMain', {Enabled = true, Parent = gethui(), Name = '', DisplayOrder = 1});
+		local Elem4 = Library:Create('GuiMain', {Enabled = true, Parent = gethui(), Name = '', DisplayOrder = 1});
+	--]]
 	--// Elements
-        local Elem = Library:Create('GuiMain', {Enabled = true, Parent = gethui(), Name = '', DisplayOrder = 1});
-		local TooltipsGui = Library:Create('GuiMain', {
-			Enabled = true,
-			Parent = gethui(),
-			-- Name = '',
-			DisplayOrder = 500, 
-		});
-
-		function Library:Tooltip(Options) --// Nu uh
-			local Cfg = {Name = nil, Path = nil}
-			return Cfg
-		end;
-
 		function Library:Panel(Options)
 			local Cfg = {
 				Name = Options.Text or Options.Name or 'Window', 
@@ -770,9 +761,6 @@ local Wait = (task.wait);
 						PaddingRight = NewDim(0, 4),
 						PaddingLeft = NewDim(0, 4)
 					});
-				--// 
-
-				Library:Tooltip({Name = Cfg.Name, Path = Items.Button});
 			end;
 
 			Items.SGui:GetPropertyChangedSignal('Enabled'):Connect(function()
@@ -1095,7 +1083,7 @@ local Wait = (task.wait);
 
 				local Section = Setmetatable(Items, Library)
 				Items.Label = Section:Label({Name = 'Player: '});
-				Items.Health = Section:Slider({Name = 'Health', Flag = '', Custom = FromRgb(25, 120, 0), Min = 0, Max = 100, Default = 100, Input = true});
+				Items.Health = Section:Slider({Name = 'Health', Flag = '', Custom = FromRgb(25, 120, 0), Min = 0, Max = 100, Default = 100, InputDisabled = true});
 				
 				Library:Create('UIStroke' , {Parent = Items.InfoTitle});
 			end;
@@ -1124,7 +1112,7 @@ local Wait = (task.wait);
 			local Cfg = { Items = {}; }
 			local Items = Cfg.Items; do
 				Items.Window = Library:Create('Frame', {
-					Parent = Elem;
+					Parent = Elem2;
 					-- Name = '\0';
 					Position = Dim2(0, Center.X - 98, 0, 725);
 					BorderColor3 = FromRgb(0, 0, 0);
@@ -1391,7 +1379,7 @@ local Wait = (task.wait);
 			local Cfg = { Items = {}; }
 			local Items = Cfg.Items; do
 				Items.Window = Library:Create('Frame', {
-					Parent = Elem;
+					Parent = Elem3;
 					-- Name = '\0';
 					--15
 					Position = Dim2(0, Center.X + 510, 0, 561);
@@ -1619,7 +1607,7 @@ local Wait = (task.wait);
 			};
 			local Items = Cfg.Items; do
 				Items.Window = Library:Create('Frame', {
-					Parent = Elem;
+					Parent = Elem4;
 					-- Name = '\0';
 					Position = Dim2(0, Center.X - 874, 0, 542);
 					BorderColor3 = FromRgb(0, 0, 0);
@@ -1819,7 +1807,7 @@ local Wait = (task.wait);
 
 		function Library:Watermark(Options) 
 			local Cfg = {
-				Default = Options.Text or Options.Default or os.date('Kira.xyz | %b %d %Y | %H:%M')
+				Default = Options.Text or Options.Default or os.os.date('Kira.xyz | %b %d %Y | %H:%M')
 			}
 
 			local WatermarkOutline = Library:Create('Frame', {
@@ -1839,7 +1827,7 @@ local Wait = (task.wait);
 			Library:DragThing(WatermarkOutline);
             Library.Watermark = WatermarkOutline;
 
-			local WatermarkInline = Library:Create('Frame', {
+			local NotificationInline = Library:Create('Frame', {
 				Parent = WatermarkOutline,
 				-- Name = '',
 				Position = Dim2(0, 1, 0, 1),
@@ -1848,10 +1836,10 @@ local Wait = (task.wait);
 				BorderSizePixel = 0,
 				BackgroundColor3 = Themes.Dracula.Inline
 			});
-			Library:ApplyTheme(WatermarkInline, 'Inline', 'BackgroundColor3')
+			Library:ApplyTheme(NotificationInline, 'Inline', 'BackgroundColor3')
 			
 			local WatermarkBackground = Library:Create('Frame', {
-				Parent = WatermarkInline,
+				Parent = NotificationInline,
 				-- Name = '',
 				Position = Dim2(0, 1, 0, 1),
 				BorderColor3 = FromRgb(0, 0, 0),
@@ -1916,8 +1904,8 @@ local Wait = (task.wait);
 		end;
 
 		function Library:Window(Properties)
-			local Window = {Opened = true}			
-			local Opened = {}
+			local Window = {Opened = true};
+			local Opened = {};
 			local DockOutline;
 			local Blur = Library:Create('BlurEffect' , {
 				Parent = Lighting;
@@ -1949,17 +1937,11 @@ local Wait = (task.wait);
 				end;
 
 				Library:Tween(Blur, {Size = Boolean and (Flags['Blur Size']) or 0}, 0.185);
-
 				DockOutline.Visible = Boolean;
 
 				SGui.Enabled = true
 				NotifHolder.Enabled = true
-				TooltipsGui.Enabled = true
 				Library.Cache.Enabled = false
-
-				for _, Tooltip in TooltipsGui:GetChildren() do 
-					Tooltip.Visible = false;
-				end;
 
 				if Library.CurrentElementOpened then
 					Library.CurrentElementOpened.SetVisible(false)
@@ -2895,7 +2877,7 @@ local Wait = (task.wait);
 			}
 		
 			--// Instances
-				local WatermarkOutline = Library:Create('Frame', {
+				local NotificationOutline = Library:Create('Frame', {
 					Parent = NotifHolder,
 					-- Name = '',
 					Size = Dim2(0, 0, 0, 24),
@@ -2907,8 +2889,8 @@ local Wait = (task.wait);
 					AnchorPoint = NewVect2(1, 0)
 				});
 			
-				local WatermarkInline = Library:Create('Frame', {
-					Parent = WatermarkOutline,
+				local NotificationInline = Library:Create('Frame', {
+					Parent = NotificationOutline,
 					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
@@ -2918,7 +2900,7 @@ local Wait = (task.wait);
 				});
 
 				local WatermarkBackground = Library:Create('Frame', {
-					Parent = WatermarkInline,
+					Parent = NotificationInline,
 					-- Name = '',
 					Position = Dim2(0, 1, 0, 1),
 					BorderColor3 = FromRgb(0, 0, 0),
@@ -2950,7 +2932,7 @@ local Wait = (task.wait);
 				});
 		
 				local Accent = Library:Create('Frame', {
-					Parent = WatermarkOutline,
+					Parent = NotificationOutline,
 					-- Name = '',
 					Position = Dim2(0, 2, 0, 2),
 					BorderColor3 = FromRgb(0, 0, 0),
@@ -2970,7 +2952,7 @@ local Wait = (task.wait);
 				});
 				
 				local AccentBottom = Library:Create('Frame', {
-					Parent = WatermarkOutline,
+					Parent = NotificationOutline,
 					-- Name = '',
 					Position = Dim2(0, 2, 1, -3),
 					BorderColor3 = FromRgb(0, 0, 0),
@@ -2987,11 +2969,11 @@ local Wait = (task.wait);
 				});
 
 				local index = #Library.Notifications + 1
-				Library.Notifications[index] =WatermarkOutline
+				Library.Notifications[index] =NotificationOutline
 
 				Library:RefreshNotifications()
 
-				TweenService:Create(WatermarkOutline, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {AnchorPoint = NewVect2(0, 0)}):Play()
+				TweenService:Create(NotificationOutline, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {AnchorPoint = NewVect2(0, 0)}):Play()
 				
 				TweenService:Create(AccentBottom, TweenInfo.new(Cfg.Time, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = Dim2(1, -4, 0, 1)}):Play()
 			--
@@ -3001,9 +2983,9 @@ local Wait = (task.wait);
 
 				Library.Notifications[index] = nil
 
-				TweenService:Create(WatermarkOutline, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {AnchorPoint = NewVect2(1, 0), BackgroundTransparency = 1}):Play()
+				TweenService:Create(NotificationOutline, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {AnchorPoint = NewVect2(1, 0), BackgroundTransparency = 1}):Play()
 				
-				for _, v in next, WatermarkOutline:GetDescendants() do 
+				for _, v in next, NotificationOutline:GetDescendants() do 
 					if v:IsA('TextLabel') then
 						TweenService:Create(v, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {TextTransparency = 1}):Play()
 					elseif v:IsA('Frame') then
@@ -3017,7 +2999,7 @@ local Wait = (task.wait);
 
 				Wait(1.5)
 
-				WatermarkOutline:Destroy()
+				NotificationOutline:Destroy()
 			end)
 		end;
 
@@ -3713,11 +3695,9 @@ local Wait = (task.wait);
 				});
 			--//
 				function Cfg.Set(Value)
-					if typeof(Value) == 'userdata' then return end;
-					local NewSize = (Dim2((Cfg.Value - Cfg.Min) / (Cfg.Max - Cfg.Min), 0, 1, 0));
-					if Fill == NewSize then return end;
+					if typeof(Value) ~= 'number' then return end;
 					Cfg.Value = Clamp(Library:Round(Value, Cfg.Intervals), Cfg.Min, Cfg.Max)
-					Library:Tween(Fill, {Size = NewSize}, 0.045);
+					Library:Tween(Fill, {Size = Dim2((Cfg.Value - Cfg.Min) / (Cfg.Max - Cfg.Min), 0, 1, 0)}, 0.045);
 
 					SliderText.Text = (Tostring(Cfg.Value).. ' ' .. Cfg.Suffix .. ' / ' .. Tostring(Cfg.Max).. ' ' .. Cfg.Suffix)
 					Flags[Cfg.Flag] = Cfg.Value
@@ -3726,7 +3706,7 @@ local Wait = (task.wait);
 				end;
 
 				function Cfg.SetElementVisible(Boolean)
-					if not (TextLabel) then return end; 
+					-- if not (TextLabel) then return end;
 					RealSlider.Visible = Boolean;
 					TextLabel.Visible = Boolean;
 				end;
@@ -3751,10 +3731,6 @@ local Wait = (task.wait);
 					end)
 				end;
 
-				if Cfg.Tooltip then
-					Library:Tooltip({Name = Cfg.Tooltip, Path = RealSlider});
-				end;
-
 				Cfg.Set(Cfg.Default)
 				Cfg.SetElementVisible(Cfg.Visible)
 						
@@ -3775,7 +3751,6 @@ local Wait = (task.wait);
 				Default = Options.Default or false,
 				Colorpicker = Options.Color or nil,
 				Visible = Options.Visible or true,
-				Tooltip = Options.Tooltip or nil,
 			}
 
 			--// Instances
@@ -3930,31 +3905,25 @@ local Wait = (task.wait);
 			Library:Hover(ToggleHolder, Toggle)
 				
 			function Cfg.Set(Boolean)
+				if typeof(Boolean) ~= 'boolean' then return end;
 				Library:Tween(Accent, {BackgroundTransparency = Boolean and 0 or 1}, 0.185);
 				Flags[Cfg.Flag] = Boolean
-				
 				Cfg.Callback(Boolean)
 			end;
 
 			function Cfg.SetElementVisible(Boolean)
-				ToggleHolder.Visible = Boolean 
+				ToggleHolder.Visible = Boolean
 			end;
 		
 			Library:Connection(ToggleHolder.MouseButton1Click, function()
-				Cfg.Enabled = not Cfg.Enabled
-		
+				Cfg.Enabled = not (Cfg.Enabled)
 				Cfg.Set(Cfg.Enabled)
 			end)
 
 			Library:Connection(Toggle.MouseButton1Click, function()
-				Cfg.Enabled = not Cfg.Enabled
-		
+				Cfg.Enabled = not (Cfg.Enabled)
 				Cfg.Set(Cfg.Enabled)
 			end)
-
-			if Cfg.Tooltip then
-				Library:Tooltip({Name = Cfg.Tooltip, Path = ToggleHolder});
-			end;
 
 			Cfg.Set(Cfg.Default)
 			
@@ -4708,7 +4677,10 @@ local Wait = (task.wait);
 			function Cfg.Set(Input)
 				if type(Input) == 'boolean' then 
 					local __cached = Input 
-					if Cfg.Mode == 'Always' then __cached = true end;
+
+					if Cfg.Mode == 'Always' then 
+						__cached = true 
+					end;
 
 					Cfg.Active = __cached 
 					Flags[Cfg.Flag]['Active'] = __cached 
@@ -4730,7 +4702,9 @@ local Wait = (task.wait);
 				elseif FindTable({'Toggle', 'Hold', 'Always'}, Input) then 
 					Cfg.SetMode(Input)
 
-					if (Input == 'Always') then Cfg.Active = true end; 
+					if Input == 'Always' then 
+						Cfg.Active = true 
+					end; 
 
 					Cfg.Callback(Cfg.Active or false)
 				elseif type(Input) == 'table' then 
@@ -4747,11 +4721,15 @@ local Wait = (task.wait);
 
 					local text = Tostring(Cfg.Key) ~= 'Enums' and (Keys[Cfg.Key] or Tostring(Cfg.Key):gsub('Enum.', '')) or nil
 					local __text = text and (Tostring(text):gsub('KeyCode.', ''):gsub('UserInputType.', ''))
-					KeyText.Text = (__text)
+						KeyText.Text = (__text)
 					Cfg.KeyName = __text
 				end;
 
-				Flags[Cfg.Flag] = {Mode = Cfg.Mode, Key = Cfg.Key, Active = Cfg.Active};
+				Flags[Cfg.Flag] = {
+					Mode = Cfg.Mode,
+					Key = Cfg.Key, 
+					Active = Cfg.Active
+				};
 					
 				if Cfg.Name then 
 					KeybindElement.Visible = Cfg.Active
@@ -4772,40 +4750,44 @@ local Wait = (task.wait);
 				Cfg.SetMode('Hold')
 				Cfg.SetVisible(false)
 				Cfg.Open = false
-			end);
+			end)
 
 			ButtonToggle.MouseButton1Click:Connect(function()
 				Cfg.SetMode('Toggle')
 				Cfg.SetVisible(false)
 				Cfg.Open = false
-			end);
+			end)
 
 			ButtonAlways.MouseButton1Click:Connect(function()
 				Cfg.SetMode('Always')
 				Cfg.SetVisible(false)
 				Cfg.Open = false 
-			end);
+			end)
 
 			ElementOutline.MouseButton2Click:Connect(function()
-				Cfg.Open = not (Cfg.Open);
+				Cfg.Open = not Cfg.Open;
 				Cfg.SetVisible(Cfg.Open)
-			end);
+			end)
 
 			ElementOutline.MouseButton1Down:Connect(function()
-				KeyText.Text = 'None'
-				if Cfg.Binding then return end;
-                Cfg.Binding = Library:Connection(InputService.InputBegan, function(Input, GameEvent)
-                if (Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.MouseButton2 or Input.UserInputType == Enum.UserInputType.MouseButton3 or Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.MouseWheel or Input.KeyCode == Enum.KeyCode.W or Input.KeyCode == Enum.KeyCode.A or Input.KeyCode == Enum.KeyCode.S or Input.KeyCode == Enum.KeyCode.D) then return end;
-                Cfg.Set(Input.KeyCode);
-                Cfg.Binding:Disconnect();
-                Cfg.Binding = nil;
-                end);
-            end);
+				KeyText.Text = 'None'	
+
+				-- if Cfg.Binding then return end;
+
+				Cfg.Binding = Library:Connection(InputService.InputBegan, function(Input, GameEvent)
+					local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
+
+					Cfg.Set(SelectedKey)
+
+					Cfg.Binding:Disconnect() 
+					Cfg.Binding = nil
+				end)
+			end)
 
 			Library:Connection(InputService.InputBegan, function(Input, GameEvent) 
 				local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
-				
-                if not GameEvent then 
+
+				if not GameEvent then 
 					if SelectedKey == Cfg.Key then 
 						if Cfg.Mode == 'Toggle' then 
 							Cfg.Active = not Cfg.Active
@@ -4818,9 +4800,12 @@ local Wait = (task.wait);
 			end)
 
 			Library:Connection(InputService.InputEnded, function(Input, GameEvent) 
-				if GameEvent then return end;
-				local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
+				if GameEvent then 
+					return 
+				end;
 
+				local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
+		
 				if SelectedKey == Cfg.Key then
 					if Cfg.Mode == 'Hold' then 
 						Cfg.Set(false)
