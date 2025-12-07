@@ -247,7 +247,7 @@ local Wait = (task.wait);
 	--// Library Functions
 
 	function Library:ApplyTheme(Obj, Theme, Property)
-		if not (Obj or Theme or Property) then return end;
+		if not (Obj or not Theme or not Property) then return end;
 		InsertTable(Themes.Utility[Theme][Property], Obj)
 	end;
 
@@ -255,24 +255,24 @@ local Wait = (task.wait);
 		if not (Themes.Utility[Theme]) then return end;
 		for _, Property in next, Themes.Utility[Theme] do 
 			for m, Object in next, Property do 
-				if Object[_] == Themes.Dracula[Theme] or Object.ClassName == 'UIGradient' then
+				if Object[_] == Themes.Atlanta[Theme] or Object.ClassName == 'UIGradient' then
 					Object[_] = Color 
 				end;
 			end;
 		end;
-		Themes.Dracula[Theme] = Color 
+		Themes.Atlanta[Theme] = Color 
 	end;
 
 	--// Misc Functions
 		function Library:Hover(Hover, Parent)
-			if not (Hover or Parent) then return end;
+			if not (Hover or not Parent) then return end;
 			local HoverInstance = Library:Create('Frame', {
 				Parent = Parent,
 				BackgroundTransparency = 1,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, 0, 1, 0),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Accent,
+				BackgroundColor3 = Themes.Atlanta.Accent,
 				ZIndex = 1;
 			});
 			Library:ApplyTheme(HoverInstance, 'Accent', 'BackgroundColor3')
@@ -473,7 +473,7 @@ local Wait = (task.wait);
 		function Library:ApplyStroke(Parent)
 			local Stroke = Library:Create('UIStroke', {
 				Parent = Parent,
-				Color = Themes.Dracula.TextOutline, 
+				Color = Themes.Atlanta.TextOutline, 
 				LineJoinMode = Enum.LineJoinMode.Miter
 			});
 			
@@ -530,7 +530,7 @@ local Wait = (task.wait);
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Cfg.Size,
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Dracula.Outline
+						BackgroundColor3 = Themes.Atlanta.Outline
 					});
 					
 					Library:DragThing(Items.MainHolder)
@@ -550,7 +550,7 @@ local Wait = (task.wait);
 						BackgroundTransparency = 1,
 						TextXAlignment = Enum.TextXAlignment.Right,
 						AutomaticSize = Enum.AutomaticSize.XY,
-						TextColor3 = Themes.Dracula.Text,
+						TextColor3 = Themes.Atlanta.Text,
 						TextSize = 10,
 						ZIndex = 100,
 						BackgroundColor3 = FromRgb(255, 255, 255)
@@ -571,7 +571,7 @@ local Wait = (task.wait);
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, -2, 1, -2),
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Dracula.Accent
+						BackgroundColor3 = Themes.Atlanta.Accent
 					});
 					
 					Library:ApplyTheme(Items.WindowInline, 'Accent', 'BackgroundColor3')
@@ -580,7 +580,7 @@ local Wait = (task.wait);
 						Parent = Items.WindowInline,
 						-- Name = '',
 						Position = Dim2(0, 1, 0, 1),
-						BorderColor3 = Themes.Dracula.Outline,
+						BorderColor3 = Themes.Atlanta.Outline,
 						Size = Dim2(1, -2, 1, -2),
 						BorderSizePixel = 0,
 						BackgroundColor3 = FromRgb(255, 255, 255)
@@ -599,7 +599,7 @@ local Wait = (task.wait);
 						Parent = Items.WindowHolder,
 						-- Name = '',
 						FontFace = Library.Font,
-						TextColor3 = Themes.Dracula.Accent,
+						TextColor3 = Themes.Atlanta.Accent,
 						BorderColor3 = FromRgb(0, 0, 0),
 						Text = Cfg.Name,
 						BackgroundTransparency = 1,
@@ -632,7 +632,7 @@ local Wait = (task.wait);
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, 0, 1, -18),
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Dracula.Inline
+						BackgroundColor3 = Themes.Atlanta.Inline
 					});
 					
 					Library:ApplyTheme(Items.Outline, 'Inline', 'BackgroundColor3')
@@ -644,7 +644,7 @@ local Wait = (task.wait);
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, -2, 1, -2),
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Dracula.Outline
+						BackgroundColor3 = Themes.Atlanta.Outline
 					});
 					
 					Library:ApplyTheme(Items.Inline, 'Outline', 'BackgroundColor3')
@@ -680,7 +680,7 @@ local Wait = (task.wait);
 					Items.Glow = Library:Create('ImageLabel', {
 						Parent = Items.MainHolder,
 						-- Name = '',
-						ImageColor3 = Themes.Dracula.Glow,
+						ImageColor3 = Themes.Atlanta.Glow,
 						ScaleType = Enum.ScaleType.Slice,
 						BorderColor3 = FromRgb(0, 0, 0),
 						BackgroundColor3 = FromRgb(255, 255, 255),
@@ -707,7 +707,7 @@ local Wait = (task.wait);
 						Size = Dim2(0, 25, 0, 25),
 						BorderSizePixel = 0,
 						TextSize = (10 + 3),
-						BackgroundColor3 = Themes.Dracula.Inline
+						BackgroundColor3 = Themes.Atlanta.Inline
 					});
 					
 					local ButtonInline = Library:Create('Frame', {
@@ -717,7 +717,7 @@ local Wait = (task.wait);
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, -2, 1, -2),
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Dracula.Outline
+						BackgroundColor3 = Themes.Atlanta.Outline
 					});
 					Library:ApplyTheme(ButtonInline, 'Outline', 'BackgroundColor3')
 					
@@ -743,7 +743,7 @@ local Wait = (task.wait);
 					Items.Icon = Library:Create('ImageLabel', {
 						Parent = ButtonInline,
 						-- Name = '',
-						ImageColor3 = Themes.Dracula.Accent,
+						ImageColor3 = Themes.Atlanta.Accent,
 						Image = Cfg.Image,
 						BackgroundTransparency = 1,
 						BorderColor3 = FromRgb(0, 0, 0),
@@ -764,7 +764,7 @@ local Wait = (task.wait);
 			end;
 
 			Items.SGui:GetPropertyChangedSignal('Enabled'):Connect(function()
-				Items.Icon.ImageColor3 = Items.SGui.Enabled and Themes.Dracula.Accent or Themes.Dracula.Inline
+				Items.Icon.ImageColor3 = Items.SGui.Enabled and Themes.Atlanta.Accent or Themes.Atlanta.Inline
 			end)
 
 			Items.Button.MouseButton1Click:Connect(function()
@@ -805,14 +805,14 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 322, 0, 147),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline,
+					BackgroundColor3 = Themes.Atlanta.Outline,
 				});
 				Library:DragThing(Items.Window);
 				Library:ApplyTheme(Items.Window, 'Outline', 'BackgroundColor3');
 				
 				Items.InfoTitle = Library:Create('TextLabel' , {
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = 'Target Indicator',
 					Parent = Items.Window,
@@ -835,7 +835,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
 					ZIndex = 1,
-					BackgroundColor3 = Themes.Dracula.Accent,
+					BackgroundColor3 = Themes.Atlanta.Accent,
 				});	Library:ApplyTheme(Items.Accent, 'Accent', 'BackgroundColor3')
 
 				Items.Background = Library:Create('Frame' , {
@@ -846,7 +846,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2),
 					ZIndex = 1,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.LowContrast
+					BackgroundColor3 = Themes.Atlanta.LowContrast
 				});
 				Library:ApplyTheme(Items.Background, 'LowContrast', 'BackgroundColor3')
 				
@@ -858,7 +858,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -8, 1, -22),
 					ZIndex = 1,
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Items.Inline, 'Outline', 'BackgroundColor3')
 				
@@ -870,7 +870,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2),
 					ZIndex = 1,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Items.Outline, 'Inline', 'BackgroundColor3')
 				
@@ -882,7 +882,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2),
 					ZIndex = 1,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.HighContrast
+					BackgroundColor3 = Themes.Atlanta.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3')
 				
@@ -894,7 +894,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -8, 1, -8),
 					ZIndex = 1,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Items.Inline, 'Inline', 'BackgroundColor3')
 				
@@ -906,7 +906,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2),
 					ZIndex = 1,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Items.Outline, 'Outline', 'BackgroundColor3')
 				
@@ -918,7 +918,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2),
 					ZIndex = 1,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.HighContrast
+					BackgroundColor3 = Themes.Atlanta.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3');
 				local ImageHolder = Items.HighContrast;
@@ -931,7 +931,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -8, 1, -8);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Items.Inline, 'Inline', 'BackgroundColor3')
 				
@@ -943,7 +943,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Items.Outline, 'Outline', 'BackgroundColor3')
 				
@@ -955,13 +955,13 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.HighContrast
+					BackgroundColor3 = Themes.Atlanta.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3')
 
 				Items.InfoTitle = Library:Create('TextLabel' , {
 					FontFace = Library.Font;
-					TextColor3 = Themes.Dracula.Text;
+					TextColor3 = Themes.Atlanta.Text;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Text = 'Info';
 					Parent = Items.Outline;
@@ -986,7 +986,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, 0, 0, 2);
 					ZIndex = 1;
-					BackgroundColor3 = Themes.Dracula.Accent;
+					BackgroundColor3 = Themes.Atlanta.Accent;
 					BorderSizePixel = 0;
 				});
 				Library:ApplyTheme(Items.Accent, 'Accent', 'BackgroundColor3');
@@ -1008,7 +1008,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, 0, 0, 1);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Accent;
+					BackgroundColor3 = Themes.Atlanta.Accent;
 				});
 				Library:ApplyTheme(Items.Shadow, 'Accent', 'BackgroundColor3');
 				
@@ -1043,7 +1043,7 @@ local Wait = (task.wait);
 					Size = Dim2(0, 68, 0, 67);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Items.Inline, 'Outline', 'BackgroundColor3')
 				
@@ -1055,7 +1055,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Items.Outline, 'Inline', 'BackgroundColor3')
 				
@@ -1067,7 +1067,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 1;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.HighContrast
+					BackgroundColor3 = Themes.Atlanta.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3')
 				Items.Profile = Library:Create('ImageLabel' , {
@@ -1118,14 +1118,14 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(0, 304, 0, 100);
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:DragThing(Items.Window);
 				Library:ApplyTheme(Items.Window, 'Outline', 'BackgroundColor3'); 
 
 				Items.EquipmentTitle = Library:Create('TextLabel', {
 					FontFace = Library.Font;
-					TextColor3 = Themes.Dracula.Text;
+					TextColor3 = Themes.Atlanta.Text;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Text = 'Equipment';
 					Parent = Items.Window;
@@ -1151,7 +1151,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 				Library:ApplyTheme(Items.Accent, 'Accent', 'BackgroundColor3')
 
@@ -1163,7 +1163,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.LowContrast
+					BackgroundColor3 = Themes.Atlanta.LowContrast
 				});
 				Library:ApplyTheme(Items.Background, 'LowContrast', 'BackgroundColor3')
 
@@ -1175,7 +1175,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -8, 1, -22);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Items.Inline, 'Outline', 'BackgroundColor3')
 
@@ -1187,7 +1187,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Items.Outline, 'Inline', 'BackgroundColor3')
 
@@ -1199,7 +1199,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.HighContrast
+					BackgroundColor3 = Themes.Atlanta.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3')
 
@@ -1211,7 +1211,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -8, 1, -8);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Items.Inline2, 'Inline', 'BackgroundColor3')
 
@@ -1223,7 +1223,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Items.Outline2, 'Outline', 'BackgroundColor3')
 
@@ -1235,7 +1235,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 2;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.HighContrast
+					BackgroundColor3 = Themes.Atlanta.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast2, 'HighContrast', 'BackgroundColor3')
 
@@ -1272,7 +1272,7 @@ local Wait = (task.wait);
 						Size = Dim2(0, 50, 0, 50);
 						ZIndex = 3;
 						BorderSizePixel = 0;
-						BackgroundColor3 = Themes.Dracula.Outline;
+						BackgroundColor3 = Themes.Atlanta.Outline;
 						LayoutOrder = i;
 					});
 					Library:ApplyTheme(ItemInline, 'Outline', 'BackgroundColor3')
@@ -1284,7 +1284,7 @@ local Wait = (task.wait);
 						BorderColor3 = FromRgb(0, 0, 0);
 						Size = Dim2(1, -2, 1, -2);
 						BorderSizePixel = 0;
-						BackgroundColor3 = Themes.Dracula.Inline
+						BackgroundColor3 = Themes.Atlanta.Inline
 					});
 					Library:ApplyTheme(ItemOutline, 'Inline', 'BackgroundColor3')
 
@@ -1296,7 +1296,7 @@ local Wait = (task.wait);
 						Size = Dim2(1, -2, 1, -2);
 						ZIndex = 3;
 						BorderSizePixel = 0;
-						BackgroundColor3 = Themes.Dracula.HighContrast
+						BackgroundColor3 = Themes.Atlanta.HighContrast
 					});
 					Library:ApplyTheme(Item0, 'HighContrast', 'BackgroundColor3')
 
@@ -1309,7 +1309,7 @@ local Wait = (task.wait);
 					});
 
 					local ItemStroke = Library:Create('UIStroke', {
-						Color = Themes.Dracula.Inline;
+						Color = Themes.Atlanta.Inline;
 						Parent = Item;
 					});
 
@@ -1386,14 +1386,14 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(0, 90, 0, 224);
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:DragThing(Items.Window);
 				Library:ApplyTheme(Items.Window, 'Outline', 'BackgroundColor3');
 
 				Items.HotbarTitle = Library:Create('TextLabel', {
 					FontFace = Library.Font;
-					TextColor3 = Themes.Dracula.Text;
+					TextColor3 = Themes.Atlanta.Text;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Text = 'Hotbar';
 					Parent = Items.Window;
@@ -1416,7 +1416,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, -2, 1, -2);
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 				Library:ApplyTheme(Items.Accent, 'Accent', 'BackgroundColor3')
 
@@ -1428,7 +1428,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.LowContrast
+					BackgroundColor3 = Themes.Atlanta.LowContrast
 				});
 				Library:ApplyTheme(Items.Background, 'LowContrast', 'BackgroundColor3')
 
@@ -1440,7 +1440,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -8, 1, -22);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Items.Inline, 'Outline', 'BackgroundColor3')
 
@@ -1452,7 +1452,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Items.Outline, 'Inline', 'BackgroundColor3')
 
@@ -1464,7 +1464,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.HighContrast
+					BackgroundColor3 = Themes.Atlanta.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3')
 
@@ -1476,7 +1476,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -8, 1, -8);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Items.Inline2, 'Inline', 'BackgroundColor3')
 
@@ -1488,7 +1488,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Items.Outline2, 'Outline', 'BackgroundColor3')
 
@@ -1500,7 +1500,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 4;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.HighContrast
+					BackgroundColor3 = Themes.Atlanta.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast2, 'HighContrast', 'BackgroundColor3')
 
@@ -1530,7 +1530,7 @@ local Wait = (task.wait);
 						Size = Dim2(0, 50, 0, 50);
 						ZIndex = 4;
 						BorderSizePixel = 0;
-						BackgroundColor3 = Themes.Dracula.Outline;
+						BackgroundColor3 = Themes.Atlanta.Outline;
 						LayoutOrder = i;
 					});
 					Library:ApplyTheme(ItemInline, 'Outline', 'BackgroundColor3')
@@ -1543,7 +1543,7 @@ local Wait = (task.wait);
 						Size = Dim2(1, -2, 1, -2);
 						ZIndex = 4;
 						BorderSizePixel = 0;
-						BackgroundColor3 = Themes.Dracula.HighContrast
+						BackgroundColor3 = Themes.Atlanta.HighContrast
 					});
 					Library:ApplyTheme(ItemOutline, 'Inline', 'BackgroundColor3')
 
@@ -1555,7 +1555,7 @@ local Wait = (task.wait);
 						Size = Dim2(1, -2, 1, -2);
 						ZIndex = 4;
 						BorderSizePixel = 0;
-						BackgroundColor3 = Themes.Dracula.HighContrast
+						BackgroundColor3 = Themes.Atlanta.HighContrast
 					});
 					Library:ApplyTheme(Item0, 'HighContrast', 'BackgroundColor3')
 
@@ -1614,13 +1614,13 @@ local Wait = (task.wait);
 					Size = Dim2(0, 150, 0, 50);
 					ZIndex = Library.DisplayOrder;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:DragThing(Items.Window);
 				Library:ApplyTheme(Items.Window, 'Outline', 'BackgroundColor3'); 	
 				Items.AmmoTitle = Library:Create('TextLabel', {
 					FontFace = Library.Font;
-					TextColor3 = Themes.Dracula.Text;
+					TextColor3 = Themes.Atlanta.Text;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Text = 'Ammo';
 					Parent = Items.Window;
@@ -1646,7 +1646,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 				Library:ApplyTheme(Items.Accent, 'Accent', 'BackgroundColor3')
 
@@ -1658,7 +1658,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.LowContrast
+					BackgroundColor3 = Themes.Atlanta.LowContrast
 				});
 				Library:ApplyTheme(Items.Background, 'LowContrast', 'BackgroundColor3')
 
@@ -1670,7 +1670,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -8, 1, -22);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Items.Inline, 'Outline', 'BackgroundColor3')
 
@@ -1682,7 +1682,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Items.Outline, 'Inline', 'BackgroundColor3')
 
@@ -1694,7 +1694,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.HighContrast
+					BackgroundColor3 = Themes.Atlanta.HighContrast
 				});
 				Library:ApplyTheme(Items.HighContrast, 'HighContrast', 'BackgroundColor3')
 
@@ -1707,11 +1707,11 @@ local Wait = (task.wait);
 					Size = Dim2(0, 125, 0, 11);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline;
+					BackgroundColor3 = Themes.Atlanta.Outline;
 				});
 				Library:ApplyTheme(Items.ProgressContainer, 'Outline', 'BackgroundColor3')
 
-				Items.ProgressContainerStroke = Library:Create('UIStroke', {Color = Themes.Dracula.Inline; Parent = Items.ProgressContainer});
+				Items.ProgressContainerStroke = Library:Create('UIStroke', {Color = Themes.Atlanta.Inline; Parent = Items.ProgressContainer});
 				
 				Items.ProgressInline = Library:Create('Frame', {
 					Parent = Items.ProgressContainer;
@@ -1721,7 +1721,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Items.ProgressInline, 'Inline', 'BackgroundColor3')
 
@@ -1733,7 +1733,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2);
 					ZIndex = 5;
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Accent;
+					BackgroundColor3 = Themes.Atlanta.Accent;
 				});
 				Library:ApplyTheme(Items.ProgressBar, 'Accent', 'BackgroundColor3');
 
@@ -1749,7 +1749,7 @@ local Wait = (task.wait);
 
 				Items.AmmoValue = Library:Create('TextLabel', {
 					FontFace = Library.Font;
-					TextColor3 = Themes.Dracula.Text;
+					TextColor3 = Themes.Atlanta.Text;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Text = '2/2';
 					Name = 'Value';
@@ -1820,7 +1820,7 @@ local Wait = (task.wait);
 				Size = Dim2(0, 0, 0, 24),
 				BorderSizePixel = 0,
 				AutomaticSize = Enum.AutomaticSize.X,
-				BackgroundColor3 = Themes.Dracula.Outline
+				BackgroundColor3 = Themes.Atlanta.Outline
 			});
 
 			Library:ApplyTheme(WatermarkOutline, 'Outline', 'BackgroundColor3');
@@ -1834,7 +1834,7 @@ local Wait = (task.wait);
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -2, 1, -2),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Inline
+				BackgroundColor3 = Themes.Atlanta.Inline
 			});
 			Library:ApplyTheme(NotificationInline, 'Inline', 'BackgroundColor3')
 			
@@ -1860,7 +1860,7 @@ local Wait = (task.wait);
 				Parent = WatermarkBackground,
 				-- Name = '',
 				FontFace = Library.Font,
-				TextColor3 = Themes.Dracula.Text,
+				TextColor3 = Themes.Atlanta.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = 'Kira.xyz',
 				Size = Dim2(0, 0, 1, 0),
@@ -1885,7 +1885,7 @@ local Wait = (task.wait);
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -4, 0, 2),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Accent
+				BackgroundColor3 = Themes.Atlanta.Accent
 			});
 			Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
 			
@@ -1960,7 +1960,7 @@ local Wait = (task.wait);
 					Position = Dim2(0.5, 0, 0, 20),
 					Size = Dim2(0, 157, 0, 39),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 
 				Library:ApplyTheme(DockOutline, 'Outline', 'BackgroundColor3');
@@ -1975,7 +1975,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(DockInline, 'Inline', 'BackgroundColor3')
 				
@@ -1984,7 +1984,7 @@ local Wait = (task.wait);
 					-- Name = '',
 					Size = Dim2(1, -2, 1, -2),
 					Position = Dim2(0, 1, 0, 1),
-					BorderColor3 = Themes.Dracula.Outline,
+					BorderColor3 = Themes.Atlanta.Outline,
 					BorderSizePixel = 0,
 					BackgroundColor3 = FromRgb(255, 255, 255)
 				});
@@ -1996,7 +1996,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, 0, 0, 2),
 					BorderColor3 = FromRgb(0, 0, 0),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 				Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
 				--// Thins
@@ -2056,7 +2056,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 182, 0, 25),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Outline, 'Outline', 'BackgroundColor3');
 				Library:DragThing(Outline);
@@ -2070,7 +2070,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 
@@ -2088,7 +2088,7 @@ local Wait = (task.wait);
 					Parent = Background,
 					-- Name = '',
 					Rotation = 90,
-					Color = ColorSeq{ColorKey(0, Themes.Dracula.LowContrast), ColorKey(1, Themes.Dracula.HighContrast)}
+					Color = ColorSeq{ColorKey(0, Themes.Atlanta.LowContrast), ColorKey(1, Themes.Atlanta.HighContrast)}
 				});
 				Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
 				
@@ -2098,7 +2098,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 0, 0, 2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 				Library:ApplyTheme(Bg, 'Accent', 'BackgroundColor3')
 
@@ -2115,7 +2115,7 @@ local Wait = (task.wait);
 					Parent = Background,
 					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = 'Keybinds',
 					BackgroundTransparency = 1,
@@ -2123,7 +2123,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, 0, 1, 0),
 					BorderSizePixel = 0,
 					TextSize = 10;
-					BackgroundColor3 = Themes.Dracula.Text
+					BackgroundColor3 = Themes.Atlanta.Text
 				}, 'Text')
 				
 				local UIStroke = Library:Create('UIStroke', {
@@ -2140,7 +2140,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.Y,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(TextHolder, 'Outline', 'BackgroundColor3')
 
@@ -2152,7 +2152,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					BorderSizePixel = 0,
 					--AutomaticSize = Enum.AutomaticSize.Y,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 				
@@ -2173,7 +2173,7 @@ local Wait = (task.wait);
 					Parent = Background,
 					-- Name = '',
 					Rotation = 90,
-					Color = ColorSeq{ColorKey(0, Themes.Dracula.LowContrast), ColorKey(1, Themes.Dracula.HighContrast)}
+					Color = ColorSeq{ColorKey(0, Themes.Atlanta.LowContrast), ColorKey(1, Themes.Atlanta.HighContrast)}
 				});
 				Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
 				
@@ -2240,7 +2240,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 0, 1, 2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				
 				Library:ApplyTheme(Outline, 'Outline', 'BackgroundColor3')
@@ -2252,7 +2252,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
@@ -2299,31 +2299,31 @@ local Wait = (task.wait);
 				local Items = Style.Items
 				local Column = Setmetatable(Items, Library):Column() 
 				local Section = Column:Section({Name = 'Theme'});
-				Section:Label({Name = 'Accent'}):Colorpicker({Name = 'Accent', Color = Themes.Dracula.Accent, Flag = 'Accent', Callback = function(Color) Library:UpdateTheme('Accent', Color) end});
-				Section:Label({Name = 'Contrast'}):Colorpicker({Name = 'High', Color = Themes.Dracula.HighContrast, Flag = 'HighContrast', Callback = function(Color)
+				Section:Label({Name = 'Accent'}):Colorpicker({Name = 'Accent', Color = Themes.Atlanta.Accent, Flag = 'Accent', Callback = function(Color) Library:UpdateTheme('Accent', Color) end});
+				Section:Label({Name = 'Contrast'}):Colorpicker({Name = 'High', Color = Themes.Atlanta.HighContrast, Flag = 'HighContrast', Callback = function(Color)
 					if (Flags['LowContrast'] and Flags['HighContrast']) then
 						Library:UpdateTheme('Contrast', ColorSeq{ColorKey(0, Flags['HighContrast'].Color), ColorKey(1, Flags['LowContrast'].Color)});
 					end;
-					Library:UpdateTheme('HighContrast', Flags['HighContrast'].Color) end;}):Colorpicker({Name = 'Low', Color = Themes.Dracula.LowContrast, Flag = 'LowContrast', Callback = function(Color)
+					Library:UpdateTheme('HighContrast', Flags['HighContrast'].Color) end;}):Colorpicker({Name = 'Low', Color = Themes.Atlanta.LowContrast, Flag = 'LowContrast', Callback = function(Color)
 					Library:UpdateTheme('Contrast', ColorSeq{ColorKey(0, Flags['HighContrast'].Color), ColorKey(1, Flags['LowContrast'].Color)});
 					Library:UpdateTheme('LowContrast', Flags['LowContrast'].Color)
 				end});
 
-				Section:Label({Name = 'Inline'}):Colorpicker({Name = 'Inline', Color = Themes.Dracula.Inline, Callback = function(Color)
+				Section:Label({Name = 'Inline'}):Colorpicker({Name = 'Inline', Color = Themes.Atlanta.Inline, Callback = function(Color)
 					Library:UpdateTheme('Inline', Color)
 				end; Flag = 'Inline'});
 
-				Section:Label({Name = 'Outline'}):Colorpicker({Name = 'Outline', Color = Themes.Dracula.Outline, Callback = function(Color)
+				Section:Label({Name = 'Outline'}):Colorpicker({Name = 'Outline', Color = Themes.Atlanta.Outline, Callback = function(Color)
 					Library:UpdateTheme('Outline', Color)
 				end; Flag = 'Outline'});
 
-				Section:Label({Name = 'Text Color'}):Colorpicker({Name = 'Main', Color = Themes.Dracula.Text, Callback = function(Color)
+				Section:Label({Name = 'Text Color'}):Colorpicker({Name = 'Main', Color = Themes.Atlanta.Text, Callback = function(Color)
 					Library:UpdateTheme('Text', Color)
-				end; Flag = 'Main'}):Colorpicker({Name = 'Outline', Color = Themes.Dracula.TextOutline, Callback = function(Color)
+				end; Flag = 'Main'}):Colorpicker({Name = 'Outline', Color = Themes.Atlanta.TextOutline, Callback = function(Color)
 					Library:UpdateTheme('TextOutline', Color)
 				end; Flag = 'Outline'});
 
-				Section:Label({Name = 'Glow'}):Colorpicker({Name = 'Glow', Color = Themes.Dracula.Glow, Callback = function(Color)
+				Section:Label({Name = 'Glow'}):Colorpicker({Name = 'Glow', Color = Themes.Atlanta.Glow, Callback = function(Color)
 					Library:UpdateTheme('Glow', Color)
 				end; Flag = 'Glow'});
 
@@ -2513,7 +2513,7 @@ local Wait = (task.wait);
 				Objects['Name'] = Library:Create('TextLabel' , {
 					FontFace = Library.Font;
 					Parent = Library.Cache;
-					TextColor3 = Themes.Dracula.Text;
+					TextColor3 = Themes.Atlanta.Text;
 					BorderColor3 = FromRgb(0, 0, 0);
 					Text = FormatString('%s (@%s)', Client.DisplayName, Client.Name);
 					-- Name = '\0';
@@ -2761,7 +2761,7 @@ local Wait = (task.wait);
 				--// Distance Esp
 					Objects['Distance'] = Library:Create('TextLabel' , {
 						FontFace = Library.Font;
-						TextColor3 = Themes.Dracula.Text;
+						TextColor3 = Themes.Atlanta.Text;
 						BorderColor3 = FromRgb(0, 0, 0);
 						Text = '127st';
 						Parent = Library.Cache;
@@ -2779,7 +2779,7 @@ local Wait = (task.wait);
 				--// Weapon Esp
 					Objects['Weapon'] = Library:Create('TextLabel' , {
 						FontFace = Library.Font;
-						TextColor3 = Themes.Dracula.Text;
+						TextColor3 = Themes.Atlanta.Text;
 						BorderColor3 = FromRgb(0, 0, 0);
 						Text = '[ Weapon ]';
 						Parent = Library.Cache;
@@ -2885,7 +2885,7 @@ local Wait = (task.wait);
 					BorderSizePixel = 0,
 					Position = Dim2(0, 20, 0, 72 + (#Library.Notifications * 28)),
 					AutomaticSize = Enum.AutomaticSize.X,
-					BackgroundColor3 = Themes.Dracula.Outline,
+					BackgroundColor3 = Themes.Atlanta.Outline,
 					AnchorPoint = NewVect2(1, 0)
 				});
 			
@@ -2896,7 +2896,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 
 				local WatermarkBackground = Library:Create('Frame', {
@@ -2912,14 +2912,14 @@ local Wait = (task.wait);
 				local UIGradient = Library:Create('UIGradient', {
 					Parent = WatermarkBackground,
 					-- Name = '',
-					Color = ColorSeq{ColorKey(0, Themes.Dracula.LowContrast), ColorKey(1, Themes.Dracula.HighContrast)}
+					Color = ColorSeq{ColorKey(0, Themes.Atlanta.LowContrast), ColorKey(1, Themes.Atlanta.HighContrast)}
 				});
 		
 				local Text = Library:Create('TextLabel', {
 					Parent = WatermarkBackground,
 					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '  ' .. Cfg.Text .. '  ',
 					Size = Dim2(0, 0, 1, 0),
@@ -2938,7 +2938,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 1, 1, -4),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 
 				Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
@@ -2958,7 +2958,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, -4, 0, 1),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 				
 				local UIGradient = Library:Create('UIGradient', {
@@ -3013,7 +3013,7 @@ local Wait = (task.wait);
 				local TabHolder = Library:Create('TextButton', {
 					Parent = self.TabHolder,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					-- Name = '\0',
@@ -3021,7 +3021,7 @@ local Wait = (task.wait);
 					Size = Dim2(0, 0, 1, -2),
 					ZIndex = 5,
 					TextSize = 10;
-					BackgroundColor3 = Themes.Dracula.Outline,
+					BackgroundColor3 = Themes.Atlanta.Outline,
 					AutoButtonColor = false
 				});
 				Library:ApplyTheme(TabHolder, 'Outline', 'BackgroundColor3')
@@ -3034,7 +3034,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					ZIndex = 5,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 
@@ -3059,7 +3059,7 @@ local Wait = (task.wait);
 				local Text = Library:Create('TextLabel', {
 					Parent = Background,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = Cfg.Name,
 					-- Name = '\0',
@@ -3099,7 +3099,7 @@ local Wait = (task.wait);
 					local Button = Library.CurrentTab[1]
 					Button.Size = Dim2(1, -2, 1, -1)
 					Button:FindFirstChildOfClass('UIGradient').Rotation = 90
-					Button:FindFirstChildOfClass('TextLabel').TextColor3 = Themes.Dracula.Text
+					Button:FindFirstChildOfClass('TextLabel').TextColor3 = Themes.Atlanta.Text
 						
 					Library.CurrentTab[2].Visible = false
 					
@@ -3111,7 +3111,7 @@ local Wait = (task.wait);
 				local Button = Library.CurrentTab[1] 
 				Button.Size = Dim2(1, -2, 1, 0) --// Enabled
 				Button:FindFirstChildOfClass('UIGradient').Rotation = -90
-				Button:FindFirstChildOfClass('TextLabel').TextColor3 = Themes.Dracula.Accent 
+				Button:FindFirstChildOfClass('TextLabel').TextColor3 = Themes.Atlanta.Accent 
 
 				Library.CurrentTab[2].Visible = true 
 
@@ -3139,7 +3139,7 @@ local Wait = (task.wait);
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, 0, 1, 0),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Inline
+				BackgroundColor3 = Themes.Atlanta.Inline
 			});
 			Library:ApplyTheme(Column, 'Inline', 'BackgroundColor3')
 			
@@ -3167,7 +3167,7 @@ local Wait = (task.wait);
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, 0, 1, 0),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Inline
+				BackgroundColor3 = Themes.Atlanta.Inline
 			});
 			Library:ApplyTheme(Section, 'Inline', 'BackgroundColor3')
 			
@@ -3178,7 +3178,7 @@ local Wait = (task.wait);
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -2, 1, -2),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Outline
+				BackgroundColor3 = Themes.Atlanta.Outline
 			});
 			Library:ApplyTheme(Inline, 'Outline', 'BackgroundColor3')
 			
@@ -3201,7 +3201,7 @@ local Wait = (task.wait);
 				BorderColor3 = FromRgb(0, 0, 0),
 				ZIndex = 3,
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Accent
+				BackgroundColor3 = Themes.Atlanta.Accent
 			});
 			Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
 			
@@ -3250,14 +3250,14 @@ local Wait = (task.wait);
 						-- Name = '',
 						AutoButtonColor = false,
 						FontFace = Library.Font,
-						TextColor3 = Themes.Dracula.Text,
+						TextColor3 = Themes.Atlanta.Text,
 						BorderColor3 = FromRgb(0, 0, 0),
 						Text = '',
 						BorderSizePixel = 0,
 						Size = Dim2(0, 0, 1, 0),
 						ZIndex = 1,
 						TextSize = 10;
-						BackgroundColor3 = Themes.Dracula.Outline
+						BackgroundColor3 = Themes.Atlanta.Outline
 					});
 					Library:ApplyTheme(Tabb, 'Outline', 'BackgroundColor3')
 					
@@ -3284,7 +3284,7 @@ local Wait = (task.wait);
 						Parent = Background,
 						-- Name = '',
 						FontFace = Library.Font,
-						TextColor3 = Themes.Dracula.Text,
+						TextColor3 = Themes.Atlanta.Text,
 						BorderColor3 = FromRgb(0, 0, 0),
 						Text = Tab,
 						BackgroundTransparency = 1,
@@ -3307,7 +3307,7 @@ local Wait = (task.wait);
 					local ScrollingFrame = Library:Create('ScrollingFrame', {
 						Parent = __Background,
 						-- Name = '',
-						ScrollBarImageColor3 = Themes.Dracula.Accent,
+						ScrollBarImageColor3 = Themes.Atlanta.Accent,
 						Active = true,
 						MidImage = getcustomasset(Library.Directory.. '/Assets/Images/White.Png'),
 						TopImage = MidImage,
@@ -3355,7 +3355,7 @@ local Wait = (task.wait);
 					ScrollingFrame.Visible = Boolean 
 					UIGradient.Rotation = Boolean and -90 or 90
 					Tabb.Size = Dim2(0, 0, 1, Boolean and 1 or 0)
-					Text.TextColor3 = Boolean and Themes.Dracula.Accent or Themes.Dracula.Text
+					Text.TextColor3 = Boolean and Themes.Atlanta.Accent or Themes.Atlanta.Text
 				end;
 
 				Library:Connection(Tabb.MouseButton1Click, function()
@@ -3391,7 +3391,7 @@ local Wait = (task.wait);
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, 0, 1, 0),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Inline
+				BackgroundColor3 = Themes.Atlanta.Inline
 			});
 			Library:ApplyTheme(Section, 'Inline', 'BackgroundColor3')
 
@@ -3402,7 +3402,7 @@ local Wait = (task.wait);
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -2, 1, -2),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Outline
+				BackgroundColor3 = Themes.Atlanta.Outline
 			});
 			Library:ApplyTheme(Inline, 'Outline', 'BackgroundColor3')
 
@@ -3419,7 +3419,7 @@ local Wait = (task.wait);
 			local Text = Library:Create('TextLabel', {
 				Parent = Background,
 				FontFace = Library.Font,
-				TextColor3 = Themes.Dracula.Text,
+				TextColor3 = Themes.Atlanta.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = Cfg.Name,
 				-- Name = '\0',
@@ -3442,7 +3442,7 @@ local Wait = (task.wait);
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, 0, 0, 2),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Accent
+				BackgroundColor3 = Themes.Atlanta.Accent
 			});
 			Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
 
@@ -3461,7 +3461,7 @@ local Wait = (task.wait);
 
 			local ScrollingFrame = Library:Create('ScrollingFrame', {
 				Parent = Background,
-				ScrollBarImageColor3 = Themes.Dracula.Accent,
+				ScrollBarImageColor3 = Themes.Atlanta.Accent,
 				Active = true,
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				ScrollBarThickness = 2,
@@ -3534,7 +3534,7 @@ local Wait = (task.wait);
 				local RealSlider = Library:Create('TextLabel', {
 					Parent = self.Holder, 
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					Name = 'Slider',
@@ -3565,7 +3565,7 @@ local Wait = (task.wait);
 					TextLabel = Library:Create('TextLabel', {
 						Parent = LeftComponents,
 						FontFace = Library.Font,
-						TextColor3 = Themes.Dracula.Text,
+						TextColor3 = Themes.Atlanta.Text,
 						BorderColor3 = FromRgb(0, 0, 0),
 						Text = Cfg.Name,
 						Name = 'Text',
@@ -3602,7 +3602,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -1, 1, 12),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline,
+					BackgroundColor3 = Themes.Atlanta.Outline,
 					Text = '',
 					AutoButtonColor = false,
 				});
@@ -3620,7 +3620,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
 					ZIndex = 1;
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 
@@ -3645,7 +3645,7 @@ local Wait = (task.wait);
 				local SliderText = Library:Create('TextLabel', {
 					Parent = Contrast,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '12.50/100.00',
 					Name = 'Text',
@@ -3664,7 +3664,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 0, 1, 0),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Cfg.CustomColor or Themes.Dracula.Accent
+					BackgroundColor3 = Cfg.CustomColor or Themes.Atlanta.Accent
 				});
 				if not Cfg.CustomColor then Library:ApplyTheme(Fill, 'Accent', 'BackgroundColor3') end;
 
@@ -3811,7 +3811,7 @@ local Wait = (task.wait);
 				local Text = Library:Create('TextLabel', {
 					Parent = LeftComponents,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = Cfg.Name,
 					Name = 'Text',
@@ -3845,7 +3845,7 @@ local Wait = (task.wait);
 					Size = Dim2(0, 14, 0, 14),
 					BorderSizePixel = 0,
 					ZIndex = 1, 
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Toggle, 'Outline', 'BackgroundColor3')
 				Library:ApplyTheme(Toggle, 'Accent', 'BackgroundColor3')
@@ -3858,7 +3858,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
 					ZIndex = 2;
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 			
@@ -3871,7 +3871,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 				Library:ApplyTheme(Accent, 'Accent', 'BackgroundColor3')
 
@@ -3960,7 +3960,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 24, 0, 14),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline,
+					BackgroundColor3 = Themes.Atlanta.Outline,
 					Text = '',
 					AutoButtonColor = false,
 				});
@@ -3974,7 +3974,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 			
@@ -4006,7 +4006,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 190, 0, 210),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline,
+					BackgroundColor3 = Themes.Atlanta.Outline,
 					Visible = false,
 					ZIndex = 1
 				});
@@ -4021,7 +4021,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 				Library:ApplyTheme(WindowInline, 'Accent', 'BackgroundColor3')
 				
@@ -4029,7 +4029,7 @@ local Wait = (task.wait);
 					Parent = WindowInline,
 					Name = 'WindowHolder',
 					Position = Dim2(0, 1, 0, 1),
-					BorderColor3 = Themes.Dracula.Outline,
+					BorderColor3 = Themes.Atlanta.Outline,
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
 					BackgroundColor3 = FromRgb(255, 255, 255)
@@ -4046,7 +4046,7 @@ local Wait = (task.wait);
 				local Text = Library:Create('TextLabel', {
 					Parent = WindowHolder,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = Cfg.Name,
 					Name = 'Text',
@@ -4078,7 +4078,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, 0, 1, -40),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(MainHolder, 'Inline', 'BackgroundColor3')
 				
@@ -4123,7 +4123,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(MainHolderInline, 'Outline', 'BackgroundColor3')
 				
@@ -4162,7 +4162,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 14, 1, -20),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline,
+					BackgroundColor3 = Themes.Atlanta.Inline,
 					Transparency = 1,
 					Text = '',
 					AutoButtonColor = false
@@ -4175,7 +4175,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				
 				local Frame = Library:Create('Frame', {
@@ -4210,7 +4210,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 14, 0, 14),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Visualize, 'Inline', 'BackgroundColor3')
 				
@@ -4222,7 +4222,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Position = Dim2(0, 1, 0, 1),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Outline, 'Outline', 'BackgroundColor3')
 				
@@ -4247,7 +4247,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -20, 1, -0.5),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(SatValPicker, 'Inline', 'BackgroundColor3')
 				
@@ -4258,7 +4258,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(Outline, 'Outline', 'BackgroundColor3')
 				
@@ -4444,7 +4444,7 @@ local Wait = (task.wait);
 				Parent = Library.KeybindList,
 				-- Name = '',
 				FontFace = Library.Font,
-				TextColor3 = Themes.Dracula.Text,
+				TextColor3 = Themes.Atlanta.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = '[ Hold ] Fly - X',
 				Size = Dim2(1, -5, 0, 18),
@@ -4456,7 +4456,7 @@ local Wait = (task.wait);
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				TextSize = 10;
-				BackgroundColor3 = Themes.Dracula.Text
+				BackgroundColor3 = Themes.Atlanta.Text
 			}, 'text')
 
 			local ElementOutline = Library:Create('TextButton', {
@@ -4467,7 +4467,7 @@ local Wait = (task.wait);
 				Size = Dim2(0, 24, 0, 14),
 				BorderSizePixel = 0,
 				AutomaticSize = Enum.AutomaticSize.X,
-				BackgroundColor3 = Themes.Dracula.Outline
+				BackgroundColor3 = Themes.Atlanta.Outline
 			}) Library:ApplyTheme(ElementOutline, 'Outline', 'BackgroundColor3')
 
 			Library:Create('UIPadding', {
@@ -4487,7 +4487,7 @@ local Wait = (task.wait);
 				Size = Dim2(1, -2, 1, -2),
 				ZIndex = 2;
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Inline
+				BackgroundColor3 = Themes.Atlanta.Inline
 			}) Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 
 			Library:Create('UIPadding', {
@@ -4511,7 +4511,7 @@ local Wait = (task.wait);
 				Parent = Handler,
 				-- Name = '',
 				Rotation = 90,
-				Color = ColorSeq{ColorKey(0, Themes.Dracula.LowContrast), ColorKey(1, Themes.Dracula.HighContrast)}
+				Color = ColorSeq{ColorKey(0, Themes.Atlanta.LowContrast), ColorKey(1, Themes.Atlanta.HighContrast)}
 			});
             --// Nigga
 			Library:ApplyTheme(UIGradient, 'Contrast', 'Color')
@@ -4520,7 +4520,7 @@ local Wait = (task.wait);
 				Parent = Handler,
 				-- Name = '',
 				FontFace = Library.Font,
-				TextColor3 = Themes.Dracula.Text,
+				TextColor3 = Themes.Atlanta.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				ZIndex = 2;
 				Size = Dim2(1, 0, 1, 0),
@@ -4562,7 +4562,7 @@ local Wait = (task.wait);
 					Parent = KeybindSelector,
 					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = 'Hold',
 					BackgroundTransparency = 1,
@@ -4592,7 +4592,7 @@ local Wait = (task.wait);
 					Parent = KeybindSelector,
 					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = 'Toggle',
 					BackgroundTransparency = 1,
@@ -4613,7 +4613,7 @@ local Wait = (task.wait);
 					Parent = KeybindSelector,
 					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = 'Always',
 					BackgroundTransparency = 1,
@@ -4641,7 +4641,7 @@ local Wait = (task.wait);
 				local UIStroke = Library:Create('UIStroke', {
 					Parent = KeybindSelector,
 					-- Name = '',
-					Color = Themes.Dracula.Inline,
+					Color = Themes.Atlanta.Inline,
 					LineJoinMode = Enum.LineJoinMode.Miter,
 					ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 				})
@@ -4770,13 +4770,11 @@ local Wait = (task.wait);
 			end)
 
 			ElementOutline.MouseButton1Down:Connect(function()
-				KeyText.Text = 'None'	
-
-				-- if Cfg.Binding then return end;
+				KeyText.Text = '...'
 
 				Cfg.Binding = Library:Connection(InputService.InputBegan, function(Input, GameEvent)
 					local SelectedKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode or Input.UserInputType
-
+					if SelectedKey == Enum.UserInputType.MouseButton1 then return end;
 					Cfg.Set(SelectedKey)
 
 					Cfg.Binding:Disconnect() 
@@ -4843,7 +4841,7 @@ local Wait = (task.wait);
 				local RealDropdown = Library:Create('TextLabel', {
 					Parent = Parent,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					Name = 'Dropdown',
@@ -4874,7 +4872,7 @@ local Wait = (task.wait);
 					MainText = Library:Create('TextLabel', {
 						Parent = LeftComponents,
 						FontFace = Library.Font,
-						TextColor3 = Themes.Dracula.Text,
+						TextColor3 = Themes.Atlanta.Text,
 						BorderColor3 = FromRgb(0, 0, 0),
 						Text = Cfg.Name,
 						Name = 'Text',
@@ -4937,7 +4935,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -27, 1, 18),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline,
+					BackgroundColor3 = Themes.Atlanta.Outline,
 					Text = '',
 					AutoButtonColor = false, 
 				});
@@ -4953,7 +4951,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 				
@@ -4965,7 +4963,7 @@ local Wait = (task.wait);
 					Size = Dim2(1, -2, 1, -2),
 					ZIndex = 2;
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 				Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
 				
@@ -4982,7 +4980,7 @@ local Wait = (task.wait);
 				local Plus = Library:Create('TextLabel', {
 					Parent = Contrast,
 					TextWrapped = true,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					ZIndex = 2;
 					Text = '+',
@@ -5005,7 +5003,7 @@ local Wait = (task.wait);
 				local Text = Library:Create('TextLabel', {
 					Parent = Contrast,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					ZIndex = 2;
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = 'aa',
@@ -5057,7 +5055,7 @@ local Wait = (task.wait);
 					Size = Dim2(0, Dropdown.AbsoluteSize.X, 0, Cfg.Scrolling and 180 or 0),
 					BorderSizePixel = 0,
 					AutomaticSize = Cfg.Scrolling and Enum.AutomaticSize.None or Enum.AutomaticSize.Y,
-					BackgroundColor3 = Themes.Dracula.Outline,
+					BackgroundColor3 = Themes.Atlanta.Outline,
 					Visible = false
 				});
 				
@@ -5069,7 +5067,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					ZIndex = 2,
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 				
@@ -5084,7 +5082,7 @@ local Wait = (task.wait);
 						Size = Dim2(1, -2, 1, 1),
 						ZIndex = 2,
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Dracula.Accent
+						BackgroundColor3 = Themes.Atlanta.Accent
 					});
 					Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
 				else 
@@ -5100,11 +5098,11 @@ local Wait = (task.wait);
 						Size = Dim2(1, -2, 1, 1),
 						ZIndex = 2,
 						BorderSizePixel = 0,
-						BackgroundColor3 = Themes.Dracula.Accent,
+						BackgroundColor3 = Themes.Atlanta.Accent,
 						CanvasSize = Dim2(0, 0, 0, 0),
 						AutomaticCanvasSize = Enum.AutomaticSize.Y,
 						ScrollBarThickness = 2,
-						ScrollBarImageColor3 = Themes.Dracula.Accent
+						ScrollBarImageColor3 = Themes.Atlanta.Accent
 					});
 					Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
 					Library:ApplyTheme(Background, 'Accent', 'ScrollBarImageColor3')
@@ -5152,7 +5150,7 @@ local Wait = (task.wait);
 				
 				local Stroke = Library:Create('UIStroke', {
 					Parent = Inline,
-					Color = Themes.Dracula.Outline,
+					Color = Themes.Atlanta.Outline,
 					LineJoinMode = Enum.LineJoinMode.Miter
 				});
 				Library:ApplyTheme(Stroke, 'Outline', 'Color')
@@ -5198,9 +5196,9 @@ local Wait = (task.wait);
 					if v.Text == Value or (IsTable and FindTable(Value, v.Text)) then
 						InsertTable(Selected, v.Text)
 						Cfg.MultiItems = Selected
-						v.TextColor3 = Themes.Dracula.Accent
+						v.TextColor3 = Themes.Atlanta.Accent
 					else 
-						v.TextColor3 = Themes.Dracula.Text
+						v.TextColor3 = Themes.Atlanta.Text
 					end;
 				end;
 
@@ -5220,7 +5218,7 @@ local Wait = (task.wait);
 					local TextButton = Library:Create('TextButton', {
 						Parent = Contrast,
 						FontFace = Library.Font,
-						TextColor3 = Themes.Dracula.Text,
+						TextColor3 = Themes.Atlanta.Text,
 						BorderColor3 = FromRgb(0, 0, 0),
 						Size = Dim2(1, 0, 0, 0),
 						BackgroundTransparency = 1,
@@ -5299,7 +5297,7 @@ local Wait = (task.wait);
 					Parent = self.Holder,
 					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					ZIndex = 2,
@@ -5347,7 +5345,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -27, 1, Cfg.Scale),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(MainHolder, 'Outline', 'BackgroundColor3')
 				
@@ -5358,7 +5356,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 				
@@ -5369,7 +5367,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 				Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
 				
@@ -5401,7 +5399,7 @@ local Wait = (task.wait);
 				local ScrollingFrame = Library:Create('ScrollingFrame', {
 					Parent = Contrast,
 					-- Name = '',
-					ScrollBarImageColor3 = Themes.Dracula.Accent,
+					ScrollBarImageColor3 = Themes.Atlanta.Accent,
 					Active = true,
 					MidImage = getcustomasset(Library.Directory.. '/Assets/Images/White.Png'),
 					TopImage = MidImage,
@@ -5438,7 +5436,7 @@ local Wait = (task.wait);
 					-- Name = '',
 					Text = Tostring(Text),
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					BackgroundTransparency = 1,
 					Size = Dim2(1, 0, 0, 0),
@@ -5478,11 +5476,11 @@ local Wait = (task.wait);
 
 					Button.MouseButton1Click:Connect(function()
 						if (Cfg.CurrentInstance and Cfg.CurrentInstance ~= Button) then
-							Cfg.CurrentInstance.TextColor3 = Themes.Dracula.Text 
+							Cfg.CurrentInstance.TextColor3 = Themes.Atlanta.Text 
 						end;
 
 						Cfg.CurrentInstance = Button 
-						Button.TextColor3 = Themes.Dracula.Accent 
+						Button.TextColor3 = Themes.Atlanta.Accent 
 
 						Flags[Cfg.Flag] = Button.Text
 						
@@ -5504,9 +5502,9 @@ local Wait = (task.wait);
 			function Cfg.Set(Value)
 				for _, Buttons in next, Cfg.OptionInstances do 
 					if Buttons.Text == Value then
-						Buttons.TextColor3 = Themes.Dracula.Accent 
+						Buttons.TextColor3 = Themes.Atlanta.Accent 
 					else 
-						Buttons.TextColor3 = Themes.Dracula.Text 
+						Buttons.TextColor3 = Themes.Atlanta.Text 
 					end;
 				end;
 
@@ -5537,7 +5535,7 @@ local Wait = (task.wait);
 					Parent = self.Holder,
 					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					ZIndex = 2,
@@ -5569,7 +5567,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -27, 0, 18),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:Hover(TextboxHolder, Button)
 				
@@ -5583,7 +5581,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
@@ -5596,7 +5594,7 @@ local Wait = (task.wait);
 					ZIndex = 2;
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 				
 				Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
@@ -5606,7 +5604,7 @@ local Wait = (task.wait);
 					-- Name = '',
 					CursorPosition = -1,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '', 
 					Size = Dim2(1, 0, 1, 0),
@@ -5697,7 +5695,7 @@ local Wait = (task.wait);
 				Parent = self.Holder,
 				-- Name = '',
 				FontFace = Library.Font,
-				TextColor3 = Themes.Dracula.Text,
+				TextColor3 = Themes.Atlanta.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = '',
 				ZIndex = 2,
@@ -5753,7 +5751,7 @@ local Wait = (task.wait);
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -27, 0, 18),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Outline,
+				BackgroundColor3 = Themes.Atlanta.Outline,
 				Text = ''
 			});
 
@@ -5769,7 +5767,7 @@ local Wait = (task.wait);
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -2, 1, -2),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Inline
+				BackgroundColor3 = Themes.Atlanta.Inline
 			});
 			
 			Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
@@ -5782,7 +5780,7 @@ local Wait = (task.wait);
 				BorderColor3 = FromRgb(0, 0, 0),
 				Size = Dim2(1, -2, 1, -2),
 				BorderSizePixel = 0,
-				BackgroundColor3 = Themes.Dracula.Accent
+				BackgroundColor3 = Themes.Atlanta.Accent
 			});
 			
 			Library:ApplyTheme(Background, 'Accent', 'BackgroundColor3')
@@ -5820,7 +5818,7 @@ local Wait = (task.wait);
 				-- Name = '',
 				TextWrapped = true,
 				ZIndex = 2;
-				TextColor3 = Themes.Dracula.Text,
+				TextColor3 = Themes.Atlanta.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = Cfg.Name,
 				Size = Dim2(1, -4, 1, 0),
@@ -5853,7 +5851,7 @@ local Wait = (task.wait);
 				Parent = self.Holder,
 				-- Name = '',
 				FontFace = Library.Font,
-				TextColor3 = Themes.Dracula.Text,
+				TextColor3 = Themes.Atlanta.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = '',
 				ZIndex = 2,
@@ -5887,7 +5885,7 @@ local Wait = (task.wait);
 				Parent = LeftComponents,
 				-- Name = '',
 				FontFace = Library.Font,
-				TextColor3 = Themes.Dracula.Text,
+				TextColor3 = Themes.Atlanta.Text,
 				BorderColor3 = FromRgb(0, 0, 0),
 				Text = Cfg.Name,
 				BackgroundTransparency = 1,
@@ -5940,7 +5938,7 @@ local Wait = (task.wait);
 			local Patterns = {
 				['Priority'] = FromRgb(255, 255, 0),
 				['Enemy'] = FromRgb(255, 0, 0),
-				['Neutral'] = Themes.Dracula.Text,
+				['Neutral'] = Themes.Atlanta.Text,
 				['Friendly'] = FromRgb(0, 255, 255)
 			};
 
@@ -5949,7 +5947,7 @@ local Wait = (task.wait);
 					Parent = self.Holder,
 					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					ZIndex = 2,
@@ -5998,7 +5996,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -27, 1, 232),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(List, 'Outline', 'BackgroundColor3')
 				
@@ -6009,7 +6007,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Inline
+					BackgroundColor3 = Themes.Atlanta.Inline
 				});
 				Library:ApplyTheme(Inline, 'Inline', 'BackgroundColor3')
 				
@@ -6020,7 +6018,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(1, -2, 1, -2),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Accent
+					BackgroundColor3 = Themes.Atlanta.Accent
 				});
 				
 				local UIGradient = Library:Create('UIGradient', {
@@ -6051,7 +6049,7 @@ local Wait = (task.wait);
 				local ScrollingFrame = Library:Create('ScrollingFrame', {
 					Parent = Contrast,
 					-- Name = '',
-					ScrollBarImageColor3 = Themes.Dracula.Accent,
+					ScrollBarImageColor3 = Themes.Atlanta.Accent,
 					Active = true,
 					MidImage = getcustomasset(Library.Directory.. '/Assets/Images/White.Png'),
 					TopImage = MidImage,
@@ -6092,7 +6090,7 @@ local Wait = (task.wait);
 					Parent = ScrollingFrame,
 					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = '',
 					BackgroundTransparency = 1,
@@ -6106,7 +6104,7 @@ local Wait = (task.wait);
 				local PlayerName = Library:Create('TextLabel', {
 					Parent = TextButton,
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = Tostring(Player),
 					BorderSizePixel = 0,
@@ -6125,7 +6123,7 @@ local Wait = (task.wait);
 					Parent = TextButton,
 					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Themes.Dracula.Text,
+					TextColor3 = Themes.Atlanta.Text,
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = 'Player',
 					BackgroundTransparency = 1,
@@ -6143,7 +6141,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 1, 0, 12),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(MainHolder, 'Outline', 'BackgroundColor3')
 				
@@ -6151,7 +6149,7 @@ local Wait = (task.wait);
 					Parent = TextButton,
 					-- Name = '',
 					FontFace = Library.Font,
-					TextColor3 = Tostring(Player) ~= Client.Name and Themes.Dracula.Text or FromRgb(0, 0, 255),
+					TextColor3 = Tostring(Player) ~= Client.Name and Themes.Atlanta.Text or FromRgb(0, 0, 255),
 					BorderColor3 = FromRgb(0, 0, 0),
 					Text = Tostring(Player) ~= Client.Name and 'Neutral' or 'LocalPlayer',
 					BackgroundTransparency = 1,
@@ -6169,7 +6167,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0),
 					Size = Dim2(0, 1, 0, 12),
 					BorderSizePixel = 0,
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(MainHolder, 'Outline', 'BackgroundColor3')
 				
@@ -6195,7 +6193,7 @@ local Wait = (task.wait);
 					BorderColor3 = FromRgb(0, 0, 0);
 					Size = Dim2(1, 0, 0, 1);
 					BorderSizePixel = 0;
-					BackgroundColor3 = Themes.Dracula.Outline
+					BackgroundColor3 = Themes.Atlanta.Outline
 				});
 				Library:ApplyTheme(MainHolder, 'Outline', 'BackgroundColor3')
 
@@ -6210,7 +6208,7 @@ local Wait = (task.wait);
 				
 				TextButton.MouseButton1Click:Connect(function()
 					if (PlayerName == Client.Name) then return end;
-					PlayerName.TextColor3 = Themes.Dracula.Accent 
+					PlayerName.TextColor3 = Themes.Atlanta.Accent 
 
 					Library.SelectedPlayer = PlayerName.Text or ' h'
 
